@@ -1,0 +1,15 @@
+.card {
+  &.is-active {
+    .card-content, .card-footer {
+      display: flex;
+    }
+  }
+
+  .card-content, .card-footer {
+    display: none;
+  }
+
+  .card-footer {
+    margin-bottom: 1rem;
+  }
+}

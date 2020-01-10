@@ -1,13 +1,15 @@
 {
-  "name": "mhealth",
-  "version": "0.0.0",
+  "name": "@enoviah/mhealth",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host=0.0.0.0",
+    "build:prod": "ng build --prod",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "setup": "npm i"
   },
   "private": true,
   "dependencies": {
@@ -18,7 +20,13 @@
     "@angular/forms": "~8.2.13",
     "@angular/platform-browser": "~8.2.13",
     "@angular/platform-browser-dynamic": "~8.2.13",
+    "@angular/pwa": "^0.803.22",
     "@angular/router": "~8.2.13",
+    "@angular/service-worker": "~8.2.13",
+    "@fortawesome/angular-fontawesome": "^0.5.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.26",
+    "@fortawesome/free-solid-svg-icons": "^5.12.0",
+    "bulma": "^0.8.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
@@ -43,5 +51,92 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
+  },
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  "author": "Username aka JDoe",
+  "enoviah": {
+    "configuration": {
+      "lifecycle": {
+        "macos": {
+          "onInit": {
+            "commands": []
+          },
+          "onArtifact": {
+            "commands": []
+          },
+          "onCodeQuality": {
+            "commands": []
+          }
+        },
+        "linux": {
+          "onInit": {
+            "commands": []
+          },
+          "onArtifact": {
+            "commands": []
+          },
+          "onCodeQuality": {
+            "commands": []
+          }
+        }
+      },
+      "rootPath": ".",
+      "type": "service",
+      "name": "mhealth",
+      "group": "enoviah"
+    },
+    "service": {
+      "artifact": {
+        "linux": {
+          "coverage": false,
+          "e2e": false,
+          "lint": false,
+          "mandatory": [
+            {
+              "path": "Dockerfile",
+              "name": "Dockerfile"
+            },
+            {
+              "path": "package.json",
+              "name": "package.json"
+            },
+            {
+              "path": "docker",
+              "name": "docker"
+            }
+          ],
+          "test": false
+        },
+        "macos": {
+          "coverage": false,
+          "e2e": false,
+          "lint": false,
+          "mandatory": [],
+          "test": false
+        }
+      },
+      "deployment": {
+        "production": {
+          "network": "traefik",
+          "labels": {
+            "traefik.port": "80",
+            "traefik.frontend.rule": "Host:mit.enoviah.fr",
+            "traefik.frontend.entryPoints": "http,https",
+            "traefik.backend": "mhealth"
+          },
+          "env": []
+        },
+        "staging": {
+          "network": "traefik",
+          "labels": {
+            "traefik.port": "80",
+            "traefik.frontend.rule": "Host:mit.enoviah.staging",
+            "traefik.frontend.entryPoints": "http,https",
+            "traefik.backend": "mhealth"
+          },
+          "env": []
+        }
+      }
+    }
   }
 }

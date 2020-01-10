@@ -1,0 +1,20 @@
+<div class="card" [class.is-active]="active">
+  <header class="card-header">
+    <p class="card-header-title">
+      {{title}}
+    </p>
+    <a (click)="active = !active" class="card-header-icon" aria-label="more options">
+      <span class="icon">
+        <fa-icon [icon]="((!active) ? iconAngleDown : iconAngleUp)"></fa-icon>
+      </span>
+    </a>
+  </header>
+  <div class="card-content">
+    <ng-content></ng-content>
+  </div>
+  <footer class="card-footer">
+    <a href="#" class="card-footer-item">Save</a>
+    <a href="#" class="card-footer-item">Edit</a>
+    <a href="#" class="card-footer-item">Delete</a>
+  </footer>
+</div>

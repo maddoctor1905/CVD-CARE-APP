@@ -1,0 +1,11 @@
+<div id="pin">
+  <div class="dots">
+    <div class="dot noselect" *ngFor="let item of [0, 1, 2, 3, 4, 5]" [class.has-text-success]="state?.success"
+         [class.has-text-danger]="state?.danger" [class.shake-horizontal]="state?.danger">{{otpCode.charAt(item) || '_'}}</div>
+  </div>
+  <p>Enter the OTP Code</p>
+  <div class="pct-numbers">
+    <div class="pct-number noselect" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]"
+         (click)="numberPressed(item)">{{item}}</div>
+  </div>
+</div>

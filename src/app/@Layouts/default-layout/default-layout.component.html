@@ -1,0 +1,5 @@
+<div class="default-layout has-navbar-fixed-top has-navbar-fixed-bottom">
+  <app-top-bar></app-top-bar>
+  <router-outlet></router-outlet>
+  <app-bottom-bar [elements]="bottomBarElements" (elementClicked)="bottomBarElementClickEvent($event)"></app-bottom-bar>
+</div>

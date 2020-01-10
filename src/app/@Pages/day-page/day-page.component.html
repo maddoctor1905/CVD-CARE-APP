@@ -1,0 +1,165 @@
+<app-icon-bar [emojis]="iconsForFilterBar"></app-icon-bar>
+<section *ngIf="iconsForFilterBar[0].active" class="section">
+  <div class="container">
+    <nav class="level is-mobile">
+      <!-- Left side -->
+      <div class="level-left">
+        <div class="level-item">
+          <div>
+            <h1 class="title is-spaced">🚨 Urgent</h1>
+            <h2 class="subtitle">
+              A simple.
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side -->
+      <div class="level-right">
+        <p class="level-item">
+          <a>
+            <span class="icon">
+              <fa-icon [icon]="moreDetailsIcon"></fa-icon>
+            </span>
+          </a>
+        </p>
+      </div>
+    </nav>
+    <app-card-collapsile [title]="'💊 - Mon event'">
+      <div class="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+        <br>
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      </div>
+    </app-card-collapsile>
+    <app-card-collapsile [title]="'💊 - Mon event'">
+      <div class="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+        <br>
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      </div>
+    </app-card-collapsile>
+    <app-card-collapsile [title]="'👔 - Mon event'">
+      <div class="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+        <br>
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      </div>
+    </app-card-collapsile>
+    <app-card-collapsile [title]="'📅 - Mon event'">
+      <div class="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+        <br>
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      </div>
+    </app-card-collapsile>
+  </div>
+</section>
+<section *ngIf="iconsForFilterBar[1].active" class="section">
+  <div class="container">
+    <h1 class="title">👔 TODO</h1>
+    <h2 class="subtitle">
+      A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading
+    </h2>
+    <app-card-collapsile [title]="'Mon event'">
+      <div class="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+        <br>
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      </div>
+    </app-card-collapsile>
+    <app-card-collapsile [title]="'Mon event'">
+      <div class="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+        <br>
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      </div>
+    </app-card-collapsile>
+    <app-card-collapsile [title]="'Mon event'">
+      <div class="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+        <br>
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      </div>
+    </app-card-collapsile>
+    <app-card-collapsile [title]="'Mon event'">
+      <div class="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+        <br>
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      </div>
+    </app-card-collapsile>
+  </div>
+</section>
+<section *ngIf="iconsForFilterBar[2].active" class="section">
+  <div class="container">
+    <h1 class="title">💊 Medications</h1>
+    <h2 class="subtitle">
+      A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading
+    </h2>
+    <app-card-collapsile [title]="'Mon event'">
+      <div class="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+        <br>
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      </div>
+    </app-card-collapsile>
+    <app-card-collapsile [title]="'Mon event'">
+      <div class="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+        <br>
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      </div>
+    </app-card-collapsile>
+  </div>
+</section>
+<section *ngIf="iconsForFilterBar[3].active" class="section">
+  <div class="container">
+    <h1 class="title">📅 Appointments</h1>
+    <h2 class="subtitle">
+      A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading
+    </h2>
+    <app-card-collapsile [title]="'Mon event'">
+      <div class="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+        <br>
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      </div>
+    </app-card-collapsile>
+    <app-card-collapsile [title]="'Mon event'">
+      <div class="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+        <br>
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      </div>
+    </app-card-collapsile>
+    <app-card-collapsile [title]="'Mon event'">
+      <div class="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+        <br>
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      </div>
+    </app-card-collapsile>
+    <app-card-collapsile [title]="'Mon event'">
+      <div class="content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+        <br>
+        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      </div>
+    </app-card-collapsile>
+  </div>
+</section>

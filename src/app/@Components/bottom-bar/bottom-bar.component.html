@@ -1,0 +1,14 @@
+<nav id="navbarBottom" class="navbar is-fixed-bottom has-shadow">
+  <div class="navbar-full">
+    <div class="navbar-item is-expanded is-block has-text-centered" *ngFor="let item of elements">
+      <div class="pulsating-circle" *ngIf="item.active"></div>
+      <span class="icon is-large" (click)="onElementClick(item)">
+        <fa-stack>
+          <fa-icon [icon]="iconBG" [class.has-text-info]="item.active" stackItemSize="2x"></fa-icon>
+          <fa-icon [icon]="item.icon" [inverse]="true" stackItemSize="1x"></fa-icon>
+        </fa-stack>
+      </span>
+      <p class="is-size-7">{{item.name}}</p>
+    </div>
+  </div>
+</nav>
