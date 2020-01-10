@@ -27,7 +27,9 @@ export class PinCodeTyperComponent implements OnInit {
     this._otpCode = value;
   }
 
+  // tslint:disable-next-line:variable-name
   private _otpCode = '';
+  // tslint:disable-next-line:variable-name
   private _isCodeValid = -1;
 
 

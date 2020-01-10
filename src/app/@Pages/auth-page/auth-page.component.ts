@@ -16,6 +16,7 @@ export class AuthPageComponent implements OnInit {
     this._pinCodeState = value;
   }
 
+  // tslint:disable-next-line:variable-name
   private _pinCodeState: PinCodeTyperState = {};
 
   constructor(private router: Router) {
