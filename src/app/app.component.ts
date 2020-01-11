@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {environment} from '../environments/environment';
+import {SwUpdate} from '@angular/service-worker';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +9,15 @@ import {environment} from '../environments/environment';
 export class AppComponent {
   title = 'mhealth';
 
-  constructor() {
-    if (environment.production && confirm('Reset Application ?')) {
-      localStorage.clear();
+  constructor(
+    private swUpdate: SwUpdate
+  ) {
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.available.subscribe(() => {
+        if (confirm('New version of the app available. Load the version ?')) {
+          window.location.reload();
+        }
+      });
     }
   }
 }
