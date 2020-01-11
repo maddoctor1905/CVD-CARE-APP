@@ -25,10 +25,7 @@
             "aot": false,
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest",
-              "src/ngsw-worker.js",
-              "src/ngsw.json"
+              "src/assets"
             ],
             "styles": [
               "src/styles.scss"
@@ -130,6 +127,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "mhealth"
 }
