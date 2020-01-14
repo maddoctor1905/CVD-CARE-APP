@@ -5,9 +5,23 @@ html {
   height: 100%;
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
+
 body {
   min-height: 100%;
   background-color: #f9fafc;
+}
+
+.box {
+  margin-bottom: 1.5rem;
 }
 
 .shake-horizontal {

@@ -6,6 +6,7 @@ import { DayPageComponent } from './day-page.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {CardCollapsileModule} from '../../@Components/card-collapsile/card-collapsile.module';
 import {IconBarModule} from '../../@Components/icon-bar/icon-bar.module';
+import {DayScrollerModule} from '../../@Components/day-scroller/day-scroller.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {IconBarModule} from '../../@Components/icon-bar/icon-bar.module';
     DayPageRoutingModule,
     FontAwesomeModule,
     CardCollapsileModule,
-    IconBarModule
+    IconBarModule,
+    DayScrollerModule,
   ]
 })
 export class DayPageModule { }

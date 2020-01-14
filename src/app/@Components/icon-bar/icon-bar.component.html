@@ -1,7 +1,7 @@
 <div class="box">
   <ul class="is-flex" style="justify-content: space-around">
     <li *ngFor="let item of emojis">
-      <p class="title is-3 filter-button" [class.is-active]="item.active" (click)="item.active = !item.active">{{item.char}}</p>
+      <p class="title is-5 filter-button" [class.is-active]="item.active" (click)="item.active = !item.active">{{item.char}}</p>
     </li>
   </ul>
 </div>

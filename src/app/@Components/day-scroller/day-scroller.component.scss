@@ -1,0 +1,36 @@
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs {
+  * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  a {
+    padding: 1em 1em;
+    border-bottom-color: transparent;
+    width: 40px;
+    height: 40px;
+  }
+
+  ul {
+    margin-top: 22px;
+    margin-bottom: 20px;
+    border-bottom-color: transparent;
+    li {
+      &.is-active {
+
+        a {
+          border: .1rem solid #3273dc;
+          border-radius: 25091983px;
+          color: #3273dc;
+        }
+      }
+    }
+  }
+}
