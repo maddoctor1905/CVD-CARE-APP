@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {SwUpdate} from '@angular/service-worker';
+import {CheckForUpdateService} from './@Services/check-for-update.service';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +10,10 @@ import {SwUpdate} from '@angular/service-worker';
 export class AppComponent {
   title = 'mhealth';
 
-  constructor(
-    private swUpdate: SwUpdate
-  ) {
-    if (this.swUpdate.isEnabled) {
-      this.swUpdate.available.subscribe(() => {
-        if (confirm('New version of the app available. Load the version ?')) {
-          window.location.reload();
-        }
-      });
-    }
+  constructor(private updates: SwUpdate,
+              private checkForUpdateService: CheckForUpdateService) {
+    this.updates.available.subscribe((event) => {
+      document.location.reload();
+    });
   }
 }

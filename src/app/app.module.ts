@@ -11,6 +11,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {FirstInstallLayoutModule} from './@Layouts/first-install-layout/first-install-layout.module';
+import {CheckForUpdateService} from './@Services/check-for-update.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import {FirstInstallLayoutModule} from './@Layouts/first-install-layout/first-in
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: true})
   ],
-  providers: [],
+  providers: [
+    CheckForUpdateService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
