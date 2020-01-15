@@ -9,6 +9,8 @@ import {AuthLayoutModule} from './@Layouts/auth-layout/auth-layout.module';
 import {DefaultLayoutModule} from './@Layouts/default-layout/default-layout.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HttpClientModule} from '@angular/common/http';
+import {FirstInstallLayoutModule} from './@Layouts/first-install-layout/first-install-layout.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserModule,
     FontAwesomeModule,
     AuthLayoutModule,
+    HttpClientModule,
     DefaultLayoutModule,
+    FirstInstallLayoutModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: true})

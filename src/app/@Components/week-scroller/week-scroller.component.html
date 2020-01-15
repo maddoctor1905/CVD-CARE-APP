@@ -1,0 +1,7 @@
+<div class="tabs is-centered is-marginless is-medium is-fullwidth">
+  <ul>
+    <ng-container *ngFor="let item of weekElements">
+      <li class="noselect" [class.is-active]="item.active" (click)="itemClicked(item)"><a>{{item.days[0].date.getDate()}} - {{item.days[item.days.length - 1].date.getDate()}}</a></li>
+    </ng-container>
+  </ul>
+</div>

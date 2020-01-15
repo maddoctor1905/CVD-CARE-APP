@@ -4,6 +4,9 @@ import {AuthLayoutComponent} from './@Layouts/auth-layout/auth-layout.component'
 import {DefaultLayoutComponent} from './@Layouts/default-layout/default-layout.component';
 import {AlreadyLoggedGuard} from './@Guards/already-logged.guard';
 import {AuthGuard} from './@Guards/auth.guard';
+import {FirstInstallGuard} from './@Guards/first-install.guard';
+import {FirstInstallLayoutComponent} from './@Layouts/first-install-layout/first-install-layout.component';
+import {AlreadyInstallGuard} from './@Guards/already-install.guard';
 
 
 const routes: Routes = [
@@ -15,7 +18,7 @@ const routes: Routes = [
   {
     path: 'auth',
     component: AuthLayoutComponent,
-    canActivate: [AlreadyLoggedGuard],
+    canActivate: [AlreadyLoggedGuard, FirstInstallGuard],
     children: [
       {
         path: '',
@@ -24,9 +27,20 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'first-install',
+    component: FirstInstallLayoutComponent,
+    canActivate: [AlreadyInstallGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./@Pages/first-install-page/first-install-page.module').then(m => m.FirstInstallPageModule)
+      }
+    ]
+  },
+  {
     path: 'app',
     component: DefaultLayoutComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, FirstInstallGuard],
     children: [
       {
         path: '',

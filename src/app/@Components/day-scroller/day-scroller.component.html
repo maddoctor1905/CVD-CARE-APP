@@ -1,5 +1,7 @@
 <div class="tabs is-centered is-marginless is-medium is-fullwidth">
   <ul>
-    <li class="noselect" *ngFor="let item of dayElements" [class.is-active]="item.active" (click)="itemClicked(item)"><a>{{item.number}}</a></li>
+    <ng-container *ngFor="let item of dayElements">
+      <li class="noselect" [class.is-active]="item.active" (click)="itemClicked(item)"><a>{{item.date.getDate()}}</a></li>
+    </ng-container>
   </ul>
 </div>

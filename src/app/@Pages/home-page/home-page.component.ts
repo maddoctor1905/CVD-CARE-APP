@@ -40,4 +40,12 @@ export class HomePageComponent implements OnInit {
   launchNotification() {
     this.localNotificationService.send('💊 Did you take your treatment today ?', this.notificationElement);
   }
+
+  resetApplication() {
+    if (confirm('Are you really sure ?')) {
+      localStorage.clear();
+      window.location.reload();
+    }
+  }
+
 }

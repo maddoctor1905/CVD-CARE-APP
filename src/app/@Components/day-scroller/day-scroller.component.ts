@@ -1,9 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-
-interface DayElement {
-  active: boolean;
-  number: number;
-}
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {DayElement} from '../../@Models/calendar.model';
 
 @Component({
   selector: 'app-day-scroller',
@@ -12,28 +8,18 @@ interface DayElement {
 })
 export class DayScrollerComponent implements OnInit {
 
-  dayElements: DayElement[] = [];
+  @Input() dayElements: DayElement[] = [];
+  @Output() dayElementClicked = new EventEmitter<DayElement>();
 
   constructor() {
   }
 
   ngOnInit() {
-    const currentDayNumber = new Date(Date.now()).getDate();
-    this.dayElements.push({active: false, number: currentDayNumber - 3});
-    this.dayElements.push({active: false, number: currentDayNumber - 2});
-    this.dayElements.push({active: false, number: currentDayNumber - 1});
-    this.dayElements.push({active: true, number: currentDayNumber});
-    this.dayElements.push({active: false, number: currentDayNumber + 1});
-    this.dayElements.push({active: false, number: currentDayNumber + 2});
-    this.dayElements.push({active: false, number: currentDayNumber + 3});
-    this.dayElements.push({active: false, number: currentDayNumber + 4});
-    this.dayElements.push({active: false, number: currentDayNumber + 5});
-    this.dayElements.push({active: false, number: currentDayNumber + 6});
-    this.dayElements.push({active: false, number: currentDayNumber + 7});
   }
 
   itemClicked(item: DayElement) {
     this.dayElements.forEach(e => e.active = false);
     item.active = true;
+    this.dayElementClicked.emit(item);
   }
 }

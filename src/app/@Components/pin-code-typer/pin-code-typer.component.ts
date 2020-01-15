@@ -9,6 +9,7 @@ import {PinCodeTyperState} from './pin-code-typer.model';
 export class PinCodeTyperComponent implements OnInit {
   @Input() mandatoryWidth = 6;
   @Output() codeEntered = new EventEmitter<string>();
+  @Output() changePhoneNumberAsked = new EventEmitter();
   @Input() state: PinCodeTyperState = {};
 
   get isCodeValid(): number {
@@ -54,5 +55,9 @@ export class PinCodeTyperComponent implements OnInit {
 
   private login() {
     this.codeEntered.emit(this.otpCode);
+  }
+
+  changePhoneNumberClicked() {
+    this.changePhoneNumberAsked.emit();
   }
 }

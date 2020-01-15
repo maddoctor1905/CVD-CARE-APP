@@ -1,0 +1,15 @@
+<div class="stepper-container">
+  <ng-content></ng-content>
+  <section class="section" *ngIf="buttonsVisible">
+    <div class="buttons has-addons is-centered">
+      <button class="button is-warning" *ngIf="stepperService.currentIndex > 0" (click)="previousButtonClicked()">⟵
+      </button>
+      <button class="button is-link" *ngIf="!stepperService.isEnd()" [class.is-fullwidth]="stepperService.isStart()"
+              (click)="nextButtonClicked()">⟶
+      </button>
+      <button class="button is-success" *ngIf="stepperService.isEnd()"
+              (click)="confirmButtonClicked()">Confirm
+      </button>
+    </div>
+  </section>
+</div>
