@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {faBars, faEllipsisV, faGlobeAsia} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-top-bar',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./top-bar.component.scss']
 })
 export class TopBarComponent implements OnInit {
+  iconSidebar = faBars;
+  iconLang = faGlobeAsia;
+  iconMore = faEllipsisV;
 
-  constructor() { }
+  @Output() iconSidebarClicked = new EventEmitter();
+  @Output() iconMoreClicked = new EventEmitter();
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
+  sideBarIconClicked() {
+    this.iconSidebarClicked.emit();
+  }
 }

@@ -1,6 +1,6 @@
 {
-  "name": "mhealth",
-  "short_name": "mhealth",
+  "name": "CVD Care",
+  "short_name": "CVD_Care",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

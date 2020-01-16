@@ -1,0 +1,28 @@
+.sidebar {
+  position: fixed;
+  height: 100%;
+  top: 0;
+  max-width: 85vw;
+  z-index: 1000;
+  background-color: #f9fafc;
+  .sidebar-header {
+    background: #2980b9; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2980b9, #6dd5fa, #6dd5fa); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2980b9, #6dd5fa, #6dd5fa); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    figure {
+      margin: auto;
+      padding: 1rem;
+    }
+  }
+  .menu {
+    padding: 1rem;
+  }
+}
+
+.sidebar-background {
+  position: fixed;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  top: 0;
+  z-index: 1000;
+}

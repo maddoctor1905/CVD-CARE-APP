@@ -31,6 +31,8 @@ export class DefaultLayoutComponent implements OnInit {
     }
   ];
 
+  sideBarVisible = false;
+
   constructor(private router: Router,
   ) {
     this.router.events.subscribe((events) => {
@@ -47,5 +49,9 @@ export class DefaultLayoutComponent implements OnInit {
 
   bottomBarElementClickEvent(element: BottomBarElement) {
     this.router.navigateByUrl(element.route);
+  }
+
+  setSidebarState(state: boolean) {
+    this.sideBarVisible = state;
   }
 }

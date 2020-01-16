@@ -1,7 +1,25 @@
-<nav id="navbarBottom" class="navbar has-shadow is-fixed-top">
-  <div class="navbar-full">
-    <div class="navbar-item has-text-centered">
-      <h1 class="has-text-weight-bold title is-4">Day</h1>
+<nav class="navbar is-fixed-top has-shadow is-mobile" role="navigation" aria-label="main navigation">
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <div class="navbar-item">
+        <span class="icon" tabindex="1" (click)="sideBarIconClicked()">
+          <fa-icon [icon]="iconSidebar"></fa-icon>
+        </span>
+      </div>
+    </div>
+    <div class="navbar-center">
+
+      <div class="navbar-item title is-4 is-uppercase">
+        Day
+      </div>
+
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <span class="icon" tabindex="2" (click)="sideBarIconClicked()">
+          <fa-icon [icon]="iconMore"></fa-icon>
+        </span>
+      </div>
     </div>
   </div>
 </nav>
