@@ -1,42 +1,57 @@
-<div class="sidebar-background is-overlay" (click)="backgroundClicked()"></div>
-<div class="sidebar box is-paddingless scale-up-hor-left">
-  <div class="sidebar-header has-text-centered">
-    <figure class="image is-128x128">
-      <img src="./assets/logo.png">
-    </figure>
+<ng-container *ngIf="visible">
+  <div class="sidebar-background is-overlay" (click)="backgroundClicked()"></div>
+  <div class="sidebar box is-paddingless scale-up-hor-left">
+    <div class="sidebar-header has-text-centered">
+      <figure class="image is-128x128">
+        <img src="./assets/logo.png">
+      </figure>
+    </div>
+    <aside class="menu">
+      <p class="menu-label">
+        Quicklinks
+      </p>
+      <ul class="menu-list">
+        <li *ngFor="let item of sidebarQuickLinksElements">
+          <a class="level is-mobile"
+             [class.is-active]="item.active" (click)="elementClick(item)">
+            <!-- Left side -->
+            <div class="level-left">
+              <div class="level-item">
+                <span class="icon is-large">
+                  <fa-icon size="lg" [icon]="item.icon"></fa-icon>
+                </span>
+              </div>
+            </div>
+
+            <!-- Right side -->
+            <div class="level-right">
+              <a [class.is-active]="item.active" class="level-item is-paddingless">{{item.name}}</a>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <p class="menu-label">
+        Communicate
+      </p>
+      <ul class="menu-list">
+        <li *ngFor="let item of sidebarCommunicateElements">
+          <a [class.is-active]="item.active" (click)="elementClick(item)" class="level is-mobile">
+            <!-- Left side -->
+            <div class="level-left">
+              <div class="level-item">
+                <span class="icon is-large">
+                  <fa-icon size="lg" [icon]="item.icon"></fa-icon>
+                </span>
+              </div>
+            </div>
+
+            <!-- Right side -->
+            <div class="level-right">
+              <a [class.is-active]="item.active" class="level-item is-paddingless">{{item.name}}</a>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </aside>
   </div>
-  <aside class="menu">
-    <p class="menu-label">
-      General
-    </p>
-    <ul class="menu-list">
-      <li><a>Dashboard</a></li>
-      <li><a>Customers</a></li>
-    </ul>
-    <p class="menu-label">
-      Administration
-    </p>
-    <ul class="menu-list">
-      <li><a>Team Settings</a></li>
-      <li>
-        <a class="is-active">Manage Your Team</a>
-        <ul>
-          <li><a>Members</a></li>
-          <li><a>Plugins</a></li>
-          <li><a>Add a member</a></li>
-        </ul>
-      </li>
-      <li><a>Invitations</a></li>
-      <li><a>Cloud Storage Environment Settings</a></li>
-      <li><a>Authentication</a></li>
-    </ul>
-    <p class="menu-label">
-      Transactions
-    </p>
-    <ul class="menu-list">
-      <li><a>Payments</a></li>
-      <li><a>Transfers</a></li>
-      <li><a>Balance</a></li>
-    </ul>
-  </aside>
-</div>
+</ng-container>

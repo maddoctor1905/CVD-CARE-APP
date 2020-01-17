@@ -7,83 +7,17 @@
   <ng-container *ngIf="item.active">
     <section class="section">
       <div class="container">
-        <div class="field">
-          <h1 class="has-text-weight-semibold title is-4">Lundi 18</h1>
-          <app-card-collapsile [title]="'💊 - Mon event'">
-            <div class="content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-              <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-              <br>
-              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-            </div>
-          </app-card-collapsile>
-          <app-card-collapsile [title]="'💊 - Mon event'">
-            <div class="content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-              <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-              <br>
-              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-            </div>
-          </app-card-collapsile>
-        </div>
-        <div class="field">
-          <h1 class="has-text-weight-semibold title is-4">Mardi 19</h1>
-          <app-card-collapsile [title]="'💊 - Mon event'">
-            <div class="content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-              <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-              <br>
-              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-            </div>
-          </app-card-collapsile>
-          <app-card-collapsile [title]="'💊 - Mon event'">
-            <div class="content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-              <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-              <br>
-              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-            </div>
-          </app-card-collapsile>
-        </div>
-        <hr>
-        <div class="field">
-          <h1 class="has-text-weight-semibold  title is-4">Jeudi 20</h1>
-          <app-card-collapsile [title]="'💊 - Mon event'">
-            <div class="content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-              <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-              <br>
-              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-            </div>
-          </app-card-collapsile>
-          <app-card-collapsile [title]="'💊 - Mon event'">
-            <div class="content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-              <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-              <br>
-              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-            </div>
-          </app-card-collapsile>
-        </div>
-        <hr>
-        <div class="field">
-          <h1 class="has-text-weight-semibold title is-4">Next month</h1>
-          <app-card-collapsile [title]="'💊 - Mon event'">
-            <div class="content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-              <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-              <br>
-              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-            </div>
-          </app-card-collapsile>
-          <app-card-collapsile [title]="'💊 - Mon event'">
-            <div class="content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-              <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-              <br>
-              <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-            </div>
-          </app-card-collapsile>
+        <!--- 0 < 3 Days--->
+        <!--- 4 < 8 Days--->
+        <div class="field" *ngFor="let itemDay of item.days">
+          <h1 class="has-text-weight-semibold title is-4 is-capitalized">{{itemDay.date | date: 'EEEE dd' : '' : translateService.currentLang}}</h1>
+          <ng-container *ngFor="let itemEvent of itemDay.events">
+            <app-card-collapsile *ngIf="isAllowedEmoji(itemEvent.emoji)" [title]="itemEvent.emoji + ' - ' + itemEvent.title">
+              <div class="content">
+                <p>{{itemEvent.text}}</p>
+              </div>
+            </app-card-collapsile>
+          </ng-container>
         </div>
       </div>
     </section>

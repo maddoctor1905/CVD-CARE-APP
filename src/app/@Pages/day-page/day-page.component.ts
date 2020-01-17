@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {faArrowRight} from '@fortawesome/free-solid-svg-icons';
 import {IconBarElement} from '../../@Components/icon-bar/icon-bar.model';
 import {DayElement, WeekElement} from '../../@Models/calendar.model';
 import {CalendarService} from '../../@Services/calendar.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-day-page',
@@ -18,7 +18,6 @@ export class DayPageComponent implements OnInit {
     this._weekElements = value;
   }
 
-  moreDetailsIcon = faArrowRight;
   iconsForFilterBar: IconBarElement[] = [
     {
       char: '🚨',
@@ -41,7 +40,8 @@ export class DayPageComponent implements OnInit {
   private _weekElements: WeekElement[] = [];
 
   constructor(
-    private calendarService: CalendarService
+    private calendarService: CalendarService,
+    public translateService: TranslateService
   ) {
   }
 
@@ -63,5 +63,15 @@ export class DayPageComponent implements OnInit {
         return (i);
       }
     }
+  }
+
+  isAllowedEmoji(emoji: string) {
+    let allowed = false;
+    this.iconsForFilterBar.forEach(e => {
+      if (e.char === emoji && e.active) {
+        allowed = true;
+      }
+    });
+    return (allowed);
   }
 }

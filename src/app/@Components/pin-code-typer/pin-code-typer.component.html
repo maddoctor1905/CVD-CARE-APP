@@ -5,13 +5,13 @@
          [class.shake-horizontal]="state?.danger">{{otpCode.charAt(item) || '_'}}</div>
   </div>
   <div class="field">
-    <p *ngIf="!state.danger && !state.success">Enter the OTP Code</p>
-    <p *ngIf="state.danger && !state.success" class="has-text-danger">Your OTP Code is wrong !</p>
+    <p *ngIf="!state.danger && !state.success">{{'firstInstall.otp.title' | translate}}</p>
+    <p *ngIf="state.danger && !state.success" class="has-text-danger">{{'firstInstall.otp.errorMessage' | translate}}</p>
   </div>
   <div class="field">
-    <button *ngIf="state.buttonChangeNumber && !state.success" class="button is-primary" (click)="changePhoneNumberClicked()">Change phone number</button>
+    <button *ngIf="state.buttonChangeNumber && !state.success" class="button is-primary" (click)="changePhoneNumberClicked()">{{'firstInstall.otp.changePhonenumber' | translate}}</button>
   </div>
-  <p *ngIf="!state.danger && state.success" class="has-text-success">Your OTP Code is valid !</p>
+  <p *ngIf="!state.danger && state.success" class="has-text-success">{{'firstInstall.otp.validMessage' | translate}}</p>
   <div class="pct-numbers">
     <div class="pct-number noselect" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]"
          (click)="numberPressed(item)">{{item}}</div>

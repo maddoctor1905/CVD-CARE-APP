@@ -81,35 +81,35 @@ export class CalendarService {
         days: [
           {
             date: new Date(2019, 12, 24),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 24)),
             active: false
           }, {
             date: new Date(2019, 12, 25),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 25)),
             active: false
           }, {
             date: new Date(2019, 12, 26),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 26)),
             active: false
           }, {
             date: new Date(2019, 12, 27),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 27)),
             active: false
           }, {
             date: new Date(2019, 12, 28),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 28)),
             active: false
           }, {
             date: new Date(2019, 12, 29),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 29)),
             active: false
           }, {
             date: new Date(2019, 12, 30),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 30)),
             active: false
           }, {
             date: new Date(2019, 12, 31),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 31)),
             active: false
           },
         ]
@@ -119,31 +119,31 @@ export class CalendarService {
         days: [
           {
             date: new Date(2020, 1, 1),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 1)),
             active: false
           }, {
             date: new Date(2020, 1, 2),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 2)),
             active: false
           }, {
             date: new Date(2020, 1, 3),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 3)),
             active: false
           }, {
             date: new Date(2020, 1, 4),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 4)),
             active: false
           }, {
             date: new Date(2020, 1, 5),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 5)),
             active: false
           }, {
             date: new Date(2020, 1, 6),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 6)),
             active: false
           }, {
             date: new Date(2020, 1, 7),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 7)),
             active: false
           },
         ]
@@ -153,31 +153,31 @@ export class CalendarService {
         days: [
           {
             date: new Date(2020, 1, 8),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 8)),
             active: false
           }, {
             date: new Date(2020, 1, 9),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 9)),
             active: false
           }, {
             date: new Date(2020, 1, 10),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 10)),
             active: false
           }, {
             date: new Date(2020, 1, 11),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 11)),
             active: false
           }, {
             date: new Date(2020, 1, 12),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 12)),
             active: false
           }, {
             date: new Date(2020, 1, 13),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 13)),
             active: false
           }, {
             date: new Date(2020, 1, 14),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 14)),
             active: false
           },
         ]
@@ -187,31 +187,31 @@ export class CalendarService {
         days: [
           {
             date: new Date(2020, 1, 15),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 15)),
             active: false
           }, {
             date: new Date(2020, 1, 16),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 16)),
             active: false
           }, {
             date: new Date(2020, 1, 17),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 17)),
             active: false
           }, {
             date: new Date(2020, 1, 18),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 18)),
             active: false
           }, {
             date: new Date(2020, 1, 19),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 19)),
             active: false
           }, {
             date: new Date(2020, 1, 20),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 20)),
             active: false
           }, {
             date: new Date(2020, 1, 21),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 21)),
             active: false
           },
         ]
@@ -221,31 +221,31 @@ export class CalendarService {
         days: [
           {
             date: new Date(2020, 1, 22),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 22)),
             active: false
           }, {
             date: new Date(2020, 1, 23),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 23)),
             active: false
           }, {
             date: new Date(2020, 1, 24),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 24)),
             active: false
           }, {
             date: new Date(2020, 1, 25),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 25)),
             active: false
           }, {
             date: new Date(2020, 1, 26),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 26)),
             active: false
           }, {
             date: new Date(2020, 1, 27),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 27)),
             active: false
           }, {
             date: new Date(2020, 1, 28),
-            events: [],
+            events: this.getCalendarEventsForMock(new Date(2019, 12, 28)),
             active: false
           },
         ]

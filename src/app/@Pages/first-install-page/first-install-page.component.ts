@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {StepperService} from '../../@Components/stepper/stepper.service';
 import {FirstInstallService} from './first-install.service';
 import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-first-install-page',
@@ -27,7 +28,8 @@ export class FirstInstallPageComponent implements OnInit {
   constructor(
     private _stepperService: StepperService,
     public _firstInstallService: FirstInstallService,
-    private router: Router
+    private router: Router,
+    private translateService: TranslateService
   ) {
     this.stepperService.limit = 3;
   }
@@ -55,5 +57,11 @@ export class FirstInstallPageComponent implements OnInit {
 
   getPhoneNumber() {
     return (this._firstInstallService.phoneNumber);
+  }
+
+  setLang(locale: string) {
+    this.translateService.use(locale);
+    this.translateService.setDefaultLang(locale);
+    localStorage.setItem('favoriteLang', locale);
   }
 }

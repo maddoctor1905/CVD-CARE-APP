@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {LocalNotificationService} from '../../@Services/local-notification.service';
 import {NotificationElement} from '../../@Models/notification.model';
+import {faGlobeAsia} from '@fortawesome/free-solid-svg-icons';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home-page',
@@ -28,9 +30,11 @@ export class HomePageComponent implements OnInit {
       },
     ]
   };
+  changeLangIcon = faGlobeAsia;
 
   constructor(
-    private localNotificationService: LocalNotificationService
+    private localNotificationService: LocalNotificationService,
+    private translateService: TranslateService
   ) {
   }
 
@@ -48,4 +52,9 @@ export class HomePageComponent implements OnInit {
     }
   }
 
+  selectChange(selectRef: HTMLSelectElement) {
+    this.translateService.use(selectRef.value);
+    this.translateService.setDefaultLang(selectRef.value);
+    localStorage.setItem('favoriteLang', selectRef.value);
+  }
 }

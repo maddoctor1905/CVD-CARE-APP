@@ -2,7 +2,7 @@
              (previousClicked)="stepperPreviousClicked()"
              (confirmClicked)="stepperConfirmClicked()"
              [buttonsVisible]="!stepperService.isEnd()">
-  <app-choose-lang-subpage *ngIf="stepperService.currentIndex === 0"></app-choose-lang-subpage>
+  <app-choose-lang-subpage *ngIf="stepperService.currentIndex === 0" (langSelected)="setLang($event)"></app-choose-lang-subpage>
   <app-enter-phonenumber-subpage [phoneNumber]="getPhoneNumber()" *ngIf="stepperService.currentIndex === 1"></app-enter-phonenumber-subpage>
   <app-otp-subpage *ngIf="stepperService.currentIndex === 2" (changePhoneNumber)="stepperService.currentIndex = 1"
   (otpCodeValid)="stepperConfirmClicked()"></app-otp-subpage>

@@ -1,6 +1,7 @@
 <div class="default-layout has-navbar-fixed-top has-navbar-fixed-bottom">
   <app-top-bar (iconSidebarClicked)="setSidebarState(!sideBarVisible)"></app-top-bar>
-  <app-sidebar *ngIf="sideBarVisible" (clickOutside)="setSidebarState(!sideBarVisible)"></app-sidebar>
+  <app-sidebar [sidebarQuickLinksElements]="sidebarLinksElements"
+               [sidebarCommunicateElements]="sidebarCommunicateElements" [visible]="sideBarVisible" (elementClicked)="sidebarElementClicked($event)" (clickOutside)="setSidebarState(!sideBarVisible)"></app-sidebar>
   <router-outlet></router-outlet>
   <app-bottom-bar [elements]="bottomBarElements" (elementClicked)="bottomBarElementClickEvent($event)"></app-bottom-bar>
 </div>

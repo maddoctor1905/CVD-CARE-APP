@@ -1,0 +1,20 @@
+{
+	"bottomBar.calendar": "Calendrier",
+	"bottomBar.home": "Accueil",
+	"bottomBar.settings": "Réglages",
+	"devPurpose.var1": "✨ Présentation des fonctionnalités",
+	"devPurpose.var2": "Toutes les fonctionnalités sont présentées ici à des fins de test avant de se déplacer vers <strong>au bon endroit</strong>.",
+	"firstInstall.chooseLang.title": "Choisi ta langue",
+	"firstInstall.otp.changePhoneNumber": "Changer le numéro de téléphone",
+	"firstInstall.otp.errorMessage": "Votre code OTP est faux!",
+	"firstInstall.otp.title": "Entrez le code OTP",
+	"firstInstall.otp.validMessage": "Votre code OTP est valide!",
+	"firstInstall.phoneNumber.title": "S'il vous plait, entrez votre numéro de téléphone",
+	"sidebar.diet": "Régime",
+	"sidebar.doctor": "Médecin et Soignant",
+	"sidebar.emergency": "Urgence",
+	"sidebar.exercise": "Exercice",
+	"sidebar.home": "Accueil",
+	"sidebar.logout": "Déconnection",
+	"sidebar.personalDetails": "Détails Personnels"
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {faGlobe} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -9,9 +9,21 @@ import {faGlobe} from '@fortawesome/free-solid-svg-icons';
 export class ChooseLangSubpageComponent implements OnInit {
   changeLangIcon = faGlobe;
 
-  constructor() { }
+  @Output() langSelected = new EventEmitter<string>();
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
+  selectChange(e: HTMLSelectElement) {
+    if (e.value === 'English') {
+      this.langSelected.emit('en-US');
+    } else if (e.value === 'Francais') {
+      this.langSelected.emit('fr-FR');
+    } else {
+      this.langSelected.emit('kn-IN');
+    }
+  }
 }
