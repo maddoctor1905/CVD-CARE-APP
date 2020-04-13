@@ -3,6 +3,8 @@ import {StepperService} from '../../@Components/stepper/stepper.service';
 import {FirstInstallService} from './first-install.service';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
+import {PhoneNumberChange} from '../../@SubPages/enter-phonenumber-subpage/enter-phonenumber-subpage.component';
+import {Patient} from '../../@Models/patient';
 
 @Component({
   selector: 'app-first-install-page',
@@ -10,6 +12,8 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./first-install-page.component.scss']
 })
 export class FirstInstallPageComponent implements OnInit {
+  error: string;
+
   get firstInstallService(): FirstInstallService {
     return this._firstInstallService;
   }
@@ -17,6 +21,7 @@ export class FirstInstallPageComponent implements OnInit {
   set firstInstallService(value: FirstInstallService) {
     this._firstInstallService = value;
   }
+
   get stepperService(): StepperService {
     return this._stepperService;
   }
@@ -38,8 +43,15 @@ export class FirstInstallPageComponent implements OnInit {
   }
 
   stepperNextClicked() {
-    // TODO If form valid go
-    this.stepperService.next();
+    if (this._stepperService.currentIndex === 0) {
+      this.stepperService.next();
+    } else if (this._firstInstallService.steps.phone && this._stepperService.currentIndex === 1) {
+      this.firstInstallService.createUnconfirmedUser().subscribe(() => {
+        this.stepperService.next();
+      }, (err) => {
+        this.error = err.error.message;
+      });
+    }
   }
 
   stepperPreviousClicked() {
@@ -47,12 +59,15 @@ export class FirstInstallPageComponent implements OnInit {
   }
 
   stepperConfirmClicked() {
-    localStorage.setItem('firstInstall', 'true');
-    localStorage.setItem('otpCode', 'true');
-    localStorage.setItem('CLIENT_UNIQUE_ID', 'true');
-    setTimeout(() => {
-      this.router.navigateByUrl('/app/day');
-    }, 1000);
+    this.firstInstallService.finishInstallation().subscribe((patient: Patient) => {
+      console.log(patient);
+      localStorage.setItem('firstInstall', 'true');
+      localStorage.setItem('otpCode', 'true');
+      localStorage.setItem('CLIENT_UNIQUE_ID', patient.id.toString());
+      setTimeout(() => {
+        this.router.navigateByUrl('/app/day');
+      }, 1000);
+    });
   }
 
   getPhoneNumber() {
@@ -63,5 +78,9 @@ export class FirstInstallPageComponent implements OnInit {
     this.translateService.use(locale);
     this.translateService.setDefaultLang(locale);
     localStorage.setItem('favoriteLang', locale);
+  }
+
+  public phoneNumberChange(event: PhoneNumberChange) {
+    this._firstInstallService.phoneNumberChange(event);
   }
 }

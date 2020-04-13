@@ -13,6 +13,10 @@ import {FirstInstallLayoutModule} from './@Layouts/first-install-layout/first-in
 import {CheckForUpdateService} from './@Services/check-for-update.service';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {RequestService} from './@Services/request.service';
+import {PatientService} from './@Services/patient.service';
+import {PatientMedicationService} from './@Services/patient-medication.service';
+import {PatientInvestigationService} from './@Services/patient-investigation.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,11 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: true})
   ],
   providers: [
-    CheckForUpdateService
+    CheckForUpdateService,
+    RequestService,
+    PatientService,
+    PatientMedicationService,
+    PatientInvestigationService,
   ],
   bootstrap: [AppComponent]
 })

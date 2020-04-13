@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {PinCodeTyperState} from '../../@Components/pin-code-typer/pin-code-typer.model';
+import {FirstInstallService} from '../../@Pages/first-install-page/first-install.service';
 
 @Component({
   selector: 'app-otp-subpage',
@@ -17,22 +18,22 @@ export class OtpSubpageComponent implements OnInit {
   @Output() otpCodeInvalid = new EventEmitter();
   @Output() changePhoneNumber = new EventEmitter();
 
-  constructor() {
+  constructor(private readonly firstInstallService: FirstInstallService) {
   }
 
   ngOnInit() {
   }
 
   otpCodeEntered(otp: string) {
-    if (otp.includes('9')) {
+    this.firstInstallService.confirmUser(otp).subscribe(() => {
+      this.pinCodeState.success = true;
+      this.otpCodeValid.emit();
+    }, (error => {
       this.pinCodeState.danger = true;
       this.pinCodeState.success = false;
       this.pinCodeState.buttonChangeNumber = true;
       this.otpCodeInvalid.emit();
-    } else {
-      this.pinCodeState.success = true;
-      this.otpCodeValid.emit();
-    }
+    }));
   }
 
   changePhoneNumberEvent() {
