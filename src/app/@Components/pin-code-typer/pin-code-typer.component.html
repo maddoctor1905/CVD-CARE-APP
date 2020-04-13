@@ -1,6 +1,6 @@
 <div id="pin">
   <div class="dots">
-    <div class="dot noselect" *ngFor="let item of [0, 1, 2, 3, 4, 5]" [class.has-text-success]="state?.success"
+    <div class="dot noselect" *ngFor="let item of [0, 1, 2, 3]" [class.has-text-success]="state?.success"
          [class.has-text-danger]="state?.danger"
          [class.shake-horizontal]="state?.danger">{{otpCode.charAt(item) || '_'}}</div>
   </div>
@@ -9,7 +9,7 @@
     <p *ngIf="state.danger && !state.success" class="has-text-danger">{{'firstInstall.otp.errorMessage' | translate}}</p>
   </div>
   <div class="field">
-    <button *ngIf="state.buttonChangeNumber && !state.success" class="button is-primary" (click)="changePhoneNumberClicked()">{{'firstInstall.otp.changePhonenumber' | translate}}</button>
+    <button *ngIf="state.buttonChangeNumber && !state.success" class="button is-primary" (click)="changePhoneNumberClicked()">{{'firstInstall.otp.changePhoneNumber' | translate}}</button>
   </div>
   <p *ngIf="!state.danger && state.success" class="has-text-success">{{'firstInstall.otp.validMessage' | translate}}</p>
   <div class="pct-numbers">

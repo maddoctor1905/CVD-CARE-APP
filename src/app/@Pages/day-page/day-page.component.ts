@@ -3,6 +3,9 @@ import {IconBarElement} from '../../@Components/icon-bar/icon-bar.model';
 import {DayElement, WeekElement} from '../../@Models/calendar.model';
 import {CalendarService} from '../../@Services/calendar.service';
 import {TranslateService} from '@ngx-translate/core';
+import {PatientService} from '../../@Services/patient.service';
+import {PatientMedicationService} from '../../@Services/patient-medication.service';
+import {PatientInvestigationService} from '../../@Services/patient-investigation.service';
 
 @Component({
   selector: 'app-day-page',
@@ -41,7 +44,10 @@ export class DayPageComponent implements OnInit {
 
   constructor(
     private calendarService: CalendarService,
-    public translateService: TranslateService
+    public translateService: TranslateService,
+    private readonly patientService: PatientService,
+    private readonly patientMedicationService: PatientMedicationService,
+    private readonly patientInvestigationService: PatientInvestigationService
   ) {
   }
 
