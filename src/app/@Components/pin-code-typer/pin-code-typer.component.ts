@@ -7,7 +7,7 @@ import {PinCodeTyperState} from './pin-code-typer.model';
   styleUrls: ['./pin-code-typer.component.scss']
 })
 export class PinCodeTyperComponent implements OnInit {
-  @Input() mandatoryWidth = 6;
+  @Input() mandatoryWidth = 4;
   @Output() codeEntered = new EventEmitter<string>();
   @Output() changePhoneNumberAsked = new EventEmitter();
   @Input() state: PinCodeTyperState = {};
