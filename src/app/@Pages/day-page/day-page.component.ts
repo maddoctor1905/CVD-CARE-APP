@@ -8,76 +8,81 @@ import {PatientMedicationService} from '../../@Services/patient-medication.servi
 import {PatientInvestigationService} from '../../@Services/patient-investigation.service';
 
 @Component({
-  selector: 'app-day-page',
-  templateUrl: './day-page.component.html',
-  styleUrls: ['./day-page.component.scss']
+    selector: 'app-day-page',
+    templateUrl: './day-page.component.html',
+    styleUrls: ['./day-page.component.scss']
 })
 export class DayPageComponent implements OnInit {
-  get weekElements(): WeekElement[] {
-    return this._weekElements;
-  }
-
-  set weekElements(value: WeekElement[]) {
-    this._weekElements = value;
-  }
-
-  iconsForFilterBar: IconBarElement[] = [
-    {
-      char: '🚨',
-      active: true
-    },
-    {
-      char: '👔',
-      active: true
-    },
-    {
-      char: '💊',
-      active: true
-    },
-    {
-      char: '📅',
-      active: false
-    },
-  ];
-
-  private _weekElements: WeekElement[] = [];
-
-  constructor(
-    private calendarService: CalendarService,
-    public translateService: TranslateService,
-    private readonly patientService: PatientService,
-    private readonly patientMedicationService: PatientMedicationService,
-    private readonly patientInvestigationService: PatientInvestigationService
-  ) {
-  }
-
-  ngOnInit() {
-    this.weekElements = this.calendarService.getCalendarWeeksForMock(new Date(Date.now()));
-  }
-
-  calendarChangeDayEvent($event: DayElement) {
-
-  }
-
-  calendarChangeWeekEvent($event: WeekElement) {
-
-  }
-
-  getActiveWeek() {
-    for (const i of this.weekElements) {
-      if (i.active) {
-        return (i);
-      }
+    get weekElements(): WeekElement[] {
+        return this._weekElements;
     }
-  }
 
-  isAllowedEmoji(emoji: string) {
-    let allowed = false;
-    this.iconsForFilterBar.forEach(e => {
-      if (e.char === emoji && e.active) {
-        allowed = true;
-      }
-    });
-    return (allowed);
-  }
+    set weekElements(value: WeekElement[]) {
+        this._weekElements = value;
+    }
+
+    iconsForFilterBar: IconBarElement[] = [
+        {
+            char: '🚨',
+            active: true
+        },
+        {
+            char: '👔',
+            active: true
+        },
+        {
+            char: '💊',
+            active: true
+        },
+        {
+            char: '📅',
+            active: false
+        },
+    ];
+
+    private _weekElements: WeekElement[] = [];
+
+    constructor(
+            private calendarService: CalendarService,
+            public translateService: TranslateService,
+            private readonly patientService: PatientService,
+            private readonly patientMedicationService: PatientMedicationService,
+            private readonly patientInvestigationService: PatientInvestigationService
+    ) {
+    }
+
+    ngOnInit() {
+        const actualDate = new Date();
+        this.calendarService.generateCalendarFromDate(actualDate);
+        this.calendarService.calendar$.subscribe((item: WeekElement[]) => {
+            this.weekElements = item;
+        });
+        this.calendarService.linkPatientData(actualDate);
+    }
+
+    calendarChangeDayEvent($event: DayElement) {
+
+    }
+
+    calendarChangeWeekEvent($event: WeekElement) {
+
+    }
+
+    getActiveWeek() {
+        for (const i of this.weekElements) {
+            if (i.active) {
+                return (i);
+            }
+        }
+    }
+
+    isAllowedEmoji(emoji: string) {
+        let allowed = false;
+        this.iconsForFilterBar.forEach(e => {
+            if (e.char === emoji && e.active) {
+                allowed = true;
+            }
+        });
+        return (allowed);
+    }
 }
