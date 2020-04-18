@@ -64,6 +64,7 @@ export class FirstInstallPageComponent implements OnInit {
       localStorage.setItem('firstInstall', 'true');
       localStorage.setItem('otpCode', 'true');
       localStorage.setItem('CLIENT_UNIQUE_ID', patient.id.toString());
+      localStorage.setItem('firstInstallTime', Date.now().toString());
       setTimeout(() => {
         this.router.navigateByUrl('/app/day');
       }, 1000);
