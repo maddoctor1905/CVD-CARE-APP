@@ -18,7 +18,9 @@ export class LocalNotificationService {
   send(title: string, notification: NotificationElement) {
     if (Notification.permission === 'granted') {
       navigator.serviceWorker.getRegistration().then((reg) => {
-        reg.showNotification(title, notification);
+        if (reg) {
+          reg.showNotification(title, notification);
+        }
       });
     }
   }
