@@ -5,6 +5,8 @@ import {InvestigationFrequency, PatientInvestigation} from '../@Models/investiga
 import {Subject} from 'rxjs';
 import {CalendarEvent} from '../@Models/calendar.model';
 import {tap} from 'rxjs/operators';
+import {LocalNotificationService} from './local-notification.service';
+import {NotificationElement} from '../@Models/notification.model';
 
 
 export interface FrequencyMatcher {
@@ -19,7 +21,8 @@ export class PatientInvestigationService {
   ready$: Subject<void> = new Subject<void>();
   private _frequency: FrequencyMatcher[] = [];
 
-  constructor(private readonly patientService: PatientService, private readonly requestService: RequestService) {
+  constructor(private readonly patientService: PatientService, private readonly requestService: RequestService,
+              private readonly localNotificationService: LocalNotificationService) {
     this._frequency = [{
       matcher: InvestigationFrequency.Monthly,
       decision: this.NbMonthsDecision,
@@ -50,6 +53,26 @@ export class PatientInvestigationService {
     }];
   }
 
+  public notificationElement: NotificationElement = {
+    body: '',
+    icon: 'assets/icons/doctor.png',
+    vibrate: [100, 50, 100],
+    data: {
+      dateOfArrival: Date.now(),
+      primaryKey: 1
+    },
+    actions: [
+      {
+        action: 'explore', title: 'Yes',
+        icon: 'assets/icons/like.png'
+      },
+      {
+        action: 'close', title: 'No',
+        icon: 'assets/icons/dislike.png'
+      },
+    ],
+  };
+
   init() {
     return this.requestService.getPatientInvestigations(this.patientService.patient.id.toString()).pipe(tap((patientInvestigations) => {
       this._investigations = patientInvestigations;
@@ -66,6 +89,9 @@ export class PatientInvestigationService {
         return decisionItem.matcher === item.Frequency;
       });
       if (frequencyDecision && frequencyDecision.decision(date, item, frequencyDecision.args)) {
+        if (this.needNotification(date)) {
+          this.sendNotification(item);
+        }
         result.push({
           emoji: '👔',
           from: new Date(Date.now()),
@@ -100,4 +126,17 @@ export class PatientInvestigationService {
     return date.getDay() === eventFirstDate.getDay();
   }
 
+  needNotification(date: Date): boolean {
+    const notifDate = new Date();
+    notifDate.setDate(notifDate.getDate() + 1);
+    notifDate.setHours(8, 0, 0, 0);
+    return notifDate.getTime() === date.getTime();
+  }
+
+
+  private sendNotification(investigation: PatientInvestigation) {
+    const body = 'You have an investigation tomorrow\n ' + investigation.Investigation.InvMName;
+    this.localNotificationService.send('Investigation',
+      {...this.notificationElement, body});
+  }
 }
