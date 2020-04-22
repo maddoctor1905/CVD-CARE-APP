@@ -38,7 +38,7 @@ import {PatientInvestigationService} from './@Services/patient-investigation.ser
         deps: [HttpClient]
       }
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', {enabled: true})
+    ServiceWorkerModule.register('sw-master.js', {enabled: true})
   ],
   providers: [
     CheckForUpdateService,

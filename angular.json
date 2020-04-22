@@ -125,7 +125,14 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/manifest.webmanifest"
+              {
+                "glob": "dexie.min.js",
+                "input": "node_modules/dexie/dist/",
+                "output": "./"
+              },
+              "src/manifest.webmanifest",
+              "src/sw-master.js",
+              "src/sw-sync.js"
             ],
             "styles": [
               "src/styles.scss"
