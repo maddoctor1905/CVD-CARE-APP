@@ -6,6 +6,7 @@ async function a() {
   const status = await navigator.permissions.query({
     name: 'periodic-background-sync',
   });
+  console.log(status, 'bite');
   if (status.state === 'granted') {
     const registration = await navigator.serviceWorker.ready;
     if ('periodicSync' in registration) {
