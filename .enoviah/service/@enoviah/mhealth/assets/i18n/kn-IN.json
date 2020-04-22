@@ -1,0 +1,20 @@
+{
+	"bottomBar.calendar": "ಕ್ಯಾಲೆಂಡರ್",
+	"bottomBar.home": "ಮನೆ",
+	"bottomBar.settings": "ಸೆಟ್ಟಿಂಗ್ಗಳು",
+	"devPurpose.var1": "✨ ವೈಶಿಷ್ಟ್ಯಗಳ ಪ್ರದರ್ಶನ",
+	"devPurpose.var2": "",
+	"firstInstall.chooseLang.title": "ಭಾಷೆಯನ್ನು ಆರಿಸಿ",
+	"firstInstall.otp.changePhoneNumber": "ಫೋನ್ ಸಂಖ್ಯೆಯನ್ನು ಬದಲಾಯಿಸಿ",
+	"firstInstall.otp.errorMessage": "ನಿಮ್ಮ ಒಟಿಪಿ ಕೋಡ್ ತಪ್ಪಾಗಿದೆ!",
+	"firstInstall.otp.title": "ಒಟಿಪಿ ಕೋಡ್ ನಮೂದಿಸಿ",
+	"firstInstall.otp.validMessage": "ನಿಮ್ಮ ಒಟಿಪಿ ಕೋಡ್ ಮಾನ್ಯವಾಗಿದೆ!",
+	"firstInstall.phoneNumber.title": "ದಯವಿಟ್ಟು ನಿಮ್ಮ ಫೋನ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ",
+	"sidebar.diet": "ಡಯಟ್",
+	"sidebar.doctor": "ವೈದ್ಯರು ಮತ್ತು ಪಾಲನೆ ಮಾಡುವವರು",
+	"sidebar.emergency": "ತುರ್ತು",
+	"sidebar.exercise": "ವ್ಯಾಯಾಮ",
+	"sidebar.home": "ಮನೆ",
+	"sidebar.logout": "ಲಾಗ್ ಔಟ್",
+	"sidebar.personalDetails": "ವೈಯಕ್ತಿಕ ವಿವರಗಳು"
+}
