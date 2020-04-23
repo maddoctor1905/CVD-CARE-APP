@@ -8,6 +8,7 @@ async function a() {
   });
   console.log(status, 'bite');
   if (status.state === 'granted') {
+    console.log(navigator, navigator.serviceWorker, navigator.serviceWorker.ready, await navigator.serviceWorker.ready);
     const registration = await navigator.serviceWorker.ready;
     if ('periodicSync' in registration) {
       try {
