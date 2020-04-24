@@ -6,7 +6,7 @@ async function a() {
   const status = await navigator.permissions.query({
     name: 'periodic-background-sync',
   });
-  console.log(navigator, navigator.serviceWorker, navigator.serviceWorker.ready);
+  console.log(navigator, navigator.serviceWorker);
   console.log(status, 'bite');
   if (status.state === 'granted') {
     console.log(navigator, navigator.serviceWorker, navigator.serviceWorker.ready);
