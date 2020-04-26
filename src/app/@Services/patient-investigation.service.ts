@@ -7,6 +7,7 @@ import {CalendarEvent} from '../@Models/calendar.model';
 import {tap} from 'rxjs/operators';
 import {LocalNotificationService} from './local-notification.service';
 import {NotificationElement} from '../@Models/notification.model';
+import {ServiceWorkerService} from './service-worker.service';
 
 
 export interface FrequencyMatcher {
@@ -22,7 +23,8 @@ export class PatientInvestigationService {
   private _frequency: FrequencyMatcher[] = [];
 
   constructor(private readonly patientService: PatientService, private readonly requestService: RequestService,
-              private readonly localNotificationService: LocalNotificationService) {
+              private readonly localNotificationService: LocalNotificationService,
+              private readonly swService: ServiceWorkerService) {
     this._frequency = [{
       matcher: InvestigationFrequency.Monthly,
       decision: this.NbMonthsDecision,
@@ -77,6 +79,7 @@ export class PatientInvestigationService {
     return this.requestService.getPatientInvestigations(this.patientService.patient.id.toString()).pipe(tap((patientInvestigations) => {
       this._investigations = patientInvestigations;
       this.ready$.next();
+      this.syncWithSW();
       console.log('Investigations', patientInvestigations);
     }));
   }
@@ -139,4 +142,16 @@ export class PatientInvestigationService {
     this.localNotificationService.send('Investigation',
       {...this.notificationElement, body});
   }
+
+  private syncWithSW() {
+    this.swService.backgroundSyncReady$.subscribe((ready: boolean) => {
+      if (ready) {
+        navigator.serviceWorker.controller.postMessage({
+          command: 'investigationsSync',
+          message: this._investigations
+        });
+      }
+    });
+  }
+
 }

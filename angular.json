@@ -28,7 +28,15 @@
               "src/assets",
               "src/manifest.webmanifest",
               "src/sw-master.js",
-              "src/sw-sync.js"
+              "src/sw-sync.js",
+              {
+                "glob": "dexie.min.js",
+                "input": "node_modules/dexie/dist/",
+                "output": "./"
+              },
+              "src/sw",
+              "src/ngsw-worker.js",
+              "src/ngsw.json"
             ],
             "styles": [
               "src/styles.scss"
@@ -134,7 +142,10 @@
               },
               "src/manifest.webmanifest",
               "src/sw-master.js",
-              "src/sw-sync.js"
+              "src/sw-sync.js",
+              // to remove
+              "src/ngsw-worker.js",
+              "src/ngsw.json"
             ],
             "styles": [
               "src/styles.scss"

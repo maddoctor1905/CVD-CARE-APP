@@ -7,6 +7,7 @@ import {Subject} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {LocalNotificationService} from './local-notification.service';
 import {NotificationElement} from '../@Models/notification.model';
+import {ServiceWorkerService} from './service-worker.service';
 
 export interface Reminder {
   targetDate: string;
@@ -38,13 +39,16 @@ export class PatientMedicationService {
   };
 
   constructor(private readonly patientService: PatientService, private readonly requestService: RequestService,
-              private readonly localNotificationService: LocalNotificationService) {
+              private readonly localNotificationService: LocalNotificationService,
+              private readonly swService: ServiceWorkerService) {
   }
 
   init() {
     return this.requestService.getPatientMedications(this.patientService.patient.id.toString()).pipe(tap((medications => {
       this.medications = medications;
+      localStorage.setItem('medications', JSON.stringify(medications));
       this.ready$.next();
+      this.syncWithSW();
     })));
   }
 
@@ -54,7 +58,7 @@ export class PatientMedicationService {
     date.setHours(8, 0, 0, 0);
     if (date.getDay() === firstRunDate.getDay()) {
       if (this.needNotification(date)) {
-        this.sendNotifiaction();
+        this.sendNotification();
       }
       return this.medications.map((item) => {
         return {
@@ -79,7 +83,7 @@ export class PatientMedicationService {
   }
 
 
-  private sendNotifiaction() {
+  private sendNotification() {
     let body = '';
     for (const med of this.medications) {
       body += '\n ' + med.Medication.BrandName;
@@ -87,4 +91,16 @@ export class PatientMedicationService {
     this.localNotificationService.send('Medication',
       {...this.notificationElement, body: this.notificationElement.body + ' ' + body});
   }
+
+  private syncWithSW() {
+    this.swService.backgroundSyncReady$.subscribe((ready: boolean) => {
+      if (ready) {
+        navigator.serviceWorker.controller.postMessage({
+          command: 'medicationsSync',
+          message: this.medications
+        });
+      }
+    });
+  }
+
 }

@@ -17,6 +17,7 @@ import {RequestService} from './@Services/request.service';
 import {PatientService} from './@Services/patient.service';
 import {PatientMedicationService} from './@Services/patient-medication.service';
 import {PatientInvestigationService} from './@Services/patient-investigation.service';
+import {ServiceWorkerService} from './@Services/service-worker.service';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import {PatientInvestigationService} from './@Services/patient-investigation.ser
     PatientService,
     PatientMedicationService,
     PatientInvestigationService,
+    ServiceWorkerService,
   ],
   bootstrap: [AppComponent]
 })

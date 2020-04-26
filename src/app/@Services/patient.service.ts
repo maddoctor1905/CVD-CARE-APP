@@ -3,13 +3,15 @@ import {RequestService} from './request.service';
 import {Patient} from '../@Models/patient';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
+import {ServiceWorkerService} from './service-worker.service';
 
 @Injectable()
 export class PatientService {
   private _patient: Patient;
   public patient$: BehaviorSubject<Patient> = new BehaviorSubject<Patient>(null);
 
-  constructor(private readonly requestService: RequestService) {
+  constructor(private readonly requestService: RequestService,
+              private readonly swService: ServiceWorkerService) {
     this.initFromStorage();
   }
 
@@ -27,6 +29,7 @@ export class PatientService {
   initFromPhone(phoneNumber: string): Observable<Patient> {
     return this.requestService.getPatientByPhone(phoneNumber).pipe(tap((patient: Patient) => {
       this._patient = patient;
+      this.syncWithSW();
       this.patient$.next(patient);
     }));
   }
@@ -38,4 +41,19 @@ export class PatientService {
   public set patient(value: Patient) {
     this._patient = value;
   }
+
+  private syncWithSW() {
+    this.swService.backgroundSyncReady$.subscribe((ready) => {
+      if (ready) {
+        navigator.serviceWorker.controller.postMessage({
+          command: 'patientSync',
+          message: {
+            installTime: Date.now(),
+            patient: this._patient.id
+          }
+        });
+      }
+    });
+  }
+
 }

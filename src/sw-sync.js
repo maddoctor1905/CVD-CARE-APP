@@ -1,30 +1,56 @@
-async function a() {
-  return 'Hello';
+importScripts('dexie.min.js');
+importScripts('./sw/Patient.js');
+importScripts('./sw/Notification.js');
+importScripts('./sw/Medication.js');
+importScripts('./sw/Investigation.js')
+
+function initDb() {
+  const db = new Dexie("cvd");
+
+  db.version(20).stores({
+    medications: "id",
+    investigations: "id",
+    patient: "patient",
+  });
+
+  db.open();
+  return db;
 }
 
 (async function () {
-  const status = await navigator.permissions.query({
-    name: 'periodic-background-sync',
-  });
-  console.log(navigator, navigator.serviceWorker);
-  console.log(status, 'bite');
-  if (status.state === 'granted') {
-    console.log(navigator, navigator.serviceWorker, navigator.serviceWorker.ready);
-    const registration = await navigator.serviceWorker.ready;
-    if ('periodicSync' in registration) {
-      try {
-        await registration.periodicSync.register('content-sync', {
-          // An interval of one day.
-          minInterval: 24 * 60 * 60 * 1000,
-        });
-      } catch (error) {
-        // Periodic background sync cannot be used.
-      }
-    }
-  } else {
+  // Register db
+  const db = initDb();
 
-  }
+  // Register Handlers
+  const patientHandler = new PatientHandler(db);
+  const notificationHandler = new NotificationHandler();
+  const medicationHandler = new MedicationHandler(db, patientHandler, notificationHandler);
+  const investigationHandler = new InvestigationHandler(db, patientHandler, notificationHandler);
+  // Register listeners
+  self.addEventListener('message', function (event) {
+    const data = event.data;
+
+    if (data.command === 'medicationsSync') {
+      medicationHandler.syncronizeFromMessage(data.message);
+    } else if (data.command === 'patientSync') {
+      patientHandler.syncFromMessage(data.message);
+    } else if (data.command === 'investigationsSync') {
+      investigationHandler.syncronizeFromMessage(data.message)
+    }
+  });
+
   self.addEventListener('periodicsync', (event) => {
+
+    console.info("[PERIODIC SYNC] triggered");
+    if (event.tag === 'content-sync') {
+      const checks = [medicationHandler.periodicSync(self.registration),
+        investigationHandler.periodicSync(self.registration)];
+      event.waitUntil(Promise.all(checks));
+    }
+    // Other logic for different tags as needed.
+  });
+  self.addEventListener('sync', (event) => {
+    console.info("synnnnnccccc");
     if (event.tag === 'content-sync') {
       // See the "Think before you sync" section for
       // checks you could perform before syncing.
