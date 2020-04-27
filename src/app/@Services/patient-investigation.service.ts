@@ -2,12 +2,13 @@ import {Injectable} from '@angular/core';
 import {PatientService} from './patient.service';
 import {RequestService} from './request.service';
 import {InvestigationFrequency, PatientInvestigation} from '../@Models/investigation.model';
-import {Subject} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {CalendarEvent} from '../@Models/calendar.model';
-import {tap} from 'rxjs/operators';
+import {mergeMap, tap} from 'rxjs/operators';
 import {LocalNotificationService} from './local-notification.service';
 import {NotificationElement} from '../@Models/notification.model';
 import {ServiceWorkerService} from './service-worker.service';
+import {TranslateService} from '@ngx-translate/core';
 
 
 export interface FrequencyMatcher {
@@ -24,7 +25,8 @@ export class PatientInvestigationService {
 
   constructor(private readonly patientService: PatientService, private readonly requestService: RequestService,
               private readonly localNotificationService: LocalNotificationService,
-              private readonly swService: ServiceWorkerService) {
+              private readonly swService: ServiceWorkerService,
+              private readonly translateService: TranslateService) {
     this._frequency = [{
       matcher: InvestigationFrequency.Monthly,
       decision: this.NbMonthsDecision,
@@ -84,7 +86,7 @@ export class PatientInvestigationService {
     }));
   }
 
-  findInvestigationsForDate(date: Date): CalendarEvent {
+  findInvestigationsForDate(date: Date): Observable<CalendarEvent> {
     const result: PatientInvestigation[] = [];
     date.setHours(8, 0, 0, 0);
     for (const item of this._investigations) {
@@ -98,17 +100,19 @@ export class PatientInvestigationService {
         result.push(item);
       }
     }
-    return (result.length) ? {
-      emoji: '👔',
-      from: new Date(Date.now()),
-      to: new Date(Date.now()),
-      text: result.map((item) => {
-        return item.Investigation.InvMName;
-      }),
-      title: 'You have to visit your doctor',
-      typeName: 'type',
-      urgent: false
-    } : null;
+    return this.translateService.get('event.investigation.title').pipe(mergeMap((key) => {
+      return of((result.length) ? {
+        emoji: '👔',
+        from: new Date(Date.now()),
+        to: new Date(Date.now()),
+        text: result.map((item) => {
+          return item.Investigation.InvMName;
+        }),
+        title: key,
+        typeName: 'type',
+        urgent: false
+      } : null);
+    }));
   }
 
   private yearlyDecision(date: Date, investigation: PatientInvestigation): boolean {

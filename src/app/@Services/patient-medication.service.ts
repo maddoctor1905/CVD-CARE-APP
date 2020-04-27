@@ -3,11 +3,12 @@ import {PatientService} from './patient.service';
 import {PatientMedication} from '../@Models/medication.model';
 import {RequestService} from './request.service';
 import {CalendarEvent} from '../@Models/calendar.model';
-import {Subject} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {Observable, of, Subject} from 'rxjs';
+import {mergeMap, tap} from 'rxjs/operators';
 import {LocalNotificationService} from './local-notification.service';
 import {NotificationElement} from '../@Models/notification.model';
 import {ServiceWorkerService} from './service-worker.service';
+import {TranslateService} from '@ngx-translate/core';
 
 export interface Reminder {
   targetDate: string;
@@ -40,7 +41,8 @@ export class PatientMedicationService {
 
   constructor(private readonly patientService: PatientService, private readonly requestService: RequestService,
               private readonly localNotificationService: LocalNotificationService,
-              private readonly swService: ServiceWorkerService) {
+              private readonly swService: ServiceWorkerService,
+              private readonly translateService: TranslateService) {
   }
 
   init() {
@@ -52,7 +54,7 @@ export class PatientMedicationService {
     })));
   }
 
-  findMedicationsForDate(date: Date): CalendarEvent {
+  findMedicationsForDate(date: Date): Observable<CalendarEvent> {
     const firstRunDate = new Date(+localStorage.getItem('firstInstallTime'));
     firstRunDate.setHours(8, 0, 0, 0);
     date.setHours(8, 0, 0, 0);
@@ -60,19 +62,22 @@ export class PatientMedicationService {
       if (this.needNotification(date)) {
         this.sendNotification();
       }
-      return {
-        emoji: '💊',
-        from: new Date(Date.now()),
-        to: new Date(Date.now()),
-        text: this.medications.map((item) => {
-          return item.Medication.BrandName;
-        }),
-        title: 'You have to take your medication',
-        typeName: 'type',
-        urgent: false
-      };
+      return this.translateService.get('event.medication.title').pipe(mergeMap((key) => {
+        console.log(key);
+        return of({
+          emoji: '💊',
+          from: new Date(Date.now()),
+          to: new Date(Date.now()),
+          text: this.medications.map((item) => {
+            return item.Medication.BrandName;
+          }),
+          title: key,
+          typeName: 'type',
+          urgent: false
+        });
+      }));
     }
-    return null;
+    return of(null);
   }
 
   needNotification(date: Date): boolean {

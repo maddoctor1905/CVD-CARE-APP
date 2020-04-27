@@ -63,10 +63,11 @@ export class CalendarService {
   linkMedicationsToCalendar(date: Date) {
     for (const week of this._calendar) {
       for (const day of week.days) {
-        const event = this.patientMedicationService.findMedicationsForDate(day.date);
-        if (event) {
-          day.events.push(event);
-        }
+        this.patientMedicationService.findMedicationsForDate(day.date).subscribe((event) => {
+          if (event) {
+            day.events.push(event);
+          }
+        });
       }
     }
     this.calendar$.next(this._calendar);
@@ -75,10 +76,11 @@ export class CalendarService {
   linkInvestigationsToCalendar(date: Date) {
     for (const week of this._calendar) {
       for (const day of week.days) {
-        const event = this.patientInvestigationService.findInvestigationsForDate(day.date);
-        if (event) {
-          day.events.push(event);
-        }
+        this.patientInvestigationService.findInvestigationsForDate(day.date).subscribe((event) => {
+          if (event) {
+            day.events.push(event);
+          }
+        });
       }
     }
     this.calendar$.next(this._calendar);

@@ -16,5 +16,7 @@
 	"sidebar.exercise": "Exercise",
 	"sidebar.home": "Home",
 	"sidebar.logout": "Logout",
-	"sidebar.personalDetails": "Personal Details"
+	"sidebar.personalDetails": "Personal Details",
+  "event.medication.title": "You have to take your medication",
+  "event.investigation.title": "You have to visit your doctor"
 }
