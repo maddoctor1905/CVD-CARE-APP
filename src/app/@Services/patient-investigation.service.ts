@@ -84,8 +84,8 @@ export class PatientInvestigationService {
     }));
   }
 
-  findInvestigationsForDate(date: Date): CalendarEvent[] {
-    const result: CalendarEvent[] = [];
+  findInvestigationsForDate(date: Date): CalendarEvent {
+    const result: PatientInvestigation[] = [];
     date.setHours(8, 0, 0, 0);
     for (const item of this._investigations) {
       const frequencyDecision = this._frequency.find((decisionItem) => {
@@ -95,18 +95,20 @@ export class PatientInvestigationService {
         if (this.needNotification(date)) {
           this.sendNotification(item);
         }
-        result.push({
-          emoji: '👔',
-          from: new Date(Date.now()),
-          to: new Date(Date.now()),
-          text: 'You have to visit your doctor',
-          title: item.Investigation.InvMName,
-          typeName: 'type',
-          urgent: false
-        });
+        result.push(item);
       }
     }
-    return result;
+    return (result.length) ? {
+      emoji: '👔',
+      from: new Date(Date.now()),
+      to: new Date(Date.now()),
+      text: result.map((item) => {
+        return item.Investigation.InvMName;
+      }),
+      title: 'You have to visit your doctor',
+      typeName: 'type',
+      urgent: false
+    } : null;
   }
 
   private yearlyDecision(date: Date, investigation: PatientInvestigation): boolean {

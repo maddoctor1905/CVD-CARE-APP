@@ -52,7 +52,7 @@ export class PatientMedicationService {
     })));
   }
 
-  findMedicationsForDate(date: Date): CalendarEvent[] {
+  findMedicationsForDate(date: Date): CalendarEvent {
     const firstRunDate = new Date(+localStorage.getItem('firstInstallTime'));
     firstRunDate.setHours(8, 0, 0, 0);
     date.setHours(8, 0, 0, 0);
@@ -60,19 +60,19 @@ export class PatientMedicationService {
       if (this.needNotification(date)) {
         this.sendNotification();
       }
-      return this.medications.map((item) => {
-        return {
-          emoji: '💊',
-          from: new Date(Date.now()),
-          to: new Date(Date.now()),
-          text: 'You have to take your medication',
-          title: item.Medication.BrandName,
-          typeName: 'type',
-          urgent: false
-        };
-      });
+      return {
+        emoji: '💊',
+        from: new Date(Date.now()),
+        to: new Date(Date.now()),
+        text: this.medications.map((item) => {
+          return item.Medication.BrandName;
+        }),
+        title: 'You have to take your medication',
+        typeName: 'type',
+        urgent: false
+      };
     }
-    return [];
+    return null;
   }
 
   needNotification(date: Date): boolean {

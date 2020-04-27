@@ -10,11 +10,13 @@
         <!--- 0 < 3 Days--->
         <!--- 4 < 8 Days--->
         <div class="field" *ngFor="let itemDay of item.days">
-          <h1 class="has-text-weight-semibold title is-4 is-capitalized">{{itemDay.date | date: 'EEEE dd' : '' : translateService.currentLang}}</h1>
+          <h1
+            class="has-text-weight-semibold title is-4 is-capitalized">{{itemDay.date | date: 'EEEE dd' : '' : translateService.currentLang}}</h1>
           <ng-container *ngFor="let itemEvent of itemDay.events">
-            <app-card-collapsile *ngIf="isAllowedEmoji(itemEvent.emoji)" [title]="itemEvent.emoji + ' - ' + itemEvent.title">
+            <app-card-collapsile *ngIf="isAllowedEmoji(itemEvent.emoji)"
+                                 [title]="itemEvent.emoji + ' - ' + itemEvent.title">
               <div class="content">
-                <p>{{itemEvent.text}}</p>
+                <p *ngFor="let item of itemEvent.text">{{item}}</p>
               </div>
             </app-card-collapsile>
           </ng-container>

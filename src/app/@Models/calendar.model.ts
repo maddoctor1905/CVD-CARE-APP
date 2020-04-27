@@ -4,7 +4,7 @@ export  interface CalendarEvent {
   from: Date;
   to: Date;
   title: string;
-  text: string;
+  text: string[];
   urgent: boolean;
 }
 
