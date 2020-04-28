@@ -22,6 +22,7 @@ export class PatientService {
     }
     this.requestService.getPatient(id).subscribe((patient: Patient) => {
       this._patient = patient;
+      this.syncWithSW(+localStorage.getItem('firstInstallTime'));
       this.patient$.next(patient);
     });
   }
@@ -42,13 +43,13 @@ export class PatientService {
     this._patient = value;
   }
 
-  private syncWithSW() {
+  private syncWithSW(time: number = Date.now()) {
     this.swService.backgroundSyncReady$.subscribe((ready) => {
       if (ready) {
         navigator.serviceWorker.controller.postMessage({
           command: 'patientSync',
           message: {
-            installTime: Date.now(),
+            installTime: time,
             patient: this._patient.id
           }
         });
