@@ -19,7 +19,7 @@
 	"sidebar.personalDetails": "Personal Details",
   "event.medication.title": "You have to take your medication",
   "event.investigation.title": "You have to visit your doctor",
-  "personalDetails.title": "Personal Details",
+  "personalDetails.title": "Personal Details \uD83D\uDCC7",
   "personalDetails.PatName.label": "User",
   "personalDetails.PatName.placeholder": "Suresh Alimad",
   "personalDetails.Location.label": "Address",

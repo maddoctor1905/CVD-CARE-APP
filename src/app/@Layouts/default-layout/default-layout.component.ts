@@ -8,7 +8,6 @@ import {
   faSignOutAlt,
   faUser,
   faUserCog,
-  faUserMd,
   faUtensils
 } from '@fortawesome/free-solid-svg-icons';
 import {NavigationEnd, Router} from '@angular/router';
@@ -57,20 +56,15 @@ export class DefaultLayoutComponent implements OnInit {
       name: 'sidebar.personalDetails',
       url: '/app/personal-details',
       active: false,
-    }, {
-      icon: faUserMd,
-      name: 'sidebar.doctor',
-      url: '',
-      active: false,
-    }, {
+    },  {
       icon: faUtensils,
       name: 'sidebar.diet',
-      url: '',
+      url: '/app/diet',
       active: false,
     }, {
       icon: faRunning,
       name: 'sidebar.exercise',
-      url: '',
+      url: '/app/exercise',
       active: false,
     },
   ];
@@ -132,7 +126,8 @@ export class DefaultLayoutComponent implements OnInit {
   sidebarElementClicked(e: SidebarElement) {
     this.sideBarVisible = false;
     if (e.name === 'Logout') {
-      return this.appService.logout();
+      this.appService.logout();
+      return this.router.navigateByUrl('/');
     }
     this.router.navigateByUrl(e.url);
   }
