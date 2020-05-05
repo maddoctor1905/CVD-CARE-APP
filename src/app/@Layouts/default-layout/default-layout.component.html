@@ -1,7 +1,19 @@
 <div class="default-layout has-navbar-fixed-top has-navbar-fixed-bottom">
-  <app-top-bar (iconSidebarClicked)="setSidebarState(!sideBarVisible)"></app-top-bar>
+  <app-top-bar (iconSidebarClicked)="setSidebarState(!sideBarVisible)"
+               (iconMoreClicked)="showLangPopup()"></app-top-bar>
   <app-sidebar [sidebarQuickLinksElements]="sidebarLinksElements"
-               [sidebarCommunicateElements]="sidebarCommunicateElements" [visible]="sideBarVisible" (elementClicked)="sidebarElementClicked($event)" (clickOutside)="setSidebarState(!sideBarVisible)"></app-sidebar>
+               [sidebarCommunicateElements]="sidebarCommunicateElements" [visible]="sideBarVisible"
+               (elementClicked)="sidebarElementClicked($event)"
+               (clickOutside)="setSidebarState(!sideBarVisible)"></app-sidebar>
   <router-outlet></router-outlet>
   <app-bottom-bar [elements]="bottomBarElements" (elementClicked)="bottomBarElementClickEvent($event)"></app-bottom-bar>
+  <div class="modal" [class.is-active]="modal.is.visible">
+    <div class="modal-background" (click)="closeModal()"></div>
+    <div class="modal-content" style="padding: 1rem">
+      <app-choose-lang-subpage [actualLang]="modal.has.contextData" [cardMode]="true"
+                               *ngIf="modal.is.visible && modal.is.langView"
+                               (langSelected)="langSelected($event)"></app-choose-lang-subpage>
+    </div>
+    <button class="modal-close is-large" (click)="closeModal()" aria-label="close"></button>
+  </div>
 </div>

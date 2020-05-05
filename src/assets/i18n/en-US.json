@@ -18,5 +18,21 @@
 	"sidebar.logout": "Logout",
 	"sidebar.personalDetails": "Personal Details",
   "event.medication.title": "You have to take your medication",
-  "event.investigation.title": "You have to visit your doctor"
+  "event.investigation.title": "You have to visit your doctor",
+  "personalDetails.title": "Personal Details",
+  "personalDetails.PatName.label": "User",
+  "personalDetails.PatName.placeholder": "Suresh Alimad",
+  "personalDetails.Location.label": "Address",
+  "personalDetails.Location.placeholder": "Mandavi Emerald, Eshwar Nagar, Manipal",
+  "personalDetails.MobileNo.label": "Mobile Phone",
+  "personalDetails.MobileNo.placeholder": "9900410153",
+  "personalDetails.AltMobileNo.label": "Other Phone",
+  "personalDetails.AltMobileNo.placeholder": "8855229634",
+  "personalDetails.Birth.label": "Birth Date",
+  "personalDetails.Email.label": "Email",
+  "personalDetails.Religion.label": "Religion",
+  "personalDetails.Religion.placeholder": "Catholic",
+  "personalDetails.Graduation.label": "Graduation",
+  "personalDetails.Graduation.placeholder": "MIT Institute of Technology",
+  "personalDetails.button.save": "Save"
 }

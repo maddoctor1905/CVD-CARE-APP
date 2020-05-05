@@ -1,0 +1,111 @@
+<section class="section">
+  <h1 class="title is-3" [innerHTML]="'personalDetails.title' | translate"></h1>
+  <form (ngSubmit)="submit()" [formGroup]="form" *ngIf="form">
+    <div class="field">
+      <label class="label">ID</label>
+      <p class="control has-icons-left">
+        <input class="input" type="number" formControlName="id" placeholder="1571">
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconAddressBook"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('id').valid">This id is invalid</p>
+    </div>
+    <div class="field">
+      <label class="label" [innerHTML]="'personalDetails.PatName.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input class="input" type="text" formControlName="PatName"
+               placeholder="{{'personalDetails.PatName.placeholder' | translate}}"
+        >
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconUser"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('PatName').valid">This PatName is invalid</p>
+    </div>
+    <div class="field">
+      <label class="label" [innerHTML]="'personalDetails.Location.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input class="input" type="text" formControlName="Location"
+               placeholder="{{'personalDetails.Location.placeholder' | translate}}"
+        >
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconAddress"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('Location').valid">This Location is invalid</p>
+    </div>
+    <div class="field">
+      <label class="label" [innerHTML]="'personalDetails.MobileNo.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input class="input" type="number" formControlName="MobileNo"
+               placeholder="{{'personalDetails.MobileNo.placeholder' | translate}}"
+        >
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconPhone"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('MobileNo').valid">This MobileNo is invalid</p>
+    </div>
+    <div class="field">
+      <label class="label" [innerHTML]="'personalDetails.AltMobileNo.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input class="input" type="number" formControlName="AltMobileNo"
+               placeholder="{{'personalDetails.AltMobileNo.placeholder' | translate}}"
+        >
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconMobile"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('AltMobileNo').valid">This AltMobileNo is invalid</p>
+    </div>
+    <div class="field">
+      <label class="label" [innerHTML]="'personalDetails.Birth.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input class="input" type="date" formControlName="Birth" placeholder="1998-10-20">
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconCalendarCheck"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('Birth').valid">This Birth is invalid</p>
+    </div>
+    <div class="field">
+      <label class="label" [innerHTML]="'personalDetails.Email.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input class="input" type="email" formControlName="Email" placeholder="contact@enoviah.fr">
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconAt"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('Email').valid">This Email is invalid</p>
+    </div>
+    <div class="field">
+      <label class="label" [innerHTML]="'personalDetails.Religion.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input class="input" type="text" formControlName="Religion"
+               placeholder="{{'personalDetails.Religion.placeholder' | translate}}"
+        >
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconPlaceOfWorship"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('Religion').valid">This Religion is invalid</p>
+    </div>
+    <div class="field">
+      <label class="label" [innerHTML]="'personalDetails.Graduation.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input class="input" type="text" formControlName="Graduation"
+               placeholder="{{'personalDetails.Religion.placeholder' | translate}}"
+        >
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconGraduationCap"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('Graduation').valid">This Graduation is invalid</p>
+    </div>
+    <div class="field">
+      <button class="button is-primary is-fullwidth" [disabled]="!form.valid || !form.dirty"
+              type="submit">{{'personalDetails.button.save' | translate}}</button>
+    </div>
+  </form>
+</section>

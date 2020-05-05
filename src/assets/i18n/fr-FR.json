@@ -18,5 +18,21 @@
 	"sidebar.logout": "Déconnection",
 	"sidebar.personalDetails": "Détails Personnels",
   "event.medication.title": "Vous devez prendre votre traitement",
-  "event.investigation.title": "Vous devez vous rendre chez votre docteur"
+  "event.investigation.title": "Vous devez vous rendre chez votre docteur",
+  "personalDetails.title": "Détails Personnel",
+  "personalDetails.PatName.label": "Utilisateur",
+  "personalDetails.PatName.placeholder": "Suresh Alimad",
+  "personalDetails.Location.label": "Addresse",
+  "personalDetails.Location.placeholder": "Mandavi Emerald, Eshwar Nagar, Manipal",
+  "personalDetails.MobileNo.label": "Téléphone",
+  "personalDetails.MobileNo.placeholder": "9900410153",
+  "personalDetails.AltMobileNo.label": "Autre Téléphone",
+  "personalDetails.AltMobileNo.placeholder": "8855229634",
+  "personalDetails.Birth.label": "Date de naissance",
+  "personalDetails.Email.label": "Email",
+  "personalDetails.Religion.label": "Religion",
+  "personalDetails.Religion.placeholder": "Catholic",
+  "personalDetails.Graduation.label": "Diplôme",
+  "personalDetails.Graduation.placeholder": "MIT Institute of Technology",
+  "personalDetails.button.save": "Sauvegarder"
 }

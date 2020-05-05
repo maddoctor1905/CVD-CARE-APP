@@ -6,6 +6,7 @@ import {DefaultLayoutRoutingModule} from './default-layout-routing.module';
 import {BottomBarModule} from '../../@Components/bottom-bar/bottom-bar.module';
 import {TopBarModule} from '../../@Components/top-bar/top-bar.module';
 import {SidebarModule} from '../../@Components/sidebar/sidebar.module';
+import {ChooseLangSubpageModule} from '../../@SubPages/choose-lang-subpage/choose-lang-subpage.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {SidebarModule} from '../../@Components/sidebar/sidebar.module';
     DefaultLayoutRoutingModule,
     BottomBarModule,
     TopBarModule,
-    SidebarModule
+    SidebarModule,
+    ChooseLangSubpageModule
   ],
   exports: [DefaultLayoutComponent]
 })

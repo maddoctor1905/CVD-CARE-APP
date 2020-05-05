@@ -1,10 +1,10 @@
-<div class="choose-lang-subpage has-text-centered is-grouped-centered">
+<div class="choose-lang-subpage has-text-centered is-grouped-centered" [class.card]="cardMode">
   <section class="section">
     <p class="title is-5">{{'firstInstall.chooseLang.title' | translate}}</p>
     <div class="field">
       <div class="control has-icons-left is-inline-block">
         <div class="select is-medium">
-          <select #selectRef (change)="selectChange(selectRef)">
+          <select #selectRef [(ngModel)]="actualLang" (change)="selectChange(selectRef)">
             <option disabled class="is-unselectable">Lang</option>
             <option>English</option>
             <option>ಕನ್ನಡ</option>

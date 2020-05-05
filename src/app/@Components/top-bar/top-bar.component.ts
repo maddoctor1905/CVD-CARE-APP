@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {faBars, faEllipsisV, faGlobeAsia} from '@fortawesome/free-solid-svg-icons';
+import {faBars, faLanguage} from '@fortawesome/free-solid-svg-icons';
+import {TopBarService} from './top-bar.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -8,13 +9,14 @@ import {faBars, faEllipsisV, faGlobeAsia} from '@fortawesome/free-solid-svg-icon
 })
 export class TopBarComponent implements OnInit {
   iconSidebar = faBars;
-  iconLang = faGlobeAsia;
-  iconMore = faEllipsisV;
+  iconLang = faLanguage;
 
   @Output() iconSidebarClicked = new EventEmitter();
   @Output() iconMoreClicked = new EventEmitter();
 
-  constructor() {
+  constructor(
+    private topBarService: TopBarService,
+  ) {
   }
 
   ngOnInit() {
@@ -22,5 +24,13 @@ export class TopBarComponent implements OnInit {
 
   sideBarIconClicked() {
     this.iconSidebarClicked.emit();
+  }
+
+  moreIconClicked() {
+    this.iconMoreClicked.emit();
+  }
+
+  isSpinning() {
+    return (this.topBarService.isSpinning$);
   }
 }

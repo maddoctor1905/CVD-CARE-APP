@@ -55,7 +55,7 @@ export class DefaultLayoutComponent implements OnInit {
     }, {
       icon: faUser,
       name: 'sidebar.personalDetails',
-      url: '',
+      url: '/app/personal-details',
       active: false,
     }, {
       icon: faUserMd,
@@ -88,6 +88,17 @@ export class DefaultLayoutComponent implements OnInit {
     },
   ];
 
+  modal = {
+    is: {
+      visible: false,
+      langView: false,
+    },
+    has: {
+      closeProtection: false,
+      contextData: {},
+    }
+  };
+
   constructor(private router: Router,
               private appService: AppService,
               private translateService: TranslateService
@@ -119,10 +130,41 @@ export class DefaultLayoutComponent implements OnInit {
   }
 
   sidebarElementClicked(e: SidebarElement) {
+    this.sideBarVisible = false;
     if (e.name === 'Logout') {
       return this.appService.logout();
     }
     this.router.navigateByUrl(e.url);
+  }
+
+  showLangPopup() {
+    this.modal.is.langView = true;
+    this.modal.is.visible = true;
+    switch (this.translateService.getDefaultLang()) {
+      case 'en-US':
+        this.modal.has.contextData = 'English';
+        break;
+      case 'fr-FR':
+        this.modal.has.contextData = 'Francais';
+        break;
+      case 'kn-IN':
+        this.modal.has.contextData = 'ಕನ್ನಡ';
+        break;
+    }
+  }
+
+  langSelected(locale: string) {
+    this.translateService.use(locale);
+    this.translateService.setDefaultLang(locale);
+    localStorage.setItem('favoriteLang', locale);
+    this.modal.is.visible = false;
+    this.modal.is.langView = false;
+  }
+
+  closeModal() {
+    if (!this.modal.has.closeProtection) {
+      this.modal.is.visible = false;
+    }
   }
 
   private translateBottombar() {

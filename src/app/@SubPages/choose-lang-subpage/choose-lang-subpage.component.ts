@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {faGlobe} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -10,6 +10,8 @@ export class ChooseLangSubpageComponent implements OnInit {
   changeLangIcon = faGlobe;
 
   @Output() langSelected = new EventEmitter<string>();
+  @Input() cardMode = false;
+  @Input() actualLang = 'English';
 
   constructor() {
   }

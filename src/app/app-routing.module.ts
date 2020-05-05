@@ -52,6 +52,10 @@ const routes: Routes = [
         loadChildren: () => import('./@Pages/day-page/day-page.module').then(m => m.DayPageModule)
       },
       {
+        path: 'personal-details',
+        loadChildren: () => import('./@Pages/personal-details/personal-details.module').then(m => m.PersonalDetailsModule)
+      },
+      {
         path: 'home',
         loadChildren: () => import('./@Pages/home-page/home-page.module').then(m => m.HomePageModule)
       },

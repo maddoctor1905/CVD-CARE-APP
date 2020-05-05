@@ -29,6 +29,19 @@ body {
   margin-bottom: 1.5rem;
 }
 
+.is-spinning {
+  -webkit-animation: rotation 2s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
 .shake-horizontal {
   -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
   animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
@@ -72,6 +85,7 @@ body {
     transform-origin: 0% 0%;
   }
 }
+
 @keyframes scale-up-hor-left {
   0% {
     -webkit-transform: scaleX(0.4);

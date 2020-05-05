@@ -10,14 +10,16 @@
     <div class="navbar-center">
 
       <div class="navbar-item title is-4 is-uppercase">
-        Day
+        <figure class="image is-64x64" style="padding: 1rem">
+          <img src="./assets/logo.png" [class.is-spinning]="isSpinning() | async" style="max-height: unset">
+        </figure>
       </div>
 
     </div>
     <div class="navbar-end">
       <div class="navbar-item">
-        <span class="icon" tabindex="2" (click)="sideBarIconClicked()">
-          <fa-icon [icon]="iconMore"></fa-icon>
+        <span class="icon" tabindex="2" (click)="moreIconClicked()">
+          <fa-icon [icon]="iconLang"></fa-icon>
         </span>
       </div>
     </div>
