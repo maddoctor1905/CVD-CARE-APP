@@ -1,10 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {faPhone} from '@fortawesome/free-solid-svg-icons';
+import {faInfoCircle, faPhone} from '@fortawesome/free-solid-svg-icons';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 export interface PhoneNumberChange {
   status: boolean;
-  value: string;
+  phoneNumber: string;
+  fullName: string;
 }
 
 @Component({
@@ -14,10 +15,12 @@ export interface PhoneNumberChange {
 })
 export class EnterPhonenumberSubpageComponent implements OnInit {
   iconPhone = faPhone;
+  iconName = faInfoCircle;
   @Input() phoneNumber = '';
   form: FormGroup = new FormGroup({
     phoneNumber: new FormControl(this.phoneNumber,
-      [Validators.required, Validators.pattern(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/)])
+      [Validators.required, Validators.pattern(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/)]),
+    fullName: new FormControl('', [Validators.required, Validators.minLength(1)]),
   });
   @Output() phoneNumberChange: EventEmitter<PhoneNumberChange> = new EventEmitter();
   @Input() error: string;
@@ -26,11 +29,12 @@ export class EnterPhonenumberSubpageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.form.get('phoneNumber').valueChanges.subscribe((value: string) => {
+    this.form.valueChanges.subscribe((value: string) => {
+      const form = this.form.getRawValue();
       if (this.form.valid) {
-        this.phoneNumberChange.emit({status: true, value});
+        this.phoneNumberChange.emit({status: true, ...form});
       } else {
-        this.phoneNumberChange.emit({status: false, value});
+        this.phoneNumberChange.emit({status: false, ...form});
       }
     });
   }

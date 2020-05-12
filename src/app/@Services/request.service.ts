@@ -38,4 +38,8 @@ export class RequestService {
   getPatientInvestigations(id: string): Observable<PatientInvestigation[]> {
     return this.http.get<PatientInvestigation[]>(`${environment.apiRootUrl}/patients/${id}/investigations`);
   }
+
+  updatePatient(body: Partial<Patient>, id: number): Observable<Patient> {
+    return this.http.put<Patient>(`${environment.apiRootUrl}/patients/${id}`, body);
+  }
 }

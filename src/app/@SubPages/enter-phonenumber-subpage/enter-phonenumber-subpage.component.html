@@ -9,6 +9,12 @@
           <fa-icon [icon]="iconPhone"></fa-icon>
         </span>
         </p>
+        <p class="control has-icons-left" style="margin-top: 1rem">
+          <input class="input" type="text" formControlName="fullName" placeholder="John Doe">
+          <span class="icon is-small is-left">
+          <fa-icon [icon]="iconName"></fa-icon>
+        </span>
+        </p>
       </form>
     </div>
     <div class="field" *ngIf="error">

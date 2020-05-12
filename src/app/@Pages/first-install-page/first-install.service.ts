@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {PhoneNumberChange} from '../../@SubPages/enter-phonenumber-subpage/enter-phonenumber-subpage.component';
 import {RequestService} from '../../@Services/request.service';
-import {map, tap} from 'rxjs/operators';
+import {map, mergeMap, tap} from 'rxjs/operators';
 import {Otp} from '../../@Models/otp.model';
 import {Observable} from 'rxjs';
 import {Patient} from '../../@Models/patient';
@@ -19,6 +19,7 @@ export class FirstInstallService {
     phone: false,
     otp: false,
   };
+  private _name: string;
 
   get lang(): string {
     return this._lang;
@@ -66,16 +67,23 @@ export class FirstInstallService {
   phoneNumberChange(event: PhoneNumberChange) {
     this._steps.phone = event.status;
     if (event.status) {
-      this._phoneNumber = event.value;
+      this._phoneNumber = event.phoneNumber;
+      this._name = event.fullName;
     }
   }
 
   finishInstallation() {
-    return this.patientService.initFromPhone(this.phoneNumber);
+    return this.patientService.initFromPhone(this.phoneNumber).pipe(mergeMap((patient: Patient) => {
+      return this.updateName(patient.id);
+    }));
   }
 
   getPatient(): Observable<Patient> {
     return this.requestService.getPatientByPhone(this._phoneNumber);
+  }
+
+  updateName(id: number): Observable<Patient> {
+    return this.requestService.updatePatient({PatName: this._name}, id);
   }
 
   constructor(private requestService: RequestService, private readonly patientService: PatientService) {
