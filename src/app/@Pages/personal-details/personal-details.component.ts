@@ -12,6 +12,8 @@ import {
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Patient} from '../../@Models/patient';
 import {TopBarService} from '../../@Components/top-bar/top-bar.service';
+import {PatientService} from '../../@Services/patient.service';
+import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-personal-details',
@@ -30,42 +32,19 @@ export class PersonalDetailsComponent implements OnInit {
   iconAddress = faMapMarkedAlt;
   form: FormGroup;
 
-  patient: Patient = {
-    Address: '',
-    AltMobileNo: 9900410153,
-    CGId: 0,
-    City: '',
-    Email: 'contact@enoviah.fr',
-    FCGEmail: '',
-    FCGName: '',
-    IsOwnPhone: 0,
-    IsSmartPhone: 0,
-    KCity: '',
-    KFCGName: '',
-    KLocation: '',
-    Location: '',
-    MobileNo: 8855229634,
-    PatDesc: '',
-    PatName: 'Suresh Alimad',
-    Pincode: 0,
-    Registered: 0,
-    Relationship: '',
-    id: 564
-  };
+  patient: Patient;
 
   constructor(
     private topBarService: TopBarService,
+    private readonly patientService: PatientService,
   ) {
   }
 
   ngOnInit() {
     this.topBarService.setSpinning(true);
-    setTimeout(() => {
+    this.patientService.patient$.pipe(filter((patient) => !!patient)).subscribe((patient: Patient) => {
       this.topBarService.setSpinning(false);
-      const patientCached = localStorage.getItem('personalDetails');
-      if (patientCached) {
-        this.patient = JSON.parse(patientCached);
-      }
+      this.patient = patient;
       this.form = new FormGroup({
         id: new FormControl(this.patient.id,
           [Validators.min(0), Validators.max(9999999)]),
@@ -80,19 +59,18 @@ export class PersonalDetailsComponent implements OnInit {
         Location: new FormControl(this.patient.Location,
           []),
         // Other
-        Religion: new FormControl('',
-          []),
-        Graduation: new FormControl('',
-          []),
-        Birth: new FormControl('',
+        Relationship: new FormControl('',
           []),
       });
-    }, 1000);
+    });
   }
 
   submit() {
     if (this.form.valid) {
-      this.patient = {...this.patient, ...this.form.value};
+      const data = this.form.getRawValue();
+      this.patientService.update(data).subscribe((patient: Patient) => {
+        this.patientService.patient$.next(patient);
+      });
       localStorage.setItem('personalDetails', JSON.stringify(this.patient));
     }
   }

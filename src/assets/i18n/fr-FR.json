@@ -30,8 +30,8 @@
   "personalDetails.AltMobileNo.placeholder": "8855229634",
   "personalDetails.Birth.label": "Date de naissance",
   "personalDetails.Email.label": "Email",
-  "personalDetails.Religion.label": "Religion",
-  "personalDetails.Religion.placeholder": "Catholic",
+  "personalDetails.Relationship.label": "Status",
+  "personalDetails.Relationship.placeholder": "Marié",
   "personalDetails.Graduation.label": "Diplôme",
   "personalDetails.Graduation.placeholder": "MIT Institute of Technology",
   "personalDetails.button.save": "Sauvegarder"

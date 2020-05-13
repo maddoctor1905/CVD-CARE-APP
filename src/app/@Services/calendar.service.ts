@@ -5,6 +5,7 @@ import {WeekElement} from '../@Models/calendar.model';
 import {PatientMedicationService} from './patient-medication.service';
 import {PatientInvestigationService} from './patient-investigation.service';
 import {PatientService} from './patient.service';
+import {filter, take} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -46,11 +47,9 @@ export class CalendarService {
   }
 
   linkPatientData(date: Date) {
-    this.patientService.patient$.subscribe((patient) => {
-      if (patient) {
+    this.patientService.patient$.pipe(filter((p) => !!p), take(1)).subscribe((patient) => {
         this.patientMedicationService.init().subscribe();
         this.patientInvestigationService.init().subscribe();
-      }
     });
     this.patientMedicationService.ready$.subscribe(() => {
       this.linkMedicationsToCalendar(date);

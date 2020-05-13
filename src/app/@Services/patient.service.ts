@@ -56,5 +56,8 @@ export class PatientService {
       }
     });
   }
+  public update(body: Partial<Patient>): Observable<Patient> {
+    return this.requestService.updatePatient(body, this.patient.id);
+  }
 
 }

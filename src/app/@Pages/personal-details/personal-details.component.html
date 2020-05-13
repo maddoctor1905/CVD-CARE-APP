@@ -59,7 +59,7 @@
       </p>
       <p class="help is-danger" *ngIf="!form.get('AltMobileNo').valid">This AltMobileNo is invalid</p>
     </div>
-    <div class="field">
+    <!--<div class="field">
       <label class="label" [innerHTML]="'personalDetails.Birth.label' | translate"></label>
       <p class="control has-icons-left">
         <input class="input" type="date" formControlName="Birth" placeholder="1998-10-20">
@@ -68,7 +68,7 @@
         </span>
       </p>
       <p class="help is-danger" *ngIf="!form.get('Birth').valid">This Birth is invalid</p>
-    </div>
+    </div>-->
     <div class="field">
       <label class="label" [innerHTML]="'personalDetails.Email.label' | translate"></label>
       <p class="control has-icons-left">
@@ -80,28 +80,16 @@
       <p class="help is-danger" *ngIf="!form.get('Email').valid">This Email is invalid</p>
     </div>
     <div class="field">
-      <label class="label" [innerHTML]="'personalDetails.Religion.label' | translate"></label>
+      <label class="label" [innerHTML]="'personalDetails.Relationship.label' | translate"></label>
       <p class="control has-icons-left">
-        <input class="input" type="text" formControlName="Religion"
-               placeholder="{{'personalDetails.Religion.placeholder' | translate}}"
+        <input class="input" type="text" formControlName="Relationship"
+               placeholder="{{'personalDetails.Relationship.placeholder' | translate}}"
         >
         <span class="icon is-small is-left">
           <fa-icon [icon]="iconPlaceOfWorship"></fa-icon>
         </span>
       </p>
-      <p class="help is-danger" *ngIf="!form.get('Religion').valid">This Religion is invalid</p>
-    </div>
-    <div class="field">
-      <label class="label" [innerHTML]="'personalDetails.Graduation.label' | translate"></label>
-      <p class="control has-icons-left">
-        <input class="input" type="text" formControlName="Graduation"
-               placeholder="{{'personalDetails.Religion.placeholder' | translate}}"
-        >
-        <span class="icon is-small is-left">
-          <fa-icon [icon]="iconGraduationCap"></fa-icon>
-        </span>
-      </p>
-      <p class="help is-danger" *ngIf="!form.get('Graduation').valid">This Graduation is invalid</p>
+      <p class="help is-danger" *ngIf="!form.get('Relationship').valid">This Relationship is invalid</p>
     </div>
     <div class="field">
       <button class="button is-primary is-fullwidth" [disabled]="!form.valid || !form.dirty"
