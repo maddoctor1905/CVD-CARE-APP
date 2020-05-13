@@ -2,6 +2,31 @@
   "configVersion": 1,
   "timestamp": 1587728304491,
   "index": "/index.html",
+  "dataGroups": [
+    {
+      "name": "api-performance",
+      "urls": [
+        "https://mit-api.enoviah.fr/patients/**"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 100,
+        "maxAge": "3d"
+      }
+    },
+    {
+      "name": "api-freshness",
+      "urls": [
+        "https://mit-api.enoviah.fr/patients/**"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 100,
+        "maxAge": "3d",
+        "timeout": "10s"
+      }
+    }
+  ],
   "assetGroups": [
     {
       "name": "app",
@@ -59,7 +84,6 @@
       "patterns": []
     }
   ],
-  "dataGroups": [],
   "hashTable": {
     "/10-es2015.bb5c9e4748c9c4c5e38a.js": "fc4d5c6907f22d6dd2d6f321129ea3c62cd67db9",
     "/10-es5.bb5c9e4748c9c4c5e38a.js": "65e2c6137aa3c92d2ef2fed252d63e71d3e485ad",
