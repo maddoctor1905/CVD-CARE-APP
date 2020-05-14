@@ -52,6 +52,28 @@
           </a>
         </li>
       </ul>
+      <p class="menu-label">
+        Settings
+      </p>
+      <ul class="menu-list">
+        <li *ngFor="let item of sidebarSettingElements">
+          <a [class.is-active]="item.active" (click)="elementClick(item)" class="level is-mobile">
+            <!-- Left side -->
+            <div class="level-left">
+              <div class="level-item">
+                <span class="icon is-large">
+                  <fa-icon size="lg" [icon]="item.icon"></fa-icon>
+                </span>
+              </div>
+            </div>
+
+            <!-- Right side -->
+            <div class="level-right">
+              <a [class.is-active]="item.active" class="level-item is-paddingless">{{item.name}}</a>
+            </div>
+          </a>
+        </li>
+      </ul>
     </aside>
   </div>
 </ng-container>

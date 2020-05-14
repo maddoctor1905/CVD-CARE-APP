@@ -3,7 +3,7 @@ import {BottomBarElement} from '../../@Components/bottom-bar/bottom-bar.model';
 import {
   faAmbulance,
   faCalendarDay,
-  faHome,
+  faHome, faLanguage,
   faRunning,
   faSignOutAlt,
   faUser,
@@ -11,7 +11,7 @@ import {
   faUtensils
 } from '@fortawesome/free-solid-svg-icons';
 import {NavigationEnd, Router} from '@angular/router';
-import {SidebarElement} from '../../@Components/sidebar/sidebar.model';
+import {SidebarElement, SidebarSettingElement} from '../../@Components/sidebar/sidebar.model';
 import {AppService} from '../../@Services/app.service';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -56,7 +56,7 @@ export class DefaultLayoutComponent implements OnInit {
       name: 'sidebar.personalDetails',
       url: '/app/personal-details',
       active: false,
-    },  {
+    }, {
       icon: faUtensils,
       name: 'sidebar.diet',
       url: '/app/diet',
@@ -74,11 +74,23 @@ export class DefaultLayoutComponent implements OnInit {
       name: 'sidebar.emergency',
       url: '',
       active: false,
-    }, {
+    }
+  ];
+
+  sidebarSettingElements: SidebarElement[] = [
+    {
+      icon: faLanguage,
+      name: 'sidebar.lang',
+      url: '',
+      active: false,
+      custom: this.showLangPopup.bind(this),
+    },
+    {
       icon: faSignOutAlt,
       name: 'sidebar.logout',
       url: '',
       active: false,
+      custom: () => '',
     },
   ];
 
@@ -129,7 +141,11 @@ export class DefaultLayoutComponent implements OnInit {
       this.appService.logout();
       return this.router.navigateByUrl('/');
     }
-    this.router.navigateByUrl(e.url);
+    if (e.custom) {
+      e.custom();
+    } else {
+      this.router.navigateByUrl(e.url);
+    }
   }
 
   showLangPopup() {
@@ -149,6 +165,7 @@ export class DefaultLayoutComponent implements OnInit {
   }
 
   langSelected(locale: string) {
+    console.log(locale);
     this.translateService.use(locale);
     this.translateService.setDefaultLang(locale);
     localStorage.setItem('favoriteLang', locale);
@@ -174,6 +191,9 @@ export class DefaultLayoutComponent implements OnInit {
     });
     this.sidebarLinksElements.forEach(e => {
       this.translateService.get(e.name).subscribe(translatedText => e.name = translatedText);
+    });
+    this.sidebarSettingElements.forEach(e => {
+      this.translateService.get(e.name).subscribe(t => e.name = t);
     });
   }
 }

@@ -2,7 +2,9 @@
   <app-top-bar (iconSidebarClicked)="setSidebarState(!sideBarVisible)"
                (iconMoreClicked)="showLangPopup()"></app-top-bar>
   <app-sidebar [sidebarQuickLinksElements]="sidebarLinksElements"
-               [sidebarCommunicateElements]="sidebarCommunicateElements" [visible]="sideBarVisible"
+               [sidebarCommunicateElements]="sidebarCommunicateElements"
+               [sidebarSettingElements]="sidebarSettingElements"
+               [visible]="sideBarVisible"
                (elementClicked)="sidebarElementClicked($event)"
                (clickOutside)="setSidebarState(!sideBarVisible)"></app-sidebar>
   <router-outlet></router-outlet>

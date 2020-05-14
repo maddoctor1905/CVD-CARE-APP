@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {faAmbulance, faHome, faRunning, faSignOutAlt, faUser, faUserMd, faUtensils} from '@fortawesome/free-solid-svg-icons';
-import {SidebarElement} from './sidebar.model';
+import {SidebarElement, SidebarSettingElement} from './sidebar.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,7 +13,7 @@ export class SidebarComponent implements OnInit {
   @Input() visible = false;
   @Input() sidebarQuickLinksElements: SidebarElement[] = [];
   @Input() sidebarCommunicateElements: SidebarElement[] = [];
-
+  @Input() sidebarSettingElements: SidebarElement[] = [];
   @Output() elementClicked = new EventEmitter<SidebarElement>();
 
   constructor() {
