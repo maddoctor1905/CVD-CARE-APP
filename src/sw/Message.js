@@ -1,10 +1,11 @@
 class MessageHandler {
 
-  constructor(self, medicationHandler, patientHandler, investigationHandler, db) {
+  constructor(self, medicationHandler, patientHandler, investigationHandler, recruitmentHandler, db) {
     this._self = self;
     this._medicationHandler = medicationHandler;
     this._patientHandler = patientHandler;
     this._investigationHandler = investigationHandler;
+    this._recruitmentHandler = recruitmentHandler;
     this._db = db;
   }
 
@@ -15,6 +16,7 @@ class MessageHandler {
 
   registerMessageListeners() {
     this._self.addEventListener('message', (event) => {
+      console.log(event);
       const data = event.data;
       if (data.command === 'medicationsSync') {
         this._medicationHandler.syncronizeFromMessage(data.message);
@@ -24,6 +26,8 @@ class MessageHandler {
         this._investigationHandler.syncronizeFromMessage(data.message)
       } else if (data.command === 'clear') {
         this.clear();
+      } else if (data.command === 'recruitmentsSync') {
+        this._recruitmentHandler.syncronizeFromMessage(data.message);
       }
     });
   }
@@ -32,8 +36,11 @@ class MessageHandler {
     this._self.addEventListener('periodicsync', (event) => {
       console.info("[PERIODIC SYNC] triggered");
       if (event.tag === 'content-sync') {
-        const checks = [this._medicationHandler.periodicSync(this._self.registration),
-          this._investigationHandler.periodicSync(this._self.registration)];
+        const checks = [
+          this._medicationHandler.periodicSync(this._self.registration),
+          this._investigationHandler.periodicSync(this._self.registration),
+          this._recruitmentHandler.periodicSync(this._self.registration)
+        ];
         event.waitUntil(Promise.all(checks));
       }
     });

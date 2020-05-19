@@ -18,5 +18,10 @@ export class CheckForUpdateService {
     console.log('test');
 
     everySixHoursOnceAppIsStable$.subscribe(() => updates.checkForUpdate());
+    updates.available.subscribe(event => {
+      if (prompt('New version available')) {
+        updates.activateUpdate().then(() => document.location.reload());
+      }
+    });
   }
 }

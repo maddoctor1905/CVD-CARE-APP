@@ -50,7 +50,8 @@ export class PatientService {
           command: 'patientSync',
           message: {
             installTime: time,
-            patient: this._patient.id
+            patient: this._patient.id,
+            name: this._patient.PatName
           }
         });
       }

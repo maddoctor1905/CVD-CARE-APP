@@ -23,11 +23,7 @@ export class DayPageComponent implements OnInit {
 
   iconsForFilterBar: IconBarElement[] = [
     {
-      char: '🚨',
-      active: true
-    },
-    {
-      char: '👔',
+      char: '🩺',
       active: true
     },
     {
@@ -35,8 +31,12 @@ export class DayPageComponent implements OnInit {
       active: true
     },
     {
-      char: '📅',
-      active: false
+      char: '🧪',
+      active: true
+    },
+    {
+      char: '🚨',
+      active: true
     },
   ];
 

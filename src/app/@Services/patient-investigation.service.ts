@@ -4,7 +4,7 @@ import {RequestService} from './request.service';
 import {InvestigationFrequency, PatientInvestigation} from '../@Models/investigation.model';
 import {Observable, of, Subject} from 'rxjs';
 import {CalendarEvent} from '../@Models/calendar.model';
-import {mergeMap, tap} from 'rxjs/operators';
+import {map, mergeMap, tap} from 'rxjs/operators';
 import {LocalNotificationService} from './local-notification.service';
 import {NotificationElement} from '../@Models/notification.model';
 import {ServiceWorkerService} from './service-worker.service';
@@ -86,7 +86,7 @@ export class PatientInvestigationService {
     }));
   }
 
-  findInvestigationsForDate(date: Date): Observable<CalendarEvent> {
+  findInvestigationsForDate(date: Date): Observable<CalendarEvent[]> {
     const result: PatientInvestigation[] = [];
     date.setHours(8, 0, 0, 0);
     for (const item of this._investigations) {
@@ -100,18 +100,18 @@ export class PatientInvestigationService {
         result.push(item);
       }
     }
-    return this.translateService.get('event.investigation.title').pipe(mergeMap((key) => {
-      return of((result.length) ? {
-        emoji: '👔',
-        from: new Date(Date.now()),
-        to: new Date(Date.now()),
-        text: result.map((item) => {
-          return item.Investigation.InvMName;
-        }),
-        title: key,
-        typeName: 'type',
-        urgent: false
-      } : null);
+    return this.translateService.get('event.investigation.title').pipe(map<string, CalendarEvent[]>((key: string) => {
+      return result.map((item) => {
+        return (result.length) ? {
+          emoji: '🧪',
+          from: new Date(Date.now()),
+          to: new Date(Date.now()),
+          text: [item.Investigation.Description],
+          title: `${this.patientService.patient.PatName} - ${item.Investigation.InvMName} ${key}`,
+          typeName: 'type',
+          urgent: false
+        } : null;
+      });
     }));
   }
 
@@ -144,9 +144,12 @@ export class PatientInvestigationService {
 
 
   private sendNotification(investigation: PatientInvestigation) {
-    const body = 'You have an investigation tomorrow\n ' + investigation.Investigation.InvMName;
-    this.localNotificationService.send('Investigation',
-      {...this.notificationElement, body});
+    this.translateService.get('event.investigation.title').subscribe((key: string) => {
+      const body = `${this.patientService.patient.PatName} - ${investigation.Investigation.InvMName} ${key}`;
+      this.localNotificationService.send('Investigation tomorrow',
+        {...this.notificationElement, body});
+    });
+
   }
 
   private syncWithSW() {

@@ -6,6 +6,8 @@ import {PatientMedicationService} from './patient-medication.service';
 import {PatientInvestigationService} from './patient-investigation.service';
 import {PatientService} from './patient.service';
 import {filter, take} from 'rxjs/operators';
+import {PatientRecruitment} from '../@Models/recruitment.model';
+import {PatientRecruitmentService} from './patient-recruitment.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,8 @@ export class CalendarService {
     private http: HttpClient,
     private readonly patientMedicationService: PatientMedicationService,
     private readonly patientInvestigationService: PatientInvestigationService,
-    private readonly patientService: PatientService
+    private readonly patientService: PatientService,
+    private readonly patientRecruitmentService: PatientRecruitmentService
   ) {
   }
 
@@ -31,7 +34,7 @@ export class CalendarService {
     };
     tmpDate = limiter.from;
     const result: WeekElement[] = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 15; i++) {
       const week: WeekElement = {active: (i === 2), days: []};
       for (let a = 0; a < 7; a++) {
         week.days.push({
@@ -48,14 +51,18 @@ export class CalendarService {
 
   linkPatientData(date: Date) {
     this.patientService.patient$.pipe(filter((p) => !!p), take(1)).subscribe((patient) => {
-        this.patientMedicationService.init().subscribe();
-        this.patientInvestigationService.init().subscribe();
+      this.patientMedicationService.init().subscribe();
+      this.patientInvestigationService.init().subscribe();
+      this.patientRecruitmentService.init().subscribe();
     });
     this.patientMedicationService.ready$.subscribe(() => {
       this.linkMedicationsToCalendar(date);
     });
     this.patientInvestigationService.ready$.subscribe(() => {
       this.linkInvestigationsToCalendar(date);
+    });
+    this.patientRecruitmentService.ready$.subscribe(() => {
+      this.linkRecruitmentsToCalendar(date);
     });
   }
 
@@ -76,6 +83,19 @@ export class CalendarService {
     for (const week of this._calendar) {
       for (const day of week.days) {
         this.patientInvestigationService.findInvestigationsForDate(day.date).subscribe((event) => {
+          if (event) {
+            day.events.push(...event);
+          }
+        });
+      }
+    }
+    this.calendar$.next(this._calendar);
+  }
+
+  linkRecruitmentsToCalendar(date: Date) {
+    for (const week of this._calendar) {
+      for (const day of week.days) {
+        this.patientRecruitmentService.findInvestigationsForDate(day.date).subscribe((event) => {
           if (event) {
             day.events.push(event);
           }

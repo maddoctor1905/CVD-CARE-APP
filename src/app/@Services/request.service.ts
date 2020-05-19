@@ -7,6 +7,7 @@ import {Patient} from '../@Models/patient';
 import {map} from 'rxjs/operators';
 import {PatientMedication} from '../@Models/medication.model';
 import {PatientInvestigation} from '../@Models/investigation.model';
+import {PatientRecruitment} from '../@Models/recruitment.model';
 
 @Injectable()
 export class RequestService {
@@ -33,6 +34,10 @@ export class RequestService {
 
   getPatientMedications(id: string): Observable<PatientMedication[]> {
     return this.http.get<PatientMedication[]>(`${environment.apiRootUrl}/patients/${id}/medications`);
+  }
+
+  getPatientRecruitment(id: string): Observable<PatientRecruitment[]> {
+    return this.http.get<PatientRecruitment[]>(`${environment.apiRootUrl}/patients/${id}/recruitments`);
   }
 
   getPatientInvestigations(id: string): Observable<PatientInvestigation[]> {

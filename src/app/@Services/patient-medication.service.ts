@@ -63,7 +63,6 @@ export class PatientMedicationService {
         this.sendNotification();
       }
       return this.translateService.get('event.medication.title').pipe(mergeMap((key) => {
-        console.log(key);
         return of({
           emoji: '💊',
           from: new Date(Date.now()),
@@ -71,7 +70,7 @@ export class PatientMedicationService {
           text: this.medications.map((item) => {
             return item.Medication.BrandName;
           }),
-          title: key,
+          title: `${this.patientService.patient.PatName} - ${key}`,
           typeName: 'type',
           urgent: false
         });
@@ -89,12 +88,11 @@ export class PatientMedicationService {
 
 
   private sendNotification() {
-    let body = '';
-    for (const med of this.medications) {
-      body += '\n ' + med.Medication.BrandName;
-    }
-    this.localNotificationService.send('Medication',
-      {...this.notificationElement, body: this.notificationElement.body + ' ' + body});
+    this.translateService.get('event.medication.title').subscribe((key: string) => {
+      this.localNotificationService.send('Medication tomorrow',
+        {...this.notificationElement, body: `${this.patientService.patient.PatName} - ${key}`});
+    });
+
   }
 
   private syncWithSW() {
