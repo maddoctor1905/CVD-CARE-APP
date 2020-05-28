@@ -6,7 +6,7 @@ describe('LocalNotificationService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: LocalNotificationService = TestBed.get(LocalNotificationService);
+    const service: LocalNotificationService = TestBed.inject(LocalNotificationService);
     expect(service).toBeTruthy();
   });
 });

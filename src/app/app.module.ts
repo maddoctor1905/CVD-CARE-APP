@@ -19,6 +19,10 @@ import {PatientMedicationService} from './@Services/patient-medication.service';
 import {PatientInvestigationService} from './@Services/patient-investigation.service';
 import {ServiceWorkerService} from './@Services/service-worker.service';
 import {PatientRecruitmentService} from './@Services/patient-recruitment.service';
+import {OverlayModule} from './@Components/overlay/overlay.module';
+import {YesOrNoDialogModule} from './@Components/dialogs/yes-or-no-dialog/yes-or-no-dialog.module';
+import {Overlay} from '@angular/cdk/overlay';
+import {ListDialogModule} from './@Components/dialogs/list-dialog/list-dialog.module';
 
 @NgModule({
   declarations: [
@@ -40,18 +44,24 @@ import {PatientRecruitmentService} from './@Services/patient-recruitment.service
         deps: [HttpClient]
       }
     }),
-    ServiceWorkerModule.register('sw-master.js', {enabled: true})
+    ServiceWorkerModule.register('sw-master.js', {enabled: true}),
+    // Add for DialogService System
+    OverlayModule,
+    YesOrNoDialogModule,
+    ListDialogModule,
   ],
   providers: [
     CheckForUpdateService,
     RequestService,
     PatientService,
+    Overlay,
     PatientMedicationService,
     PatientInvestigationService,
     ServiceWorkerService,
     PatientRecruitmentService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: []
 })
 export class AppModule {
 }

@@ -1,5 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bulma';
+@import "assets/css/bulma-checkradio.min.css";
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+}
 
 html {
   height: 100%;

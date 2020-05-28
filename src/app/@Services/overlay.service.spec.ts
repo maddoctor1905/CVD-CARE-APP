@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { StepperService } from './stepper.service';
+import { OverlayService } from './overlay.service';
 
-describe('StepperService', () => {
+describe('OverlayService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: StepperService = TestBed.inject(StepperService);
+    const service: OverlayService = TestBed.inject(OverlayService);
     expect(service).toBeTruthy();
   });
 });
