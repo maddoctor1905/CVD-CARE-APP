@@ -13,11 +13,10 @@
         </ng-container>
         <!------ CHECKBOX MODE (Multiple Choice)------>
         <ng-container *ngIf="mode === 'checkbox'">
-          <div class="field">
-            <input class="is-checkradio is-info" id="exampleCheckbox-{{index}}" type="checkbox" name="exampleCheckbox-{{index}}"
-                   [checked]="item.selected" [(ngModel)]="item.selected">
-            <label for="exampleCheckbox-{{index}}">{{item.value}}</label>
-          </div>
+          <input class="is-checkradio is-info" id="exampleCheckbox-{{index}}" type="checkbox"
+                 name="exampleCheckbox-{{index}}"
+                 [checked]="item.selected" [(ngModel)]="item.selected">
+          <label for="exampleCheckbox-{{index}}">{{item.value}}</label>
         </ng-container>
       </div>
     </div>
