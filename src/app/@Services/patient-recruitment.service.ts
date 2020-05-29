@@ -6,7 +6,7 @@ import {ServiceWorkerService} from './service-worker.service';
 import {TranslateService} from '@ngx-translate/core';
 import {mergeMap, tap} from 'rxjs/operators';
 import {PatientRecruitment} from '../@Models/recruitment.model';
-import {Observable, of, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 import {InvestigationFrequency, PatientInvestigation} from '../@Models/investigation.model';
 import {CalendarEvent} from '../@Models/calendar.model';
 import {NotificationElement} from '../@Models/notification.model';
@@ -20,7 +20,7 @@ export interface FrequencyMatcher {
 @Injectable()
 export class PatientRecruitmentService {
   recruitments: PatientRecruitment[] = [];
-  ready$ = new Subject<boolean>();
+  ready$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private frequency: FrequencyMatcher[] = [];
   public notificationElement: NotificationElement = {
     body: '',
@@ -82,7 +82,7 @@ export class PatientRecruitmentService {
       console.log(medications);
       this.recruitments = medications;
       localStorage.setItem('recruitments', JSON.stringify(medications));
-      this.ready$.next();
+      this.ready$.next(true);
       this.syncWithSW();
     })));
   }

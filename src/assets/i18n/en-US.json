@@ -36,5 +36,6 @@
   "personalDetails.Relationship.placeholder": "Married",
   "personalDetails.Graduation.label": "Graduation",
   "personalDetails.Graduation.placeholder": "MIT Institute of Technology",
-  "personalDetails.button.save": "Save"
+  "personalDetails.button.save": "Save",
+  "doctor.title": "Your doctors"
 }

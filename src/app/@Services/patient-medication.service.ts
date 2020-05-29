@@ -3,7 +3,7 @@ import {PatientService} from './patient.service';
 import {PatientMedication} from '../@Models/medication.model';
 import {RequestService} from './request.service';
 import {CalendarEvent} from '../@Models/calendar.model';
-import {Observable, of, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 import {mergeMap, tap} from 'rxjs/operators';
 import {LocalNotificationService} from './local-notification.service';
 import {NotificationElement} from '../@Models/notification.model';
@@ -18,7 +18,7 @@ export interface Reminder {
 export class PatientMedicationService {
   medications: PatientMedication[] = [];
   reminder: Reminder[] = [];
-  ready$: Subject<void> = new Subject<void>();
+  ready$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public notificationElement: NotificationElement = {
     body: 'Today medications',
     icon: 'assets/icons/doctor.png',
@@ -49,7 +49,7 @@ export class PatientMedicationService {
     return this.requestService.getPatientMedications(this.patientService.patient.id.toString()).pipe(tap((medications => {
       this.medications = medications;
       localStorage.setItem('medications', JSON.stringify(medications));
-      this.ready$.next();
+      this.ready$.next(true);
       this.syncWithSW();
     })));
   }

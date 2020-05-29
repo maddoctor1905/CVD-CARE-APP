@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, forkJoin} from 'rxjs';
 import {WeekElement} from '../@Models/calendar.model';
 import {PatientMedicationService} from './patient-medication.service';
 import {PatientInvestigationService} from './patient-investigation.service';
 import {PatientService} from './patient.service';
-import {filter, take} from 'rxjs/operators';
+import {filter, take, tap} from 'rxjs/operators';
 import {PatientRecruitment} from '../@Models/recruitment.model';
 import {PatientRecruitmentService} from './patient-recruitment.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CalendarService {
 
@@ -19,7 +19,7 @@ export class CalendarService {
     private readonly patientMedicationService: PatientMedicationService,
     private readonly patientInvestigationService: PatientInvestigationService,
     private readonly patientService: PatientService,
-    private readonly patientRecruitmentService: PatientRecruitmentService
+    private readonly patientRecruitmentService: PatientRecruitmentService,
   ) {
   }
 
@@ -40,7 +40,7 @@ export class CalendarService {
         week.days.push({
           date: new Date(tmpDate.setDate(tmpDate.getDate() + 1)),
           events: [],
-          active: (date.getDate() === tmpDate.getDate())
+          active: (date.getDate() === tmpDate.getDate()),
         });
       }
       result.push(week);
@@ -50,18 +50,11 @@ export class CalendarService {
   }
 
   linkPatientData(date: Date) {
-    this.patientService.patient$.pipe(filter((p) => !!p), take(1)).subscribe((patient) => {
-      this.patientMedicationService.init().subscribe();
-      this.patientInvestigationService.init().subscribe();
-      this.patientRecruitmentService.init().subscribe();
-    });
-    this.patientMedicationService.ready$.subscribe(() => {
+    forkJoin([this.patientMedicationService.ready$.pipe(filter(s => !!s), take(1)),
+      this.patientInvestigationService.ready$.pipe(filter(s => !!s), take(1)),
+      this.patientRecruitmentService.ready$.pipe(filter(s => !!s), take(1))]).subscribe((a) => {
       this.linkMedicationsToCalendar(date);
-    });
-    this.patientInvestigationService.ready$.subscribe(() => {
       this.linkInvestigationsToCalendar(date);
-    });
-    this.patientRecruitmentService.ready$.subscribe(() => {
       this.linkRecruitmentsToCalendar(date);
     });
   }

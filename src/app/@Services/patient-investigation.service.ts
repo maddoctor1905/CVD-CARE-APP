@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {PatientService} from './patient.service';
 import {RequestService} from './request.service';
 import {InvestigationFrequency, PatientInvestigation} from '../@Models/investigation.model';
-import {Observable, of, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 import {CalendarEvent} from '../@Models/calendar.model';
 import {map, mergeMap, tap} from 'rxjs/operators';
 import {LocalNotificationService} from './local-notification.service';
@@ -20,7 +20,7 @@ export interface FrequencyMatcher {
 @Injectable()
 export class PatientInvestigationService {
   private _investigations: PatientInvestigation[] = [];
-  ready$: Subject<void> = new Subject<void>();
+  ready$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _frequency: FrequencyMatcher[] = [];
 
   constructor(private readonly patientService: PatientService, private readonly requestService: RequestService,
@@ -30,19 +30,19 @@ export class PatientInvestigationService {
     this._frequency = [{
       matcher: InvestigationFrequency.Monthly,
       decision: this.NbMonthsDecision,
-      args: [1]
+      args: [1],
     }, {
       matcher: InvestigationFrequency['2 Months'],
       decision: this.NbMonthsDecision,
-      args: [2]
+      args: [2],
     }, {
       matcher: InvestigationFrequency['3 Months'],
       decision: this.NbMonthsDecision,
-      args: [3]
+      args: [3],
     }, {
       matcher: InvestigationFrequency['6 Months'],
       decision: this.NbMonthsDecision,
-      args: [6]
+      args: [6],
     }, {
       matcher: InvestigationFrequency.Yearly,
       decision: this.yearlyDecision,
@@ -63,16 +63,16 @@ export class PatientInvestigationService {
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
-      primaryKey: 1
+      primaryKey: 1,
     },
     actions: [
       {
         action: 'explore', title: 'Yes',
-        icon: 'assets/icons/like.png'
+        icon: 'assets/icons/like.png',
       },
       {
         action: 'close', title: 'No',
-        icon: 'assets/icons/dislike.png'
+        icon: 'assets/icons/dislike.png',
       },
     ],
   };
@@ -80,7 +80,7 @@ export class PatientInvestigationService {
   init() {
     return this.requestService.getPatientInvestigations(this.patientService.patient.id.toString()).pipe(tap((patientInvestigations) => {
       this._investigations = patientInvestigations;
-      this.ready$.next();
+      this.ready$.next(true);
       this.syncWithSW();
       console.log('Investigations', patientInvestigations);
     }));
@@ -109,7 +109,7 @@ export class PatientInvestigationService {
           text: [item.Investigation.Description],
           title: `${this.patientService.patient.PatName} - ${item.Investigation.InvMName} ${key}`,
           typeName: 'type',
-          urgent: false
+          urgent: false,
         } : null;
       });
     }));
@@ -157,7 +157,7 @@ export class PatientInvestigationService {
       if (ready) {
         navigator.serviceWorker.controller.postMessage({
           command: 'investigationsSync',
-          message: this._investigations
+          message: this._investigations,
         });
       }
     });

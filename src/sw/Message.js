@@ -16,7 +16,6 @@ class MessageHandler {
 
   registerMessageListeners() {
     this._self.addEventListener('message', (event) => {
-      console.log(event);
       const data = event.data;
       if (data.command === 'medicationsSync') {
         this._medicationHandler.syncronizeFromMessage(data.message);

@@ -34,7 +34,6 @@ export class PatientService {
       this.patient$.next(patient);
     }));
   }
-
   public get patient(): Patient {
     return this._patient;
   }

@@ -60,6 +60,10 @@ const routes: Routes = [
         loadChildren: () => import('./@Pages/diet-page/diet-page.module').then(m => m.DietPageModule)
       },
       {
+        path: 'doctors',
+        loadChildren: () => import('./@Pages/doctor-page/doctor-page.module').then((m) => m.DoctorPageModule)
+      },
+      {
         path: 'exercise',
         loadChildren: () => import('./@Pages/exercise-page/exercise-page.module').then(m => m.ExercisePageModule)
       },

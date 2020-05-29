@@ -7,18 +7,24 @@ import {
   faRunning,
   faSignOutAlt,
   faUser,
-  faUserCog,
-  faUtensils
+  faUserCog, faUserMd,
+  faUtensils,
 } from '@fortawesome/free-solid-svg-icons';
 import {NavigationEnd, Router} from '@angular/router';
-import {SidebarElement, SidebarSettingElement} from '../../@Components/sidebar/sidebar.model';
+import {SidebarElement} from '../../@Components/sidebar/sidebar.model';
 import {AppService} from '../../@Services/app.service';
 import {TranslateService} from '@ngx-translate/core';
+import {filter, take} from 'rxjs/operators';
+import {forkJoin} from 'rxjs';
+import {PatientService} from '../../@Services/patient.service';
+import {PatientMedicationService} from '../../@Services/patient-medication.service';
+import {PatientInvestigationService} from '../../@Services/patient-investigation.service';
+import {PatientRecruitmentService} from '../../@Services/patient-recruitment.service';
 
 @Component({
   selector: 'app-default-layout',
   templateUrl: './default-layout.component.html',
-  styleUrls: ['./default-layout.component.scss']
+  styleUrls: ['./default-layout.component.scss'],
 })
 export class DefaultLayoutComponent implements OnInit {
 
@@ -27,20 +33,20 @@ export class DefaultLayoutComponent implements OnInit {
       route: '/app/day',
       active: false,
       icon: faCalendarDay,
-      name: 'bottomBar.calendar'
+      name: 'bottomBar.calendar',
     },
     {
       route: '/app/home',
       active: true,
       icon: faHome,
-      name: 'bottomBar.home'
+      name: 'bottomBar.home',
     },
     {
       route: '/app/settings',
       active: false,
       icon: faUserCog,
-      name: 'bottomBar.settings'
-    }
+      name: 'bottomBar.settings',
+    },
   ];
 
   sideBarVisible = false;
@@ -67,6 +73,12 @@ export class DefaultLayoutComponent implements OnInit {
       url: '/app/exercise',
       active: false,
     },
+    {
+      icon: faUserMd,
+      name: 'sidebar.doctor',
+      url: '/app/doctors',
+      active: false,
+    },
   ];
   sidebarCommunicateElements: SidebarElement[] = [
     {
@@ -74,7 +86,7 @@ export class DefaultLayoutComponent implements OnInit {
       name: 'sidebar.emergency',
       url: '',
       active: false,
-    }
+    },
   ];
 
   sidebarSettingElements: SidebarElement[] = [
@@ -102,12 +114,16 @@ export class DefaultLayoutComponent implements OnInit {
     has: {
       closeProtection: false,
       contextData: {},
-    }
+    },
   };
 
   constructor(private router: Router,
               private appService: AppService,
-              private translateService: TranslateService
+              private translateService: TranslateService,
+              private readonly patientMedicationService: PatientMedicationService,
+              private readonly patientInvestigationService: PatientInvestigationService,
+              private readonly patientService: PatientService,
+              private readonly patientRecruitmentService: PatientRecruitmentService,
   ) {
     this.translateBottombar();
     this.translateSidebar();
@@ -125,6 +141,12 @@ export class DefaultLayoutComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.patientService.patient$.pipe(filter((p) => !!p), take(1)).subscribe((patient) => {
+      forkJoin([this.patientMedicationService.init(), this.patientInvestigationService.init(),
+        this.patientRecruitmentService.init()]).subscribe((a) => {
+        console.log('[START] services initialized');
+      });
+    });
   }
 
   bottomBarElementClickEvent(element: BottomBarElement) {
