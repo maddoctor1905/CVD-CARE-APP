@@ -6,7 +6,7 @@ describe('CheckForUpdateService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CheckForUpdateService = TestBed.get(CheckForUpdateService);
+    const service: CheckForUpdateService = TestBed.inject(CheckForUpdateService);
     expect(service).toBeTruthy();
   });
 });

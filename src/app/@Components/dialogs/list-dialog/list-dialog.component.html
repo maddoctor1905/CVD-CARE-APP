@@ -1,0 +1,33 @@
+<div class="modal-card is-marginless">
+  <header class="modal-card-head has-text-centered">
+    <p class="modal-card-title">Choose {{mode === 'radio' ? 'one' : 'multiple'}} item 📚</p>
+  </header>
+  <section class="modal-card-body">
+    <div class="example-viewport">
+      <div *ngFor="let item of list; let index = index" class="field">
+        <!------ RADIO MODE (One Choice)------>
+        <ng-container *ngIf="mode === 'radio'">
+          <input [checked]="item.selected" (change)="onRadioChange(item)"
+                 class="is-checkradio is-info" id="exampleRadioInline-{{index}}" type="radio" name="exampleRadioInline">
+          <label for="exampleRadioInline-{{index}}">{{item.value}}</label>
+        </ng-container>
+        <!------ CHECKBOX MODE (Multiple Choice)------>
+        <ng-container *ngIf="mode === 'checkbox'">
+          <input class="is-checkradio is-info" id="exampleCheckbox-{{index}}" type="checkbox"
+                 name="exampleCheckbox-{{index}}"
+                 [checked]="item.selected" [(ngModel)]="item.selected">
+          <label for="exampleCheckbox-{{index}}">{{item.value}}</label>
+        </ng-container>
+      </div>
+    </div>
+  </section>
+  <footer class="modal-card-foot justify-content-end">
+    <button (click)="close('no')" type="button" class="button is-danger">No</button>
+    <button *ngIf="mode === 'radio'" (click)="submit()" type="button" class="button is-primary"
+            [disabled]="!currentItem">Yes
+    </button>
+    <button *ngIf="mode === 'checkbox'" (click)="submit()" type="button" class="button is-primary"
+            [disabled]="getAllSelected().length < 1">Yes
+    </button>
+  </footer>
+</div>
