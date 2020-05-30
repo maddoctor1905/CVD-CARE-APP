@@ -20,6 +20,8 @@ import {PatientService} from '../../@Services/patient.service';
 import {PatientMedicationService} from '../../@Services/patient-medication.service';
 import {PatientInvestigationService} from '../../@Services/patient-investigation.service';
 import {PatientRecruitmentService} from '../../@Services/patient-recruitment.service';
+import {OverlayService} from '../../@Services/overlay.service';
+import {PatientSymptomService} from '../../@Services/patient-symptom.service';
 
 @Component({
   selector: 'app-default-layout',
@@ -124,6 +126,7 @@ export class DefaultLayoutComponent implements OnInit {
               private readonly patientInvestigationService: PatientInvestigationService,
               private readonly patientService: PatientService,
               private readonly patientRecruitmentService: PatientRecruitmentService,
+              private readonly patientSymptomService: PatientSymptomService,
   ) {
     this.translateBottombar();
     this.translateSidebar();
@@ -143,7 +146,7 @@ export class DefaultLayoutComponent implements OnInit {
   ngOnInit() {
     this.patientService.patient$.pipe(filter((p) => !!p), take(1)).subscribe((patient) => {
       forkJoin([this.patientMedicationService.init(), this.patientInvestigationService.init(),
-        this.patientRecruitmentService.init()]).subscribe((a) => {
+        this.patientRecruitmentService.init(), this.patientSymptomService.init()]).subscribe((a) => {
         console.log('[START] services initialized');
       });
     });

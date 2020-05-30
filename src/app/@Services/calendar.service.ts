@@ -8,6 +8,7 @@ import {PatientService} from './patient.service';
 import {filter, take, tap} from 'rxjs/operators';
 import {PatientRecruitment} from '../@Models/recruitment.model';
 import {PatientRecruitmentService} from './patient-recruitment.service';
+import {PatientSymptomService} from './patient-symptom.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +21,7 @@ export class CalendarService {
     private readonly patientInvestigationService: PatientInvestigationService,
     private readonly patientService: PatientService,
     private readonly patientRecruitmentService: PatientRecruitmentService,
+    private readonly patientSymptomService: PatientSymptomService,
   ) {
   }
 
@@ -52,11 +54,17 @@ export class CalendarService {
   linkPatientData(date: Date) {
     forkJoin([this.patientMedicationService.ready$.pipe(filter(s => !!s), take(1)),
       this.patientInvestigationService.ready$.pipe(filter(s => !!s), take(1)),
-      this.patientRecruitmentService.ready$.pipe(filter(s => !!s), take(1))]).subscribe((a) => {
+      this.patientRecruitmentService.ready$.pipe(filter(s => !!s), take(1)),
+      this.patientSymptomService.ready$.pipe(filter(s => !!s), take(1)),
+    ]).subscribe((a) => {
       this.linkMedicationsToCalendar(date);
       this.linkInvestigationsToCalendar(date);
       this.linkRecruitmentsToCalendar(date);
+      this.linkSymptomToCalendar(date);
     });
+    this.patientSymptomService.symptomChange$.subscribe(() => {
+      this.linkSymptomToCalendar(new Date());
+    })
   }
 
   linkMedicationsToCalendar(date: Date) {
@@ -89,6 +97,19 @@ export class CalendarService {
     for (const week of this._calendar) {
       for (const day of week.days) {
         this.patientRecruitmentService.findInvestigationsForDate(day.date).subscribe((event) => {
+          if (event) {
+            day.events.push(event);
+          }
+        });
+      }
+    }
+    this.calendar$.next(this._calendar);
+  }
+
+  linkSymptomToCalendar(date: Date) {
+    for (const week of this._calendar) {
+      for (const day of week.days) {
+        this.patientSymptomService.findSymptomsForDate(day.date).subscribe((event) => {
           if (event) {
             day.events.push(event);
           }

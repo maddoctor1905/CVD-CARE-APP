@@ -34,6 +34,11 @@ export class PatientService {
       this.patient$.next(patient);
     }));
   }
+
+  getSymptoms() {
+    return this.requestService.getSymptoms();
+  }
+
   public get patient(): Patient {
     return this._patient;
   }
@@ -50,12 +55,13 @@ export class PatientService {
           message: {
             installTime: time,
             patient: this._patient.id,
-            name: this._patient.PatName
-          }
+            name: this._patient.PatName,
+          },
         });
       }
     });
   }
+
   public update(body: Partial<Patient>): Observable<Patient> {
     return this.requestService.updatePatient(body, this.patient.id);
   }

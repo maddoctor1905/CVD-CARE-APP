@@ -20,6 +20,7 @@
   "sidebar.personalDetails": "Détails Personnels",
   "event.medication.title": "Veuillez prendre votre traitement régulièrement",
   "event.investigation.title": "à faire",
+  "event.symptom.title": "Vous avez déclaré un symptome",
   "event.recruitment.title": "Vous devez vous rendre chez votre docteur",
   "personalDetails.title": "Détails Personnel \uD83D\uDCC7",
   "personalDetails.PatName.label": "Utilisateur",
@@ -37,5 +38,11 @@
   "personalDetails.Graduation.label": "Diplôme",
   "personalDetails.Graduation.placeholder": "MIT Institute of Technology",
   "personalDetails.button.save": "Sauvegarder",
-  "doctor.title": "Vos docteurs"
+  "doctor.title": "Vos docteurs",
+  "symptom.action": "Symptome",
+  "symptom.modal.nextStep": "Suivant",
+  "symptom.modal.title": "Choisissez votre symptome",
+  "symptom.modal.title.secondStep": "Entrez une déscription",
+  "symptom.modal.lastStep": "Terminer"
+
 }

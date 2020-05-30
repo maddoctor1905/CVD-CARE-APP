@@ -18,7 +18,17 @@ export class ServiceWorkerService {
       if ('periodicSync' in registration) {
         try {
           // @ts-ignore
-          await (registration).periodicSync.register('content-sync', {
+          await (registration).periodicSync.register('medication-sync', {
+            // An interval of one day.
+            minInterval: 24 * 60 * 60 * 1000,
+          });
+          // @ts-ignore
+          await (registration).periodicSync.register('investigation-sync', {
+            // An interval of one day.
+            minInterval: 24 * 60 * 60 * 1000,
+          });
+          // @ts-ignore
+          await (registration).periodicSync.register('medication-sync', {
             // An interval of one day.
             minInterval: 24 * 60 * 60 * 1000,
           });

@@ -5,7 +5,7 @@
     {
       "name": "api-performance",
       "urls": [
-        "https://mit-api.enoviah.fr/patients/**"
+        "https://mit-api.enoviah.fr/**"
       ],
       "cacheConfig": {
         "strategy": "performance",
@@ -16,7 +16,7 @@
     {
       "name": "api-freshness",
       "urls": [
-        "https://mit-api.enoviah.fr/patients/**"
+        "https://mit-api.enoviah.fr/**"
       ],
       "cacheConfig": {
         "strategy": "freshness",

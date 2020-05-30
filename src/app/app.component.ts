@@ -7,8 +7,6 @@ import localeENUS from '@angular/common/locales/en';
 import localeFR from '@angular/common/locales/fr';
 import {ServiceWorkerService} from './@Services/service-worker.service';
 import {OverlayService} from './@Services/overlay.service';
-import {ListDialogComponent} from './@Components/dialogs/list-dialog/list-dialog.component';
-import {YesOrNoDialogComponent} from './@Components/dialogs/yes-or-no-dialog/yes-or-no-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -24,35 +22,6 @@ export class AppComponent implements OnInit {
               private readonly swService: ServiceWorkerService,
               private readonly overlayService: OverlayService,
   ) {
-    this.overlayService.open(ListDialogComponent, {
-      list: [
-        {
-          value: 'France',
-        },
-        {
-          value: 'Inde',
-        },
-      ],
-      mode: 'checkbox',
-    }).afterClosed$.subscribe((res) => {
-      console.log(res);
-    });
-    this.overlayService.open(ListDialogComponent, {
-      list: [
-        {
-          value: 'France',
-        },
-        {
-          value: 'Inde',
-        },
-      ],
-      mode: 'radio',
-    }).afterClosed$.subscribe((res) => {
-      console.log(res);
-    });
-    this.overlayService.open(YesOrNoDialogComponent, {} ).afterClosed$.subscribe((res) => {
-      console.log(res);
-    });
     registerLocaleData(localeENUS, 'en-US');
     registerLocaleData(localeENUS, 'kn-IN');
     registerLocaleData(localeFR, 'fr-FR');

@@ -23,7 +23,6 @@ function initDb() {
 (async function () {
   // Register db
   const db = initDb();
-  console.log('bite');
   // Register Handlers
   const patientHandler = new PatientHandler(db);
   const notificationHandler = new NotificationHandler();

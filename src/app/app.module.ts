@@ -23,6 +23,8 @@ import {OverlayModule} from './@Components/overlay/overlay.module';
 import {YesOrNoDialogModule} from './@Components/dialogs/yes-or-no-dialog/yes-or-no-dialog.module';
 import {Overlay} from '@angular/cdk/overlay';
 import {ListDialogModule} from './@Components/dialogs/list-dialog/list-dialog.module';
+import {SymptomDialogModule} from './@Components/dialogs/symptom-dialog/symptom-dialog.module';
+import {PatientSymptomService} from './@Services/patient-symptom.service';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import {ListDialogModule} from './@Components/dialogs/list-dialog/list-dialog.mo
     OverlayModule,
     YesOrNoDialogModule,
     ListDialogModule,
+    SymptomDialogModule
   ],
   providers: [
     CheckForUpdateService,
@@ -58,7 +61,8 @@ import {ListDialogModule} from './@Components/dialogs/list-dialog/list-dialog.mo
     PatientMedicationService,
     PatientInvestigationService,
     ServiceWorkerService,
-    PatientRecruitmentService
+    PatientRecruitmentService,
+    PatientSymptomService
   ],
   bootstrap: [AppComponent],
   exports: []

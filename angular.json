@@ -143,7 +143,6 @@
               "src/manifest.webmanifest",
               "src/sw-master.js",
               "src/sw-sync.js",
-              // to remove
               "src/ngsw-worker.js",
               "src/ngsw.json"
             ],
@@ -181,5 +180,8 @@
       }
     }
   },
-  "defaultProject": "mhealth"
+  "defaultProject": "mhealth",
+  "cli": {
+    "analytics": "f762f492-e34a-4e4b-afa0-a0d240cdface"
+  }
 }

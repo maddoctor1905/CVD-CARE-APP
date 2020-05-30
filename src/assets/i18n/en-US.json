@@ -21,6 +21,7 @@
   "event.medication.title": "Please take medication regularly",
   "event.investigation.title": "due",
   "event.recruitment.title": "Doctor visit due",
+  "event.symptom.title": "You have declare a symptom",
   "personalDetails.title": "Personal Details \uD83D\uDCC7",
   "personalDetails.PatName.label": "User",
   "personalDetails.PatName.placeholder": "Suresh Alimad",
@@ -37,5 +38,10 @@
   "personalDetails.Graduation.label": "Graduation",
   "personalDetails.Graduation.placeholder": "MIT Institute of Technology",
   "personalDetails.button.save": "Save",
-  "doctor.title": "Your doctors"
+  "doctor.title": "Your doctors",
+  "symptom.action": "Symptom",
+  "symptom.modal.nextStep": "Next",
+  "symptom.modal.title": "Choose your symptom",
+  "symptom.modal.title.secondStep": "Add a description",
+  "symptom.modal.lastStep": "Submit"
 }

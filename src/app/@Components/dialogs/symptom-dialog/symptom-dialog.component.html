@@ -1,0 +1,38 @@
+<div class="modal-card is-marginless">
+  <header class="modal-card-head has-text-centered">
+    <p class="modal-card-title" *ngIf="is.firstStep; else title">{{"symptom.modal.title" | translate}} 📚</p>
+    <ng-template #title>
+      <p class="modal-card-title">{{"symptom.modal.title.secondStep" | translate}} 📚</p>
+    </ng-template>
+  </header>
+  <section class="modal-card-body">
+    <div class="example-viewport">
+      <ng-container *ngIf="is.firstStep; else description">
+        <div *ngFor="let item of list; let index = index" class="field">
+          <!------ RADIO MODE (One Choice)------>
+          <ng-container>
+            <input [checked]="item.selected" (change)="onRadioChange(item)"
+                   class="is-checkradio is-info" id="exampleRadioInline-{{index}}" type="radio"
+                   name="exampleRadioInline">
+            <label for="exampleRadioInline-{{index}}">{{item.CondName}}</label>
+          </ng-container>
+          <!------ CHECKBOX MODE (Multiple Choice)------>
+        </div>
+      </ng-container>
+      <ng-template #description>
+        <div class="field" [formGroup]="form">
+          <textarea class="textarea" formControlName="description"></textarea>
+        </div>
+      </ng-template>
+    </div>
+  </section>
+  <footer class="modal-card-foot justify-content-end">
+    <button (click)="close('no')" type="button" class="button is-danger">Cancel</button>
+    <button *ngIf="is.firstStep" (click)="nextStep()" type="button" class="button is-primary"
+            [disabled]="!currentItem">{{'symptom.modal.nextStep' | translate}}
+    </button>
+    <button *ngIf="is.secondStep" (click)="submit()" type="button" class="button is-success"
+            [disabled]="!form.valid">{{'symptom.modal.lastStep' | translate}}
+    </button>
+  </footer>
+</div>

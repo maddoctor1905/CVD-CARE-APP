@@ -8,6 +8,7 @@ import {map} from 'rxjs/operators';
 import {PatientMedication} from '../@Models/medication.model';
 import {PatientInvestigation} from '../@Models/investigation.model';
 import {PatientRecruitment} from '../@Models/recruitment.model';
+import {PatientSymptom, Symptom} from '../@Models/symptom.model';
 
 @Injectable()
 export class RequestService {
@@ -46,5 +47,21 @@ export class RequestService {
 
   updatePatient(body: Partial<Patient>, id: number): Observable<Patient> {
     return this.http.put<Patient>(`${environment.apiRootUrl}/patients/${id}`, body);
+  }
+
+  getSymptoms(): Observable<Symptom[]> {
+    return this.http.get<Symptom[]>(`${environment.apiRootUrl}/symptoms`);
+  }
+
+  getPatientSymptoms(id: number): Observable<PatientSymptom[]> {
+    return this.http.get<PatientSymptom[]>(`${environment.apiRootUrl}/patients/${id}/symptoms`);
+  }
+
+  createSymptom(patientId: number, symptomId: number, date: string, description: string): Observable<PatientSymptom> {
+    return this.http.post<PatientSymptom>(`${environment.apiRootUrl}/patients/${patientId}/symptoms`, {
+      symptomId,
+      date,
+      description,
+    });
   }
 }

@@ -33,14 +33,15 @@ class MessageHandler {
 
   registerPeriodicSync() {
     this._self.addEventListener('periodicsync', (event) => {
-      console.info("[PERIODIC SYNC] triggered");
-      if (event.tag === 'content-sync') {
-        const checks = [
-          this._medicationHandler.periodicSync(this._self.registration),
-          this._investigationHandler.periodicSync(this._self.registration),
-          this._recruitmentHandler.periodicSync(this._self.registration)
-        ];
-        event.waitUntil(Promise.all(checks));
+      console.info("[PERIODIC SYNC] triggered for " + event.tag);
+      if (event.tag === 'medication-sync') {
+        event.waitUntil(this._medicationHandler.periodicSync(this._self.registration));
+      }
+      if (event.tag === 'investigation-sync') {
+        event.waitUntil(this._investigationHandler.periodicSync(this._self.registration));
+      }
+      if (event.tag === 'recruitment-sync') {
+        event.waitUntil(this._recruitmentHandler.periodicSync(this._self.registration));
       }
     });
   }

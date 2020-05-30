@@ -6,11 +6,16 @@ import {TranslateService} from '@ngx-translate/core';
 import {PatientService} from '../../@Services/patient.service';
 import {PatientMedicationService} from '../../@Services/patient-medication.service';
 import {PatientInvestigationService} from '../../@Services/patient-investigation.service';
+import {OverlayService} from '../../@Services/overlay.service';
+import {ListDialogComponent} from '../../@Components/dialogs/list-dialog/list-dialog.component';
+import {map} from 'rxjs/operators';
+import {Symptom} from '../../@Models/symptom.model';
+import {PatientSymptomService} from '../../@Services/patient-symptom.service';
 
 @Component({
   selector: 'app-day-page',
   templateUrl: './day-page.component.html',
-  styleUrls: ['./day-page.component.scss']
+  styleUrls: ['./day-page.component.scss'],
 })
 export class DayPageComponent implements OnInit {
   get weekElements(): WeekElement[] {
@@ -24,19 +29,19 @@ export class DayPageComponent implements OnInit {
   iconsForFilterBar: IconBarElement[] = [
     {
       char: '🩺',
-      active: true
+      active: true,
     },
     {
       char: '💊',
-      active: true
+      active: true,
     },
     {
       char: '🧪',
-      active: true
+      active: true,
     },
     {
       char: '🚨',
-      active: true
+      active: true,
     },
   ];
 
@@ -45,9 +50,7 @@ export class DayPageComponent implements OnInit {
   constructor(
     private calendarService: CalendarService,
     public translateService: TranslateService,
-    private readonly patientService: PatientService,
-    private readonly patientMedicationService: PatientMedicationService,
-    private readonly patientInvestigationService: PatientInvestigationService
+    private readonly patientSymptomService: PatientSymptomService,
   ) {
   }
 
@@ -88,5 +91,9 @@ export class DayPageComponent implements OnInit {
       }
     });
     return (allowed);
+  }
+
+  addSymptom(itemDay: DayElement) {
+    this.patientSymptomService.declareSymptom(itemDay.date);
   }
 }

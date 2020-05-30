@@ -8,19 +8,21 @@ import {CardCollapsileModule} from '../../@Components/card-collapsile/card-colla
 import {IconBarModule} from '../../@Components/icon-bar/icon-bar.module';
 import {WeekScrollerModule} from '../../@Components/week-scroller/week-scroller.module';
 import {DayScrollerModule} from '../../@Components/day-scroller/day-scroller.module';
+import {TranslateModule} from '@ngx-translate/core';
 
 
 @NgModule({
   declarations: [DayPageComponent],
-  imports: [
-    CommonModule,
-    DayPageRoutingModule,
-    FontAwesomeModule,
-    CardCollapsileModule,
-    IconBarModule,
-    WeekScrollerModule,
-    DayScrollerModule
-  ]
+    imports: [
+        CommonModule,
+        DayPageRoutingModule,
+        FontAwesomeModule,
+        CardCollapsileModule,
+        IconBarModule,
+        WeekScrollerModule,
+        DayScrollerModule,
+        TranslateModule,
+    ],
 })
 export class DayPageModule {
 }
