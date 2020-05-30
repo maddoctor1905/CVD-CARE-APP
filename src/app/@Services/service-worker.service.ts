@@ -28,11 +28,12 @@ export class ServiceWorkerService {
             minInterval: 24 * 60 * 60 * 1000,
           });
           // @ts-ignore
-          await (registration).periodicSync.register('medication-sync', {
+          await (registration).periodicSync.register('recruitment-sync', {
             // An interval of one day.
             minInterval: 24 * 60 * 60 * 1000,
           });
           this.backgroundSyncReady$.next(true);
+          console.info('[SW] ready');
         } catch (error) {
           console.error(error);
         }
