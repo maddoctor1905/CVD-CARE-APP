@@ -1,80 +1,24 @@
 <div class="section">
   <p class="title is-3">Diet Plan 🥕</p>
-  <div class="field">
+  <div class="field" *ngFor="let item of diets">
     <div class="card large">
-      <div class="card-image">
-        <figure class="image">
-          <img src="https://source.unsplash.com/uzDLtlPY8kQ" alt="Image">
-        </figure>
-      </div>
       <div class="card-content">
         <div class="media">
           <div class="media-left">
             <figure class="image is-96x96">
-              <img src="https://cdn.discordapp.com/avatars/244932903530659841/0c924a19fcf1b5c59bc9dc1b58b61bb0.jpg?size=1024" alt="Image">
+              <img src="/assets/vegetables.jpg" alt="Image">
             </figure>
           </div>
           <div class="media-content">
-            <p class="title is-4 no-padding">McSocks</p>
-            <p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p>
-            <p class="subtitle is-6">Developer</p>
+            <p class="title is-4 no-padding">{{item.DSPlanName}}</p>
+            <p class="subtitle is-6">  </p>
           </div>
         </div>
         <div class="content">
-          The soul of the Beast seemed lost forever. Then, by the full moon's light, a child was born; child with the unbridled soul of the Beast that would make all others pale in comparison.
+          {{item.DSPlanDescription}}
           <div class="background-icon"><span class="icon-facebook"></span></div>
         </div>
       </div>
     </div>
   </div>
-  <div class="field">
-    <div class="card large">
-      <div class="card-image">
-        <figure class="image">
-          <img src="https://source.unsplash.com//Rfflri94rs8" alt="Image">
-        </figure>
-      </div>
-      <div class="card-content">
-        <div class="media">
-          <div class="media-left">
-            <figure class="image is-96x96">
-              <img src="http://www.radfaces.com/images/avatars/richard-wang.jpg" alt="Image">
-            </figure>
-          </div>
-          <div class="media-content">
-            <p class="title is-4 no-padding">Sphirou Sapphirou</p>
-            <p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p>
-            <p class="subtitle is-6">Moderator</p>
-          </div>
-        </div>
-        <div class="content">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore reprehenderit beatae magnam animi!
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="field">
-    <div class="card large">
-      <div class="card-image">
-        <figure class="image">
-          <img src="https://source.unsplash.com/qbtyUQtqJ8k" alt="Image">
-        </figure>
-      </div>
-      <div class="card-content">
-        <div class="media">
-          <div class="media-left">
-            <figure class="image is-96x96">
-              <img src="http://www.radfaces.com/images/avatars/alex-mack.jpg" alt="Image">
-            </figure>
-          </div>
-          <div class="media-content">
-            <p class="title is-4">Alex Mack</p>
-            <p class="subtitle is-6">Moderator</p>
-          </div>
-        </div>
-        <div class="content">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore reprehenderit beatae magnam animi!
-        </div>
-      </div>
-    </div>  </div>
 </div>

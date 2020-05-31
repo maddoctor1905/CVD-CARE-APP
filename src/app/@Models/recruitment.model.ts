@@ -28,6 +28,23 @@ export interface Doctor {
   KHospitalNameAdd: string;
 }
 
+export interface Diet {
+  id: number;
+  DSPlanName: string;
+  KDSPlanName: string;
+  DSPlanDescription: string;
+  KDSPlanDescription: string;
+}
+
+export interface Exercise {
+  id: number;
+  ELPlanName: string;
+
+  KELPlanName: string;
+  ELPlanDescription: string;
+  KELPlanDescription;
+}
+
 export interface PatientRecruitment {
   id: number;
 
@@ -91,7 +108,7 @@ export interface PatientRecruitment {
 
   SurgeryDate: string;
 
-  DSId: number;
+  Diet: Diet;
 
-  ELId: number;
+  Exercise: Exercise;
 }
