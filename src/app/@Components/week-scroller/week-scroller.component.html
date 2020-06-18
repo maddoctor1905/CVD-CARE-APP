@@ -4,8 +4,10 @@
 <div class="tabs is-centered is-marginless is-medium is-fullwidth">
   <ul>
     <ng-container *ngFor="let item of weekElements">
-      <li class="noselect" [class.is-active]="item.active" [class.is-current-week]="isCurrentWeek(item)" (click)="itemClicked(item)">
-        <a class="textsu">{{item.days[0].date.getDate()}} - {{item.days[item.days.length - 1].date.getDate()}}</a></li>
+      <li class="noselect" [class.is-active]="item.active" [class.is-current-week]="isCurrentWeek(item)"
+          (click)="itemClicked(item)">
+        <a class="textsu">{{addLeadingZero(item.days[0].date.getDate())}}
+          - {{addLeadingZero(item.days[item.days.length - 1].date.getDate())}}</a></li>
     </ng-container>
   </ul>
 </div>

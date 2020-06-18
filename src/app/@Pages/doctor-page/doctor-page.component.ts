@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PatientRecruitmentService} from '../../@Services/patient-recruitment.service';
 import {filter} from 'rxjs/operators';
 import {Doctor} from '../../@Models/recruitment.model';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-doctor-page',
@@ -11,7 +12,8 @@ import {Doctor} from '../../@Models/recruitment.model';
 export class DoctorPageComponent implements OnInit {
   doctors: Doctor[] = [];
 
-  constructor(private readonly patientRecruitment: PatientRecruitmentService) {
+  constructor(private readonly patientRecruitment: PatientRecruitmentService,
+              private readonly domSanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -25,5 +27,9 @@ export class DoctorPageComponent implements OnInit {
         }
       }
     });
+  }
+
+  safeURL(s: string) {
+    return (this.domSanitizer.bypassSecurityTrustUrl(s));
   }
 }

@@ -13,6 +13,12 @@
             <p class="title is-4 no-padding">{{item.DName}}</p>
             <p><span class="title is-6">{{item.Department}} - {{item.Specialization}}</span></p>
             <p class="subtitle is-6">{{item.HospitalNameAdd}}</p>
+            <p class="subtitle is-6" *ngIf="item.MobileNo"><a
+              [href]="safeURL('tel:' + item.MobileNo)">{{item.MobileNo}}</a></p>
+            <p class="subtitle is-6" *ngIf="item.AltMobileNo"><a
+              [href]="safeURL('tel:' + item.AltMobileNo)">{{item.AltMobileNo}}</a></p>
+            <p class="subtitle is-6" *ngIf="item.Email"><a
+              [href]="safeURL('mailto:' + item.Email)">{{item.Email}}</a></p>
           </div>
         </div>
       </div>

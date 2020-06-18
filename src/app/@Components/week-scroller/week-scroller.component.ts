@@ -58,4 +58,12 @@ export class WeekScrollerComponent implements OnInit {
       }
     }
   }
+
+  addLeadingZero(date: number) {
+    const str = date.toString();
+    if (str.length === 1) {
+      return ('0' + str);
+    }
+    return (str);
+  }
 }

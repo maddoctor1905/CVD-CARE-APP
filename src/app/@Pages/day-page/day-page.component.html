@@ -13,7 +13,7 @@
           <div style="display: flex; align-items: center; justify-content: space-between">
           <h1
             class="has-text-weight-semibold title is-4 is-capitalized">{{itemDay.date | date: 'EEEE dd, MMM' : '' : translateService.currentLang}}</h1>
-          <button (click)="addSymptom(itemDay)" class="button">{{'symptom.action' | translate}}</button>
+          <button (click)="addSymptom(itemDay)" class="button symptom-button">{{'symptom.action' | translate}}</button>
           </div>
           <ng-container *ngFor="let itemEvent of itemDay.events">
             <app-card-collapsile *ngIf="isAllowedEmoji(itemEvent.emoji)"

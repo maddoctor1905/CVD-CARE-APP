@@ -1,9 +1,14 @@
 .notification {
   text-align: center;
   display: none;
+
   &:not(:first-child) {
     margin-top: 1rem;
   }
+}
+
+.symptom-button {
+  margin-left: 1rem;
 }
 
 h1 {
