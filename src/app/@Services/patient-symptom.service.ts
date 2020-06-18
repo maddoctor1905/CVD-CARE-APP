@@ -8,6 +8,7 @@ import {CalendarEvent} from '../@Models/calendar.model';
 import {filter, mergeMap, tap} from 'rxjs/operators';
 import {PatientSymptom} from '../@Models/symptom.model';
 import {TranslateService} from '@ngx-translate/core';
+import {AlertDialogComponent} from '../@Components/dialogs/alert-dialog/alert-dialog.component';
 
 @Injectable()
 export class PatientSymptomService {
@@ -60,22 +61,32 @@ export class PatientSymptomService {
   }
 
 
-  declareSymptom(day: Date) {
-    this.getSymptoms().subscribe((symptoms) => {
-      this.overlayService.open(SymptomDialogComponent, {
-        list: symptoms,
-        mode: 'checkbox',
-      }).afterClosed$.subscribe((res) => {
-        if (res && res.data && res.data.symptom) {
-          this.requestService.createSymptom(this.patientService.patient.id, res.data.symptom.id,
-            day.toISOString().slice(0, 19).replace('T', ' '), res.data.description)
-            .subscribe((data: PatientSymptom) => {
-              this.symptoms.push(data);
-              this.symptomChange$.next(data);
-            });
-        }
-        console.log(res);
+  async declareSymptom(day: Date) {
+    const today = new Date(Date.now());
+    if (day <= today) {
+      this.getSymptoms().subscribe((symptoms) => {
+        this.overlayService.open(SymptomDialogComponent, {
+          list: symptoms,
+          mode: 'checkbox',
+        }).afterClosed$.subscribe((res) => {
+          if (res && res.data && res.data.symptom) {
+            this.requestService.createSymptom(this.patientService.patient.id, res.data.symptom.id,
+              day.toISOString().slice(0, 19).replace('T', ' '), res.data.description)
+              .subscribe((data: PatientSymptom) => {
+                this.symptoms.push(data);
+                this.symptomChange$.next(data);
+              });
+          }
+          console.log(res);
+        });
       });
-    });
+    } else {
+      this.overlayService.open(AlertDialogComponent, {
+        emoji: '🚨',
+        title: await this.translateService.get('symptom.alert.error.title').toPromise(),
+        message: await this.translateService.get('symptom.alert.error.message').toPromise(),
+        status: 'error',
+      });
+    }
   }
 }

@@ -37,18 +37,6 @@ export class DefaultLayoutComponent implements OnInit {
       icon: faCalendarDay,
       name: 'bottomBar.calendar',
     },
-    {
-      route: '/app/home',
-      active: true,
-      icon: faHome,
-      name: 'bottomBar.home',
-    },
-    {
-      route: '/app/settings',
-      active: false,
-      icon: faUserCog,
-      name: 'bottomBar.settings',
-    },
   ];
 
   sideBarVisible = false;

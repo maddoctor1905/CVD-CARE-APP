@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {WeekElement} from '../../@Models/calendar.model';
-
-const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'];
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-week-scroller',
@@ -13,13 +11,20 @@ export class WeekScrollerComponent implements OnInit {
 
   @Input() weekElements: WeekElement[] = [];
   @Output() weekElementClicked = new EventEmitter<WeekElement>();
-  currentMonth: string;
+  monthNames = [];
+  currentWeek: WeekElement;
 
-  constructor() {
+  constructor(
+    private translateService: TranslateService,
+  ) {
   }
 
   ngOnInit() {
-
+    this.translateService.onLangChange.subscribe(() => {
+      this.loadLocaleMonths();
+    })
+    this.loadLocaleMonths();
+    this.currentWeek = this.getActiveWeek();
   }
 
   itemClicked(item: WeekElement) {
@@ -31,7 +36,25 @@ export class WeekScrollerComponent implements OnInit {
   getMonth(): string {
     for (const item of this.weekElements) {
       if (item.active) {
-        return monthNames[item.days[0].date.getMonth()];
+        return this.monthNames[item.days[0].date.getMonth()];
+      }
+    }
+  }
+
+  private loadLocaleMonths() {
+    this.monthNames = Array.from({length: 12}, (e, i) => {
+      return new Date(null, i + 1, null).toLocaleDateString(this.translateService.currentLang, {month: 'long'});
+    })
+  }
+
+  isCurrentWeek(item: WeekElement) {
+    return item === this.currentWeek;
+  }
+
+  private getActiveWeek() {
+    for (const item of this.weekElements) {
+      if (item.active) {
+        return item;
       }
     }
   }

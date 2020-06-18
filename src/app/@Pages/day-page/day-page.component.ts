@@ -3,13 +3,6 @@ import {IconBarElement} from '../../@Components/icon-bar/icon-bar.model';
 import {DayElement, WeekElement} from '../../@Models/calendar.model';
 import {CalendarService} from '../../@Services/calendar.service';
 import {TranslateService} from '@ngx-translate/core';
-import {PatientService} from '../../@Services/patient.service';
-import {PatientMedicationService} from '../../@Services/patient-medication.service';
-import {PatientInvestigationService} from '../../@Services/patient-investigation.service';
-import {OverlayService} from '../../@Services/overlay.service';
-import {ListDialogComponent} from '../../@Components/dialogs/list-dialog/list-dialog.component';
-import {map} from 'rxjs/operators';
-import {Symptom} from '../../@Models/symptom.model';
 import {PatientSymptomService} from '../../@Services/patient-symptom.service';
 
 @Component({
@@ -18,14 +11,6 @@ import {PatientSymptomService} from '../../@Services/patient-symptom.service';
   styleUrls: ['./day-page.component.scss'],
 })
 export class DayPageComponent implements OnInit {
-  get weekElements(): WeekElement[] {
-    return this._weekElements;
-  }
-
-  set weekElements(value: WeekElement[]) {
-    this._weekElements = value;
-  }
-
   iconsForFilterBar: IconBarElement[] = [
     {
       char: '🩺',
@@ -45,13 +30,21 @@ export class DayPageComponent implements OnInit {
     },
   ];
 
-  private _weekElements: WeekElement[] = [];
-
   constructor(
     private calendarService: CalendarService,
     public translateService: TranslateService,
     private readonly patientSymptomService: PatientSymptomService,
   ) {
+  }
+
+  private _weekElements: WeekElement[] = [];
+
+  get weekElements(): WeekElement[] {
+    return this._weekElements;
+  }
+
+  set weekElements(value: WeekElement[]) {
+    this._weekElements = value;
   }
 
   ngOnInit() {

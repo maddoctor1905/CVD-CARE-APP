@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiRootUrl: 'http://localhost:8080',
+  apiRootUrl: 'https://mit-api.enoviah.fr',
 };
 
 /*

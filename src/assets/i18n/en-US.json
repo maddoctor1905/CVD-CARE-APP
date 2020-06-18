@@ -43,5 +43,7 @@
   "symptom.modal.nextStep": "Next",
   "symptom.modal.title": "Choose your symptom",
   "symptom.modal.title.secondStep": "Add a description",
-  "symptom.modal.lastStep": "Submit"
+  "symptom.modal.lastStep": "Submit",
+  "symptom.alert.error.title": "OOPS something went wrong.",
+  "symptom.alert.error.message": "You can't report a symptom for that date"
 }

@@ -43,6 +43,8 @@
   "symptom.modal.nextStep": "Suivant",
   "symptom.modal.title": "Choisissez votre symptome",
   "symptom.modal.title.secondStep": "Entrez une déscription",
-  "symptom.modal.lastStep": "Terminer"
+  "symptom.modal.lastStep": "Terminer",
+  "symptom.alert.error.title": "OOPS quelque chose n'a pas marché.",
+  "symptom.alert.error.message": "Vous ne pouvez pas déclarer de symptomes pour cette date."
 
 }

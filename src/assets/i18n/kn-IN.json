@@ -34,5 +34,7 @@
   "personalDetails.Relationship.placeholder": "ನಿಮ್ಮನಿಮ್ಮ",
   "personalDetails.Graduation.label": "ದಯವಿಟ್ಟು",
   "personalDetails.Graduation.placeholder": "ದಯವಿಟ್ಟು ದಯವಿಟ್ಟು ದಯವಿಟ್ಟು ದಯವಿಟ್ಟು",
-  "personalDetails.button.save": "ದಯವಿಟ್ಟು"
+  "personalDetails.button.save": "ದಯವಿಟ್ಟು",
+  "symptom.alert.error.title": "ದಯವಿಟ್ಟು ದಯವಿಟ್ಟು ದಯವಿಟ್ಟು ದಯವಿಟ್ಟು.",
+  "symptom.alert.error.message": "ಸಂಖ್ಯೆಯನ್ನು, ವೈಯಕ್ತಿಕ ವೈಯಕ್ತಿಕ, ನಮೂದಿಸಿನಮೂದಿಸಿನಮೂದಿಸಿ"
 }
