@@ -3,6 +3,8 @@ import {PatientRecruitmentService} from '../../@Services/patient-recruitment.ser
 import {filter} from 'rxjs/operators';
 import {Doctor} from '../../@Models/recruitment.model';
 import {DomSanitizer} from '@angular/platform-browser';
+import {PatientService} from '../../@Services/patient.service';
+import {Caregiver} from '../../@Models/caregiver';
 
 @Component({
   selector: 'app-doctor-page',
@@ -11,9 +13,10 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class DoctorPageComponent implements OnInit {
   doctors: Doctor[] = [];
+  careGiver: Caregiver;
 
   constructor(private readonly patientRecruitment: PatientRecruitmentService,
-              private readonly domSanitizer: DomSanitizer) {
+              private readonly domSanitizer: DomSanitizer, private patientService: PatientService) {
   }
 
   ngOnInit() {
@@ -26,6 +29,7 @@ export class DoctorPageComponent implements OnInit {
           this.doctors.push(item.Doctor);
         }
       }
+      this.careGiver = this.patientService.patient.Caregiver;
     });
   }
 

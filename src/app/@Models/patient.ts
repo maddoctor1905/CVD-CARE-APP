@@ -1,3 +1,5 @@
+import { Caregiver } from './caregiver';
+
 export interface Patient {
   id: number;
 
@@ -38,7 +40,7 @@ export interface Patient {
 
   IsSmartPhone: number;
 
-  CGId: number;
+  Caregiver: Caregiver;
 
   PatDesc: string;
 

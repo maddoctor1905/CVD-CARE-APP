@@ -2,10 +2,11 @@
   <ng-content></ng-content>
   <section class="section" *ngIf="buttonsVisible">
     <div class="buttons has-addons is-centered">
-      <button class="button is-warning" *ngIf="stepperService.currentIndex > 0" (click)="previousButtonClicked()">⟵
+      <button class="button is-warning" *ngIf="stepperService.currentIndex > 0" (click)="previousButtonClicked()"
+              [innerHTML]="'firstInstall.previous' | translate">
       </button>
       <button class="button is-link" *ngIf="!stepperService.isEnd()" [class.is-fullwidth]="stepperService.isStart()"
-              (click)="nextButtonClicked()">⟶
+              (click)="nextButtonClicked()"  [innerHTML]="'firstInstall.next' | translate">
       </button>
       <button class="button is-success" *ngIf="stepperService.isEnd()"
               (click)="confirmButtonClicked()">Confirm

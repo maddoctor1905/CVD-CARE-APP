@@ -1,4 +1,6 @@
 {
+  "firstInstall.previous": "Previous",
+  "firstInstall.next": "Next",
   "bottomBar.calendar": "Calendar",
   "bottomBar.home": "Home",
   "bottomBar.settings": "Settings",
@@ -35,6 +37,8 @@
   "personalDetails.Email.label": "Email",
   "personalDetails.Relationship.label": "Relationship",
   "personalDetails.Relationship.placeholder": "Married",
+  "personalDetails.CareGiver.label": "Caregiver Name",
+  "personalDetails.CareGiver.placeholder": "",
   "personalDetails.Graduation.label": "Graduation",
   "personalDetails.Graduation.placeholder": "MIT Institute of Technology",
   "personalDetails.button.save": "Save",
@@ -45,5 +49,6 @@
   "symptom.modal.title.secondStep": "Add a description",
   "symptom.modal.lastStep": "Submit",
   "symptom.alert.error.title": "OOPS something went wrong.",
-  "symptom.alert.error.message": "You can't report a symptom for that date"
+  "symptom.alert.error.message": "You can't report a symptom for that date",
+  "doctor.CareGiver": "Caregiver"
 }

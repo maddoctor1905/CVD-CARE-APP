@@ -53,7 +53,7 @@ export class PersonalDetailsComponent implements OnInit {
         MobileNo: new FormControl(this.patient.MobileNo,
           [Validators.required, Validators.pattern(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/)]),
         AltMobileNo: new FormControl(this.patient.AltMobileNo,
-          [Validators.required, Validators.pattern(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/)]),
+          [Validators.pattern(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/)]),
         Email: new FormControl(this.patient.Email,
           [Validators.email]),
         Location: new FormControl(this.patient.Location,
@@ -61,6 +61,7 @@ export class PersonalDetailsComponent implements OnInit {
         // Other
         Relationship: new FormControl('',
           []),
+        FCGName: new FormControl(this.patient.FCGName, [Validators.required]),
       });
     });
   }

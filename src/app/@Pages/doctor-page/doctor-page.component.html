@@ -24,4 +24,26 @@
       </div>
     </div>
   </div>
+  <h1 class="title is-3" [innerHTML]="'doctor.CareGiver' | translate"></h1>
+  <div class="field" *ngIf="careGiver">
+    <div class="card large">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-96x96">
+              <img src="/assets/doctor.png" alt="Image">
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4 no-padding">{{careGiver.CGName}}</p>
+            <p><span class="title is-6">{{careGiver.Department}}</span></p>
+            <p class="subtitle is-6" *ngIf="careGiver.MobileNo"><a
+              [href]="safeURL('tel:' + careGiver.MobileNo)">{{careGiver.MobileNo}}</a></p>
+            <p class="subtitle is-6" *ngIf="careGiver.Email"><a
+              [href]="safeURL('mailto:' + careGiver.Email)">{{careGiver.Email}}</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

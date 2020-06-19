@@ -83,7 +83,9 @@ export class FirstInstallService {
   }
 
   updateName(id: number): Observable<Patient> {
-    return this.requestService.updatePatient({PatName: this._name}, id);
+    return this.requestService.updatePatient({PatName: this._name}, id).pipe(tap((p) => {
+      this.patientService.patient.PatName = this._name;
+    }));
   }
 
   constructor(private requestService: RequestService, private readonly patientService: PatientService) {

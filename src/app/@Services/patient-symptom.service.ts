@@ -54,7 +54,7 @@ export class PatientSymptomService {
           return item.MedicationCondition.CondName + ': ' + item.STDescription;
         }),
         title: `${this.patientService.patient.PatName} - ${key}`,
-        typeName: 'type',
+        typeName: 'symptom',
         urgent: false,
       });
     }));

@@ -4,7 +4,7 @@
     <div class="field">
       <label class="label">ID</label>
       <p class="control has-icons-left">
-        <input class="input" type="number" formControlName="id" placeholder="1571">
+        <input disabled class="input" type="number" formControlName="id" placeholder="1571">
         <span class="icon is-small is-left">
           <fa-icon [icon]="iconAddressBook"></fa-icon>
         </span>
@@ -14,9 +14,8 @@
     <div class="field">
       <label class="label" [innerHTML]="'personalDetails.PatName.label' | translate"></label>
       <p class="control has-icons-left">
-        <input class="input" type="text" formControlName="PatName"
-               placeholder="{{'personalDetails.PatName.placeholder' | translate}}"
-        >
+        <input  class="input" type="text" formControlName="PatName"
+               placeholder="{{'personalDetails.PatName.placeholder' | translate}}">
         <span class="icon is-small is-left">
           <fa-icon [icon]="iconUser"></fa-icon>
         </span>
@@ -90,6 +89,18 @@
         </span>
       </p>
       <p class="help is-danger" *ngIf="!form.get('Relationship').valid">This Relationship is invalid</p>
+    </div>
+    <div class="field" *ngIf="form">
+      <label class="label" [innerHTML]="'personalDetails.CareGiver.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input disabled class="input" type="text" formControlName="FCGName"
+               placeholder="{{'personalDetails.CareGiver.placeholder' | translate}}"
+        >
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconUser"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('FCGName').valid">This Caregiver is invalid</p>
     </div>
     <div class="field">
       <button class="button is-primary is-fullwidth" [disabled]="!form.valid || !form.dirty"

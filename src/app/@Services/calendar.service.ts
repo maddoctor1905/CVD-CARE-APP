@@ -64,7 +64,7 @@ export class CalendarService {
     });
     this.patientSymptomService.symptomChange$.subscribe(() => {
       this.linkSymptomToCalendar(new Date());
-    })
+    });
   }
 
   linkMedicationsToCalendar(date: Date) {
@@ -111,7 +111,14 @@ export class CalendarService {
       for (const day of week.days) {
         this.patientSymptomService.findSymptomsForDate(day.date).subscribe((event) => {
           if (event) {
-            day.events.push(event);
+            const s = day.events.find((i) => {
+              return i.typeName === 'symptom';
+            });
+            if (s) {
+              s.text = event.text;
+            } else {
+              day.events.push(event);
+            }
           }
         });
       }
