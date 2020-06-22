@@ -35,7 +35,6 @@
                 "output": "./"
               },
               "src/sw",
-              "src/ngsw-worker.js",
               "src/ngsw.json"
             ],
             "styles": [
