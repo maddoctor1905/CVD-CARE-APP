@@ -1,4 +1,4 @@
-<div class="default-layout has-navbar-fixed-top has-navbar-fixed-bottom">
+<div class="default-layout has-navbar-fixed-top">
   <app-top-bar (iconSidebarClicked)="setSidebarState(!sideBarVisible)"
                (iconMoreClicked)="showLangPopup()"></app-top-bar>
   <app-sidebar [sidebarQuickLinksElements]="sidebarLinksElements"
@@ -8,7 +8,7 @@
                (elementClicked)="sidebarElementClicked($event)"
                (clickOutside)="setSidebarState(!sideBarVisible)"></app-sidebar>
   <router-outlet></router-outlet>
-  <app-bottom-bar [elements]="bottomBarElements" (elementClicked)="bottomBarElementClickEvent($event)"></app-bottom-bar>
+  <app-bottom-bar *ngIf="false" [elements]="bottomBarElements" (elementClicked)="bottomBarElementClickEvent($event)"></app-bottom-bar>
   <div class="modal" [class.is-active]="modal.is.visible">
     <div class="modal-background" (click)="closeModal()"></div>
     <div class="modal-content" style="padding: 1rem">
