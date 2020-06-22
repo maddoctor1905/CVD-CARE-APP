@@ -3,7 +3,9 @@
 <app-day-scroller *ngIf="false" [dayElements]="getActiveWeek().days"
                   (dayElementClicked)="calendarChangeDayEvent($event)"></app-day-scroller>
 <app-icon-bar [emojis]="iconsForFilterBar"></app-icon-bar>
-<section class="section " style="padding-bottom: 0" *ngIf="isCurrentWeekContainingActualDate()">
+<div style="height: calc(15vh + 3.25rem + 3.25rem);
+    background-color: #f9fafc;"></div>
+<section class="section" style="padding-bottom: 0;" *ngIf="isCurrentWeekContainingActualDate()">
   <div class="container has-text-centered">
     <button class="button" (click)="sendSymptoms()">Share symptoms</button>
   </div>

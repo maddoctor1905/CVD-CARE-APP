@@ -1,3 +1,25 @@
+app-week-scroller {
+  position: fixed;
+  z-index: 10;
+  width: 100vw;
+  background-color: white;
+  height: 15vh;
+  top: 3.25rem;
+  display: flex;
+  justify-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+app-icon-bar {
+  position: fixed;
+  top: calc(15vh + 3.25rem);
+  width: 100vw;
+  height: 8vh;
+  z-index: 10;
+  border-top: 1px solid gray;
+}
+
 .notification {
   text-align: center;
   display: none;

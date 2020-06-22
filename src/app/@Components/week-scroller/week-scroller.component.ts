@@ -66,4 +66,13 @@ export class WeekScrollerComponent implements OnInit {
     }
     return (str);
   }
+
+  onScroll(event: Event) {
+    const scrollerElement = event.target as HTMLElement;
+    const element = (document.elementFromPoint(window.innerWidth / 2, (scrollerElement.getBoundingClientRect().y) +
+      scrollerElement.getBoundingClientRect().height / 2))
+    const index = Number(element.getAttribute('index'));
+    const scrolledMonth = (this.monthNames[this.weekElements[index].days[0].date.getMonth()]);
+    this.itemClicked(this.weekElements[index]);
+  }
 }
