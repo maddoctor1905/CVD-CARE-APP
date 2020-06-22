@@ -9,8 +9,8 @@
       ],
       "cacheConfig": {
         "strategy": "performance",
-        "maxSize": 100,
-        "maxAge": "3d"
+        "maxSize": 100000,
+        "maxAge": "300d"
       }
     },
     {
@@ -20,10 +20,11 @@
       ],
       "cacheConfig": {
         "strategy": "freshness",
-        "maxSize": 100,
-        "maxAge": "3d",
+        "maxSize": 100000,
+        "maxAge": "300d",
         "timeout": "10s"
-      }
+      },
+      "version": 2
     }
   ],
   "assetGroups": [
