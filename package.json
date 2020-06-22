@@ -1,6 +1,6 @@
 {
   "name": "@enoviah/mhealth",
-  "version": "0.3.16",
+  "version": "0.3.20",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host=0.0.0.0",

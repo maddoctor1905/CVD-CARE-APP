@@ -50,5 +50,6 @@
   "symptom.modal.lastStep": "Submit",
   "symptom.alert.error.title": "OOPS something went wrong.",
   "symptom.alert.error.message": "You can't report a symptom for that date",
-  "doctor.CareGiver": "Caregiver"
+  "doctor.CareGiver": "Caregiver",
+  "share.modal.title": "Share my symptoms with whom ?"
 }

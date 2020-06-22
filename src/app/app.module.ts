@@ -25,6 +25,8 @@ import {Overlay} from '@angular/cdk/overlay';
 import {ListDialogModule} from './@Components/dialogs/list-dialog/list-dialog.module';
 import {SymptomDialogModule} from './@Components/dialogs/symptom-dialog/symptom-dialog.module';
 import {PatientSymptomService} from './@Services/patient-symptom.service';
+import {WhatsappService} from './@Services/whatsapp.service';
+import {SymptomShareDialogModule} from './@Components/dialogs/symptom-share-dialog/symptom-share-dialog.module';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import {PatientSymptomService} from './@Services/patient-symptom.service';
     OverlayModule,
     YesOrNoDialogModule,
     ListDialogModule,
-    SymptomDialogModule
+    SymptomDialogModule,
+    SymptomShareDialogModule
   ],
   providers: [
     CheckForUpdateService,
@@ -62,7 +65,8 @@ import {PatientSymptomService} from './@Services/patient-symptom.service';
     PatientInvestigationService,
     ServiceWorkerService,
     PatientRecruitmentService,
-    PatientSymptomService
+    PatientSymptomService,
+    WhatsappService
   ],
   bootstrap: [AppComponent],
   exports: []

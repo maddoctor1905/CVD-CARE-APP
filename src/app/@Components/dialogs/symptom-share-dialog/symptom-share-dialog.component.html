@@ -1,0 +1,33 @@
+<div class="modal-card is-marginless">
+  <header class="modal-card-head has-text-centered">
+    <p class="modal-card-title"> {{'share.modal.title' | translate}} 📚</p>
+  </header>
+  <section class="modal-card-body">
+    <div class="example-viewport">
+      <ng-container>
+        <p>Doctors</p>
+        <div *ngFor="let item of doctors; let index = index" class="field">
+          <!------ RADIO MODE (One Choice)------>
+          <ng-container>
+            <input  (change)="onRadioChange(item.MobileNo)"
+                   class="is-checkradio is-info" id="exampleRadioInline-{{index}}" type="radio"
+                   name="exampleRadioInline">
+            <label for="exampleRadioInline-{{index}}">{{item.DName}} - {{item.Department}}</label>
+          </ng-container>
+          <!------ CHECKBOX MODE (Multiple Choice)------>
+        </div>
+        <p>Caregiver</p>
+        <input (change)="onRadioChange(caregiver.MobileNo)"
+               class="is-checkradio is-info" id="exampleRadioInline-caregiver" type="radio"
+               name="exampleRadioInline">
+        <label for="exampleRadioInline-caregiver">{{caregiver.CGName}} - {{caregiver.Department}}</label>
+      </ng-container>
+    </div>
+  </section>
+  <footer class="modal-card-foot justify-content-end">
+    <button (click)="close('no')" type="button" class="button is-danger">Cancel</button>
+    <button (click)="submit()" type="button" class="button is-success"
+            [disabled]="!currentItem">{{'symptom.modal.lastStep' | translate}}
+    </button>
+  </footer>
+</div>
