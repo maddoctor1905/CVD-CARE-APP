@@ -9,6 +9,7 @@ import {IconBarModule} from '../../@Components/icon-bar/icon-bar.module';
 import {WeekScrollerModule} from '../../@Components/week-scroller/week-scroller.module';
 import {DayScrollerModule} from '../../@Components/day-scroller/day-scroller.module';
 import {TranslateModule} from '@ngx-translate/core';
+import {WhatsappService} from '../../@Services/whatsapp.service';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {TranslateModule} from '@ngx-translate/core';
         DayScrollerModule,
         TranslateModule,
     ],
+  providers: [WhatsappService]
 })
 export class DayPageModule {
 }

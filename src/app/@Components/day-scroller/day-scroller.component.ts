@@ -22,4 +22,8 @@ export class DayScrollerComponent implements OnInit {
     item.active = true;
     this.dayElementClicked.emit(item);
   }
+
+  sendSymptoms() {
+    window.open('https://facebook.com', '_blanck');
+  }
 }

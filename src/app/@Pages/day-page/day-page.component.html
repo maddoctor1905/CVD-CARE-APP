@@ -3,6 +3,11 @@
 <app-day-scroller *ngIf="false" [dayElements]="getActiveWeek().days"
                   (dayElementClicked)="calendarChangeDayEvent($event)"></app-day-scroller>
 <app-icon-bar [emojis]="iconsForFilterBar"></app-icon-bar>
+<section class="section " style="padding-bottom: 0" *ngIf="isCurrentWeekContainingActualDate()">
+  <div class="container has-text-centered">
+    <button class="button" (click)="sendSymptoms()">Share symptoms</button>
+  </div>
+</section>
 <ng-container *ngFor="let item of weekElements">
   <ng-container *ngIf="item.active">
     <section class="section">
@@ -11,9 +16,10 @@
         <!--- 4 < 8 Days--->
         <div class="field" *ngFor="let itemDay of item.days">
           <div style="display: flex; align-items: center; justify-content: space-between">
-          <h1
-            class="has-text-weight-semibold title is-4 is-capitalized">{{itemDay.date | date: 'EEEE dd, MMM' : '' : translateService.currentLang}}</h1>
-          <button (click)="addSymptom(itemDay)" class="button symptom-button">{{'symptom.action' | translate}}</button>
+            <h1
+              class="has-text-weight-semibold title is-4 is-capitalized">{{itemDay.date | date: 'EEEE dd, MMM' : '' : translateService.currentLang}}</h1>
+            <button (click)="addSymptom(itemDay)"
+                    class="button symptom-button">{{'symptom.action' | translate}}</button>
           </div>
           <ng-container *ngFor="let itemEvent of itemDay.events">
             <app-card-collapsile *ngIf="isAllowedEmoji(itemEvent.emoji)"

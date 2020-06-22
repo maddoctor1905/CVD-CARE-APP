@@ -4,6 +4,7 @@ import {DayElement, WeekElement} from '../../@Models/calendar.model';
 import {CalendarService} from '../../@Services/calendar.service';
 import {TranslateService} from '@ngx-translate/core';
 import {PatientSymptomService} from '../../@Services/patient-symptom.service';
+import {WhatsappService} from '../../@Services/whatsapp.service';
 
 @Component({
   selector: 'app-day-page',
@@ -34,6 +35,7 @@ export class DayPageComponent implements OnInit {
     private calendarService: CalendarService,
     public translateService: TranslateService,
     private readonly patientSymptomService: PatientSymptomService,
+    private readonly whatsappService: WhatsappService
   ) {
   }
 
@@ -86,7 +88,18 @@ export class DayPageComponent implements OnInit {
     return (allowed);
   }
 
+  isCurrentWeekContainingActualDate() {
+    const w = this.getActiveWeek();
+    const d = w.days[0];
+    const t = new Date();
+    return d.date.getMonth() === t.getMonth() && d.date.getDate() === t.getDate();
+  }
+
   addSymptom(itemDay: DayElement) {
     this.patientSymptomService.declareSymptom(itemDay.date);
+  }
+
+  sendSymptoms() {
+    this.whatsappService.sendSymptomsOfWeek();
   }
 }
