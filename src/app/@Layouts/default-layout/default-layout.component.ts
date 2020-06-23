@@ -3,7 +3,7 @@ import {BottomBarElement} from '../../@Components/bottom-bar/bottom-bar.model';
 import {
   faAmbulance,
   faCalendarDay,
-  faHome, faLanguage,
+  faHome, faLanguage, faQuestionCircle,
   faRunning,
   faSignOutAlt,
   faUser,
@@ -74,7 +74,7 @@ export class DefaultLayoutComponent implements OnInit {
     {
       icon: faAmbulance,
       name: 'sidebar.emergency',
-      url: '',
+      url: '/app/emergency',
       active: false,
     },
   ];
@@ -86,6 +86,12 @@ export class DefaultLayoutComponent implements OnInit {
       url: '',
       active: false,
       custom: this.showLangPopup.bind(this),
+    },
+    {
+      icon: faQuestionCircle,
+      name: 'sidebar.about',
+      url: '/app/about',
+      active: false,
     },
     {
       icon: faSignOutAlt,

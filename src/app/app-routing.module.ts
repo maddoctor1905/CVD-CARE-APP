@@ -72,6 +72,14 @@ const routes: Routes = [
         loadChildren: () => import('./@Pages/home-page/home-page.module').then(m => m.HomePageModule)
       },
       {
+        path: 'about',
+        loadChildren: () => import('./@Pages/about-page/about-page.module').then(m => m.AboutPageModule)
+      },
+      {
+        path: 'emergency',
+        loadChildren: () => import('./@Pages/emergency-page/emergency-page.module').then(m => m.EmergencyPageModule)
+      },
+      {
         path: 'settings',
         loadChildren: () => import('./@Pages/settings-page/settings-page.module').then(m => m.SettingsPageModule)
       }
