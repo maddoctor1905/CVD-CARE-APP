@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {Otp} from '../@Models/otp.model';
-import {Patient} from '../@Models/patient';
+import {Patient, PatientDemographic} from '../@Models/patient';
 import {map} from 'rxjs/operators';
 import {PatientMedication} from '../@Models/medication.model';
 import {PatientInvestigation} from '../@Models/investigation.model';
@@ -63,5 +63,14 @@ export class RequestService {
       date,
       description,
     });
+  }
+
+  getPatientDemographic(id: string) {
+    return this.http.get<PatientDemographic>(`${environment.apiRootUrl}/patients/${id}/demographics`);
+
+  }
+
+  updatePatientDemographic(body: any, id: number) {
+    return this.http.put<PatientDemographic>(`${environment.apiRootUrl}/patients/${id}/demographics`, body);
   }
 }

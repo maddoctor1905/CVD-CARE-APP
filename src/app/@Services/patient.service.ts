@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {RequestService} from './request.service';
-import {Patient} from '../@Models/patient';
+import {Patient, PatientDemographic} from '../@Models/patient';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {ServiceWorkerService} from './service-worker.service';
@@ -9,6 +9,7 @@ import {ServiceWorkerService} from './service-worker.service';
 export class PatientService {
   private _patient: Patient;
   public patient$: BehaviorSubject<Patient> = new BehaviorSubject<Patient>(null);
+  public patientDemographic$: BehaviorSubject<PatientDemographic> = new BehaviorSubject<PatientDemographic>(null);
 
   constructor(private readonly requestService: RequestService,
               private readonly swService: ServiceWorkerService) {
@@ -21,9 +22,12 @@ export class PatientService {
       return;
     }
     this.requestService.getPatient(id).subscribe((patient: Patient) => {
-      this._patient = patient;
-      this.syncWithSW(+localStorage.getItem('firstInstallTime'));
-      this.patient$.next(patient);
+      this.requestService.getPatientDemographic(id).subscribe((data) => {
+        this._patient = patient;
+        this.patientDemographic$.next(data);
+        this.syncWithSW(+localStorage.getItem('firstInstallTime'));
+        this.patient$.next(patient);
+      })
     });
   }
 
@@ -66,4 +70,7 @@ export class PatientService {
     return this.requestService.updatePatient(body, this.patient.id);
   }
 
+  public updateDemographic(body: any) {
+    return this.requestService.updatePatientDemographic(body, this.patient.id);
+  }
 }
