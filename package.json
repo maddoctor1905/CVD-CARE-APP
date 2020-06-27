@@ -135,6 +135,7 @@
             "traefik.frontend.entryPoints": "http,https",
             "traefik.backend": "mhealth"
           },
+          "volumes": [],
           "env": []
         },
         "staging": {
@@ -145,6 +146,7 @@
             "traefik.frontend.entryPoints": "http,https",
             "traefik.backend": "mhealth"
           },
+          "volumes": [],
           "env": []
         }
       }
