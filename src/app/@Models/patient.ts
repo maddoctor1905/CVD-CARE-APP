@@ -1,4 +1,29 @@
-import { Caregiver } from './caregiver';
+import {Caregiver} from './caregiver';
+
+export interface PatientDemographic {
+  id: number;
+
+  Patient: Patient;
+
+  Gender: string;
+  DOB: string;
+  STDescription: string;
+  Age: number;
+  AgeMenarc: number;
+
+  MaritialStatus: string;
+  NoOfLivChildren: string;
+  Religion: string;
+  EducationStatus: string;
+  Occupation: string;
+  MonthlyIncome: number;
+  TypeOfCommunity: string;
+  TypeOfDiet: string;
+  TypeOfFamily: string;
+
+  LanguageApp: string;
+  LanguageProf: string;
+}
 
 export interface Patient {
   id: number;

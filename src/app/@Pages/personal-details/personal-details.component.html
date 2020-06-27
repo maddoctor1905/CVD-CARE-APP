@@ -15,12 +15,35 @@
       <label class="label" [innerHTML]="'personalDetails.PatName.label' | translate"></label>
       <p class="control has-icons-left">
         <input  class="input" type="text" formControlName="PatName"
-               placeholder="{{'personalDetails.PatName.placeholder' | translate}}">
+                placeholder="{{'personalDetails.PatName.placeholder' | translate}}">
         <span class="icon is-small is-left">
           <fa-icon [icon]="iconUser"></fa-icon>
         </span>
       </p>
       <p class="help is-danger" *ngIf="!form.get('PatName').valid">This PatName is invalid</p>
+    </div>
+    <div class="field">
+      <label class="label" [innerHTML]="'personalDetails.DOB.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input  class="input" type="date" formControlName="DOB"
+                placeholder="{{'personalDetails.DOB.placeholder' | translate}}">
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconUser"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('DOB').valid">This Date of Birth is invalid</p>
+    </div>
+    <div class="field">
+      <label class="label" [innerHTML]="'personalDetails.Address.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input class="input" type="text" formControlName="Address"
+               placeholder="{{'personalDetails.Address.placeholder' | translate}}"
+        >
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconAddress"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('Address').valid">This Address is invalid</p>
     </div>
     <div class="field">
       <label class="label" [innerHTML]="'personalDetails.Location.label' | translate"></label>
@@ -33,6 +56,30 @@
         </span>
       </p>
       <p class="help is-danger" *ngIf="!form.get('Location').valid">This Location is invalid</p>
+    </div>
+    <div class="field">
+      <label class="label" [innerHTML]="'personalDetails.City.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input class="input" type="text" formControlName="City"
+               placeholder="{{'personalDetails.City.placeholder' | translate}}"
+        >
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconAddress"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('City').valid">This City is invalid</p>
+    </div>
+    <div class="field">
+      <label class="label" [innerHTML]="'personalDetails.Pincode.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input class="input" type="number" formControlName="Pincode"
+               placeholder="{{'personalDetails.Pincode.placeholder' | translate}}"
+        >
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconAddress"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('Pincode').valid">This Pincode is invalid</p>
     </div>
     <div class="field">
       <label class="label" [innerHTML]="'personalDetails.MobileNo.label' | translate"></label>
@@ -81,14 +128,14 @@
     <div class="field">
       <label class="label" [innerHTML]="'personalDetails.Relationship.label' | translate"></label>
       <p class="control has-icons-left">
-        <input class="input" type="text" formControlName="Relationship"
+        <input class="input" type="text" formControlName="MaritialStatus"
                placeholder="{{'personalDetails.Relationship.placeholder' | translate}}"
         >
         <span class="icon is-small is-left">
           <fa-icon [icon]="iconPlaceOfWorship"></fa-icon>
         </span>
       </p>
-      <p class="help is-danger" *ngIf="!form.get('Relationship').valid">This Relationship is invalid</p>
+      <p class="help is-danger" *ngIf="!form.get('MaritialStatus').valid">This MaritialStatus is invalid</p>
     </div>
     <div class="field" *ngIf="form">
       <label class="label" [innerHTML]="'personalDetails.CareGiver.label' | translate"></label>
@@ -101,6 +148,42 @@
         </span>
       </p>
       <p class="help is-danger" *ngIf="!form.get('FCGName').valid">This Caregiver is invalid</p>
+    </div>
+    <div class="field" *ngIf="form">
+      <label class="label" [innerHTML]="'personalDetails.FCGEmail.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input disabled class="input" type="text" formControlName="FCGEmail"
+               placeholder="{{'personalDetails.FCGEmail.placeholder' | translate}}"
+        >
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconUser"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('FCGName').valid">This FCGEmail is invalid</p>
+    </div>
+    <div class="field" *ngIf="form">
+      <label class="label" [innerHTML]="'personalDetails.FCGMobileNo.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input disabled class="input" type="text" formControlName="FCGMobileNo"
+               placeholder="{{'personalDetails.CareGiver.placeholder' | translate}}"
+        >
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconUser"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('FCGMobileNo').valid">This FCGMobileNo is invalid</p>
+    </div>
+    <div class="field" *ngIf="form">
+      <label class="label" [innerHTML]="'personalDetails.FCGAltMobileNo.label' | translate"></label>
+      <p class="control has-icons-left">
+        <input disabled class="input" type="text" formControlName="FCGAltMobileNo"
+               placeholder="{{'personalDetails.CareGiver.placeholder' | translate}}"
+        >
+        <span class="icon is-small is-left">
+          <fa-icon [icon]="iconUser"></fa-icon>
+        </span>
+      </p>
+      <p class="help is-danger" *ngIf="!form.get('FCGAltMobileNo').valid">This FCGAltMobileNo is invalid</p>
     </div>
     <div class="field">
       <button class="button is-primary is-fullwidth" [disabled]="!form.valid || !form.dirty"
