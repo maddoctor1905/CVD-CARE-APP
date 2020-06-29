@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {PhoneNumberChange} from '../../@SubPages/enter-phonenumber-subpage/enter-phonenumber-subpage.component';
 import {Patient} from '../../@Models/patient';
+import {RequestService} from '../../@Services/request.service';
 
 @Component({
   selector: 'app-first-install-page',
@@ -34,7 +35,8 @@ export class FirstInstallPageComponent implements OnInit {
     private _stepperService: StepperService,
     public _firstInstallService: FirstInstallService,
     private router: Router,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private requestService: RequestService,
   ) {
     this.stepperService.limit = 3;
   }
@@ -60,7 +62,16 @@ export class FirstInstallPageComponent implements OnInit {
 
   stepperConfirmClicked() {
     this.firstInstallService.finishInstallation().subscribe((patient: Patient) => {
-      console.log(patient);
+      /*
+       * This line is to prevent the bug of service worker caching /patient/?mobileNumber instead of /patient/id for
+       * offline usage.
+       */
+      this.requestService.getPatient(String(patient.id)).subscribe((data) => {
+        console.info('[CVDCare] Fake request patient for cache.');
+      });
+      this.requestService.getPatientDemographic(String(patient.id)).subscribe(() => {
+        console.info('[CVDCare] Fake request demographic for cache.');
+      });
       localStorage.setItem('firstInstall', 'true');
       localStorage.setItem('otpCode', 'true');
       localStorage.setItem('CLIENT_UNIQUE_ID', patient.id.toString());

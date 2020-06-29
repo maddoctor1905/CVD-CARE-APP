@@ -1,14 +1,25 @@
 {
   "$schema": "./node_modules/@angular/service-worker/config/schema.json",
   "index": "/index.html",
+  "dataGroups": [
+    {
+      "name": "data-group",
+      "urls": [
+        "https://mit-api.enoviah.fr/**"
+      ],
+      "cacheConfig": {
+        "maxAge": "100d",
+        "maxSize": 1000000,
+        "strategy": "freshness"
+
+      }
+    }
+  ],
   "assetGroups": [
     {
       "name": "app",
       "installMode": "prefetch",
       "resources": {
-        "urls": [
-          "https://mit-api.enoviah.fr/**"
-        ],
         "files": [
           "/favicon.ico",
           "/index.html",
@@ -17,7 +28,8 @@
           "/*.js"
         ]
       }
-    }, {
+    },
+    {
       "name": "assets",
       "installMode": "lazy",
       "updateMode": "prefetch",
