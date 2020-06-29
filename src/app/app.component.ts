@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
     private readonly swService: ServiceWorkerService,
     private readonly overlayService: OverlayService,
   ) {
+    console.info('100');
     registerLocaleData(localeENUS, 'en-US');
     registerLocaleData(localeENUS, 'kn-IN');
     registerLocaleData(localeFR, 'fr-FR');
