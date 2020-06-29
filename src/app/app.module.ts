@@ -118,7 +118,7 @@ export class SentryErrorHandler implements ErrorHandler {
         deps: [HttpClient]
       }
     }),
-    ServiceWorkerModule.register('./sw-master.js', {enabled: true}),
+    ServiceWorkerModule.register('sw-master.js', {enabled: true}),
     // Add for DialogService System
     OverlayModule,
     YesOrNoDialogModule,
@@ -137,7 +137,7 @@ export class SentryErrorHandler implements ErrorHandler {
     PatientRecruitmentService,
     PatientSymptomService,
     WhatsappService,
-    { provide: ErrorHandler, useClass: (environment.production) ? SentryErrorHandler : ErrorHandler }
+    {provide: ErrorHandler, useClass: (environment.production) ? SentryErrorHandler : ErrorHandler}
   ],
   bootstrap: [AppComponent],
   exports: [],
