@@ -1,6 +1,6 @@
 {
   "name": "@enoviah/mhealth",
-  "version": "0.4.1",
+  "version": "0.4.3",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host=0.0.0.0",
@@ -135,6 +135,7 @@
             "traefik.frontend.entryPoints": "http,https",
             "traefik.backend": "mhealth"
           },
+          "volumes": [],
           "env": []
         },
         "staging": {
@@ -145,6 +146,7 @@
             "traefik.frontend.entryPoints": "http,https",
             "traefik.backend": "mhealth"
           },
+          "volumes": [],
           "env": []
         }
       }
