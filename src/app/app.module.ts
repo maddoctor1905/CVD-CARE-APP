@@ -118,7 +118,7 @@ export class SentryErrorHandler implements ErrorHandler {
         deps: [HttpClient]
       }
     }),
-    ServiceWorkerModule.register('sw-master.js', {enabled: true}),
+    ServiceWorkerModule.register('sw-master.js', {enabled: true, registrationStrategy: 'registerImmediately'}),
     // Add for DialogService System
     OverlayModule,
     YesOrNoDialogModule,
