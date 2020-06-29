@@ -2,10 +2,10 @@
   "name": "Sukhi Hrudaya",
   "short_name": "Sukhi Hrudaya",
   "theme_color": "#1976d2",
+  "orientation": "portrait",
   "background_color": "#fafafa",
   "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
+  "start_url": "/?utm_source=homescreen",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",

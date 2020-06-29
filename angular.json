@@ -34,8 +34,7 @@
                 "input": "node_modules/dexie/dist/",
                 "output": "./"
               },
-              "src/sw",
-              "src/ngsw.json"
+              "src/sw"
             ],
             "styles": [
               "src/styles.scss"
