@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/service-worker/config/schema.json",
-  "index": "/index.html",
+  "index": "./index.html",
   "dataGroups": [
     {
       "name": "api-performance",
@@ -36,6 +36,7 @@
           "/favicon.ico",
           "/index.html",
           "/manifest.webmanifest",
+          "/assets/**",
           "/*.css",
           "/*.js"
         ]

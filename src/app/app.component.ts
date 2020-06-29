@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {SwUpdate} from '@angular/service-worker';
-import {CheckForUpdateService} from './@Services/check-for-update.service';
 import {TranslateService} from '@ngx-translate/core';
 import {registerLocaleData} from '@angular/common';
 import localeENUS from '@angular/common/locales/en';
@@ -16,11 +14,10 @@ import {OverlayService} from './@Services/overlay.service';
 export class AppComponent implements OnInit {
   title = 'mhealth';
 
-  constructor(private updates: SwUpdate,
-              private checkForUpdateService: CheckForUpdateService,
-              private translateService: TranslateService,
-              private readonly swService: ServiceWorkerService,
-              private readonly overlayService: OverlayService,
+  constructor(
+    private translateService: TranslateService,
+    private readonly swService: ServiceWorkerService,
+    private readonly overlayService: OverlayService,
   ) {
     registerLocaleData(localeENUS, 'en-US');
     registerLocaleData(localeENUS, 'kn-IN');
@@ -31,9 +28,6 @@ export class AppComponent implements OnInit {
     } else {
       this.translateService.setDefaultLang('en-US');
     }
-    this.updates.available.subscribe((event) => {
-      document.location.reload();
-    });
   }
 
   public ngOnInit(): void {
