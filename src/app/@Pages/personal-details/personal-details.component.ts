@@ -45,7 +45,7 @@ export class PersonalDetailsComponent implements OnInit {
     this.topBarService.setSpinning(true);
     this.patientService.patient$.pipe(filter((patient) => !!patient),
       mergeMap(() => {
-        return this.patientService.patientDemographic$
+        return this.patientService.patientDemographic$.pipe(filter((p) => !!p))
       })).subscribe((patientDemographic: PatientDemographic) => {
       this.topBarService.setSpinning(false);
       console.info(this.patientService.patient);

@@ -16,9 +16,11 @@ export class ExercisePageComponent implements OnInit {
 
   ngOnInit() {
     this.patientRecruitmentService.ready$.pipe(filter(s => !!s), take(1)).subscribe(() => {
-      this.exercise = this.patientRecruitmentService.recruitments.map((item) => {
-        return item.Exercise;
-      });
+      for (const item of this.patientRecruitmentService.recruitments) {
+        if (item.Exercise) {
+          this.exercise.push(item.Exercise);
+        }
+      }
     });
   }
 

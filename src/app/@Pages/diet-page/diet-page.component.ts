@@ -16,9 +16,11 @@ export class DietPageComponent implements OnInit {
 
   ngOnInit() {
     this.patientRecruitmentService.ready$.pipe(filter(s => !!s), take(1)).subscribe(() => {
-      this.diets = this.patientRecruitmentService.recruitments.map((item) => {
-        return item.Diet;
-      });
+      for (const item of this.patientRecruitmentService.recruitments) {
+        if (item.Diet) {
+          this.diets.push(item.Diet);
+        }
+      }
     });
   }
 
