@@ -108,7 +108,7 @@ export class PatientRecruitmentService {
         from: new Date(Date.now()),
         to: new Date(Date.now()),
         text: result.map((item) => {
-          return item.Doctor.DName;
+          return (item.Doctor) ? item.Doctor.DName : 'No doctor found';
         }),
         title: `${this.patientService.patient.PatName} - ` + key,
         typeName: 'type',
