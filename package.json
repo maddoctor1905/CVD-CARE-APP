@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host=0.0.0.0",
+    "start:sw": "ng build --prod && cd .enoviah/service/@enoviah/mhealth && http-server -o",
     "build:prod": "ng build --prod",
     "build": "ng build",
     "test": "ng test",
