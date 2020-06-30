@@ -2,6 +2,10 @@
 @import '~bulma';
 @import "assets/css/bulma-checkradio.min.css";
 
+input {
+  -webkit-user-select: text;
+}
+
 .justify-content-center {
   justify-content: center;
 }
