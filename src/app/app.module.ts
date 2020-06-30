@@ -31,6 +31,7 @@ import * as Sentry from '@sentry/browser';
 import {environment} from '../environments/environment';
 import {PreloadDialogComponent} from './@Components/dialogs/preload-dialog/preload-dialog.component';
 import {PreloadDialogModule} from './@Components/dialogs/preload-dialog/preload-dialog.module';
+import {IndexDbService} from './@Services/indexDb.service';
 
 Sentry.init({
   dsn: 'https://f37b4f699fcd4f158312e2a0562a1544@sentry.enoviah.fr/17',
@@ -140,7 +141,8 @@ export class SentryErrorHandler implements ErrorHandler {
     PatientRecruitmentService,
     PatientSymptomService,
     WhatsappService,
-    {provide: ErrorHandler, useClass: (environment.production) ? SentryErrorHandler : ErrorHandler}
+    {provide: ErrorHandler, useClass: (environment.production) ? SentryErrorHandler : ErrorHandler},
+    IndexDbService
   ],
   bootstrap: [AppComponent],
   exports: [],

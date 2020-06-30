@@ -1,13 +1,20 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {OverlayService} from './overlay.service';
 import {AlertDialogComponent} from '../@Components/dialogs/alert-dialog/alert-dialog.component';
 
 @Injectable()
 export class ServiceWorkerService {
   backgroundSyncReady$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  offline$: BehaviorSubject<boolean> = new BehaviorSubject(!navigator.onLine);
 
   constructor(private overlayService: OverlayService) {
+    window.addEventListener('online', () => {
+      this.offline$.next(false);
+    });
+    window.addEventListener('offline', () => {
+      this.offline$.next(true);
+    });
   }
 
   async registerBackgroundSync() {

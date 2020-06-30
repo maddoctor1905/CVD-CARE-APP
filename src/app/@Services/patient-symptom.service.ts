@@ -76,7 +76,6 @@ export class PatientSymptomService {
             this.requestService.createSymptom(this.patientService.patient.id, res.data.symptom.id,
               day.toISOString().slice(0, 19).replace('T', ' '), res.data.description)
               .subscribe((data: PatientSymptom) => {
-                console.info('c');
                 this.symptoms.push(data);
                 this.symptomChange$.next(data);
               });
