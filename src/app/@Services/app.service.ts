@@ -24,6 +24,7 @@ export class AppService {
     localStorage.clear();
     this.clearCache().subscribe(() => {
     });
+    window.close();
   }
 
   clearCache(): Observable<void> {

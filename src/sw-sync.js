@@ -32,4 +32,9 @@ function initDb() {
   const messageHandler = new MessageHandler(self, medicationHandler, patientHandler, investigationHandler, recruitmentHandler, db);
 
   messageHandler.registerListeners();
+  self.addEventListener("notificationclick", (event) => {
+    console.log('[SW] notification clicked');
+    self.clients.openWindow(`/`);
+    event.notification.close();
+  });
 })();
