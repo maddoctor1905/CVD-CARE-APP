@@ -100,6 +100,7 @@ export class DefaultLayoutComponent implements OnInit {
       name: 'sidebar.logout',
       url: '',
       active: false,
+      custom: this.logout.bind(this),
     },
   ];
 
@@ -158,11 +159,6 @@ export class DefaultLayoutComponent implements OnInit {
 
   sidebarElementClicked(e: SidebarElement) {
     this.sideBarVisible = false;
-    console.info(e);
-    if (e.name === 'Logout') {
-      this.appService.logout();
-      return this.router.navigateByUrl('/');
-    }
     if (e.custom) {
       e.custom();
     } else {
@@ -205,10 +201,10 @@ export class DefaultLayoutComponent implements OnInit {
     console.info('logout');
     this.overlayService.openYesOrNo().afterClosed$.subscribe((yesOrNo) => {
       if (yesOrNo.data === 'yes') {
-        localStorage.removeItem('firstInstall');
-        this.router.navigateByUrl('/');
+        this.appService.logout();
+        return this.router.navigateByUrl('/');
       }
-    })
+    });
   }
 
   private translateBottombar() {

@@ -84,6 +84,7 @@ export class FirstInstallService {
 
   updateName(id: number): Observable<Patient> {
     return this.requestService.updatePatient({PatName: this._name}, id).pipe(tap((p) => {
+      console.log(p);
       this.patientService.patient.PatName = this._name;
     }));
   }

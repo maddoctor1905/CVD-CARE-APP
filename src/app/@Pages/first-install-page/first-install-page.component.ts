@@ -47,13 +47,14 @@ export class FirstInstallPageComponent implements OnInit {
   }
 
   stepperNextClicked() {
+    console.log(this.stepperService.currentIndex);
     if (this._firstInstallService.steps.phone && this._stepperService.currentIndex === 2) {
       this.firstInstallService.createUnconfirmedUser().subscribe(() => {
         this.stepperService.next();
       }, (err) => {
         this.error = err.error.message;
       });
-    } else {
+    } else if (this.stepperService.currentIndex !== 2) {
       this.stepperService.next();
     }
   }

@@ -90,7 +90,7 @@ export class PersonalDetailsComponent implements OnInit {
       this.patientService.update(
         {
           ...this.removeKeys(['DOB', 'MaritialStatus', 'FCGName', 'FCGEmail', 'FCGMobileNo', 'FCGAltMobileNo']
-            , data), ...this.patientService.patient.Caregiver
+            , data)
         }).subscribe((patient: Patient) => {
         this.patientService.updateDemographic(this.getOnlyKeys(['DOB', 'MaritialStatus'], data))
           .subscribe((patientDemographic: PatientDemographic) => {
