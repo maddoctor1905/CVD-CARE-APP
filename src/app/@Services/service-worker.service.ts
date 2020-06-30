@@ -15,7 +15,6 @@ export class ServiceWorkerService {
       // @ts-ignore
       name: 'periodic-background-sync',
     });
-    console.log(status);
     if (status.state === 'granted') {
       let registration;
       try {
