@@ -8,18 +8,19 @@ import {
   faMobileAlt,
   faPhone,
   faPlaceOfWorship,
-  faUser
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Patient, PatientDemographic} from '../../@Models/patient';
 import {TopBarService} from '../../@Components/top-bar/top-bar.service';
 import {PatientService} from '../../@Services/patient.service';
-import {filter, mergeMap} from 'rxjs/operators';
+import {concatMap, filter, mergeMap, tap} from 'rxjs/operators';
+import {concat, forkJoin} from 'rxjs';
 
 @Component({
   selector: 'app-personal-details',
   templateUrl: './personal-details.component.html',
-  styleUrls: ['./personal-details.component.scss']
+  styleUrls: ['./personal-details.component.scss'],
 })
 export class PersonalDetailsComponent implements OnInit {
   iconPhone = faPhone;
@@ -45,7 +46,7 @@ export class PersonalDetailsComponent implements OnInit {
     this.topBarService.setSpinning(true);
     this.patientService.patient$.pipe(filter((patient) => !!patient),
       mergeMap(() => {
-        return this.patientService.patientDemographic$.pipe(filter((p) => !!p))
+        return this.patientService.patientDemographic$.pipe(filter((p) => !!p));
       })).subscribe((patientDemographic: PatientDemographic) => {
       this.topBarService.setSpinning(false);
       console.info(this.patientService.patient);
@@ -54,7 +55,7 @@ export class PersonalDetailsComponent implements OnInit {
         id: new FormControl(this.patient.id,
           [Validators.min(0), Validators.max(9999999)]),
         PatName: new FormControl(this.patient.PatName,
-          []),
+          [Validators.required]),
         MobileNo: new FormControl(this.patient.MobileNo,
           [Validators.required, Validators.pattern(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/)]),
         AltMobileNo: new FormControl(this.patient.AltMobileNo,
@@ -70,7 +71,7 @@ export class PersonalDetailsComponent implements OnInit {
         City: new FormControl(this.patient.City,
           []),
         Pincode: new FormControl(this.patient.Pincode,
-          []),
+          [Validators.min(0)]),
         // Other
         MaritialStatus: new FormControl(patientDemographic.MaritialStatus,
           []),
@@ -84,22 +85,23 @@ export class PersonalDetailsComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
-      console.info(this.form);
       const data = this.form.getRawValue();
-      console.info('FULL Object', data);
-      this.patientService.update(
+      forkJoin([this.patientService.update(
         {
           ...this.removeKeys(['DOB', 'MaritialStatus', 'FCGName', 'FCGEmail', 'FCGMobileNo', 'FCGAltMobileNo']
-            , data)
-        }).subscribe((patient: Patient) => {
-        this.patientService.updateDemographic(this.getOnlyKeys(['DOB', 'MaritialStatus'], data))
-          .subscribe((patientDemographic: PatientDemographic) => {
-            this.patientService.patientDemographic$.next(patientDemographic);
-          });
+            , data),
+        }).pipe(tap((patient: Patient) => {
+        if (!patient) {
+          return null;
+        }
         this.patientService.patient = patient;
         this.patientService.patient$.next(patient);
+      })), this.patientService.updateDemographic(this.getOnlyKeys(['DOB', 'MaritialStatus'], data))
+        .pipe(tap((patientDemographic: PatientDemographic) => {
+          this.patientService.patientDemographic$.next(patientDemographic);
+        }))]).subscribe(() => {
+        localStorage.setItem('personalDetails', JSON.stringify(this.patient));
       });
-      localStorage.setItem('personalDetails', JSON.stringify(this.patient));
     }
   }
 
@@ -107,7 +109,7 @@ export class PersonalDetailsComponent implements OnInit {
     const obj = {};
     keys.forEach((key) => {
       obj[key] = data[key];
-    })
+    });
     console.info('UPDATE Patient', obj);
     return (obj);
   }
@@ -116,7 +118,7 @@ export class PersonalDetailsComponent implements OnInit {
     const obj = {...data};
     keys.forEach((key) => {
       delete obj[key];
-    })
+    });
     console.info('UPDATE PatientDemographic', obj);
     return (obj);
   }

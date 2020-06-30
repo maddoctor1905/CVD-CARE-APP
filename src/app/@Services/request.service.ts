@@ -4,17 +4,19 @@ import {Observable, of} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {Otp} from '../@Models/otp.model';
 import {Patient, PatientDemographic} from '../@Models/patient';
-import {map, tap} from 'rxjs/operators';
+import {map, mergeMap, tap} from 'rxjs/operators';
 import {PatientMedication} from '../@Models/medication.model';
 import {PatientInvestigation} from '../@Models/investigation.model';
 import {PatientRecruitment} from '../@Models/recruitment.model';
 import {PatientSymptom, Symptom} from '../@Models/symptom.model';
 import {SwUpdate} from '@angular/service-worker';
+import {ServiceWorkerService} from './service-worker.service';
+import {IndexDbService} from './indexDb.service';
 
 @Injectable()
 export class RequestService {
   constructor(private readonly http: HttpClient,
-              private swUpdate: SwUpdate) {
+              private serviceWorkerService: ServiceWorkerService, private indexDbService: IndexDbService) {
   }
 
   generateOtp(phoneNumber: string): Observable<Otp> {
@@ -48,8 +50,15 @@ export class RequestService {
   }
 
   updatePatient(body: Partial<Patient>, id: number): Observable<Patient> {
-    return this.http.put<Patient>(`${environment.apiRootUrl}/patients/${id}`, body).pipe(tap((data) => {
-      this.updateCache(data.id)
+    return this.serviceWorkerService.offline$.pipe(mergeMap((offline: boolean) => {
+      if (offline) {
+        this.indexDbService.insertOperation('PUT', `${environment.apiRootUrl}/patients/${id}`, body);
+        return of(null);
+      } else {
+        return this.http.put<Patient>(`${environment.apiRootUrl}/patients/${id}`, body).pipe(tap((data) => {
+          this.updateCache(data.id);
+        }));
+      }
     }));
   }
 
@@ -73,15 +82,25 @@ export class RequestService {
   }
 
   createSymptom(patientId: number, symptomId: number, date: string, description: string): Observable<PatientSymptom> {
-    console.info('a');
-    return this.http.post<PatientSymptom>(`${environment.apiRootUrl}/patients/${patientId}/symptoms`, {
-      symptomId,
-      date,
-      description,
-    }).pipe(tap((data) => {
-      console.info('b');
-      this.updateCache(data.id)
+    return this.serviceWorkerService.offline$.pipe(mergeMap((offline: boolean) => {
+      if (offline) {
+        this.indexDbService.insertOperation('POST', `${environment.apiRootUrl}/patients/${patientId}/symptoms`, {
+          symptomId,
+          date,
+          description,
+        });
+        return of(null);
+      } else {
+        return this.http.post<PatientSymptom>(`${environment.apiRootUrl}/patients/${patientId}/symptoms`, {
+          symptomId,
+          date,
+          description,
+        }).pipe(tap((data) => {
+          this.updateCache(data.id);
+        }));
+      }
     }));
+
   }
 
   getPatientDemographic(id: string) {
@@ -90,6 +109,13 @@ export class RequestService {
   }
 
   updatePatientDemographic(body: any, id: number) {
-    return this.http.put<PatientDemographic>(`${environment.apiRootUrl}/patients/${id}/demographics`, body);
+    return this.serviceWorkerService.offline$.pipe(mergeMap((offline: boolean) => {
+      if (offline) {
+        this.indexDbService.insertOperation('PUT', `${environment.apiRootUrl}/patients/${id}/demographics`, body);
+        return of(null);
+      } else {
+        return this.http.put<PatientDemographic>(`${environment.apiRootUrl}/patients/${id}/demographics`, body);
+      }
+    }));
   }
 }

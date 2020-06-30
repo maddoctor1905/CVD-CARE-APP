@@ -4,7 +4,7 @@
     <div class="field">
       <label class="label">ID</label>
       <p class="control has-icons-left">
-        <input disabled class="input" type="number" formControlName="id" placeholder="1571">
+        <input class="input" type="number" formControlName="id" placeholder="1571">
         <span class="icon is-small is-left">
           <fa-icon [icon]="iconAddressBook"></fa-icon>
         </span>
@@ -14,8 +14,8 @@
     <div class="field">
       <label class="label" [innerHTML]="'personalDetails.PatName.label' | translate"></label>
       <p class="control has-icons-left">
-        <input  class="input" type="text" formControlName="PatName"
-                placeholder="{{'personalDetails.PatName.placeholder' | translate}}">
+        <input class="input" type="text" formControlName="PatName"
+               placeholder="{{'personalDetails.PatName.placeholder' | translate}}">
         <span class="icon is-small is-left">
           <fa-icon [icon]="iconUser"></fa-icon>
         </span>
@@ -25,8 +25,8 @@
     <div class="field">
       <label class="label" [innerHTML]="'personalDetails.DOB.label' | translate"></label>
       <p class="control has-icons-left">
-        <input  class="input" type="date" formControlName="DOB"
-                placeholder="{{'personalDetails.DOB.placeholder' | translate}}">
+        <input class="input" type="date" formControlName="DOB"
+               placeholder="{{'personalDetails.DOB.placeholder' | translate}}">
         <span class="icon is-small is-left">
           <fa-icon [icon]="iconUser"></fa-icon>
         </span>
@@ -127,15 +127,18 @@
     </div>
     <div class="field">
       <label class="label" [innerHTML]="'personalDetails.Relationship.label' | translate"></label>
-      <p class="control has-icons-left">
-        <input class="input" type="text" formControlName="MaritialStatus"
-               placeholder="{{'personalDetails.Relationship.placeholder' | translate}}"
-        >
-        <span class="icon is-small is-left">
-          <fa-icon [icon]="iconPlaceOfWorship"></fa-icon>
-        </span>
-      </p>
-      <p class="help is-danger" *ngIf="!form.get('MaritialStatus').valid">This MaritialStatus is invalid</p>
+      <div class="control">
+        <div class="select is-info is-fullwidth">
+          <select formControlName="MaritialStatus" class="is-fullwidth">
+            <option selected value="Married">Married</option>
+            <option value="Unmarried">Unmarried</option>
+            <option value="Separated">Separated</option>
+            <option value="Widow">Widow</option>
+            <option value="Divorced">Divorced</option>
+          </select>
+        </div>
+        <p class="help is-danger" *ngIf="!form.get('MaritialStatus').valid">This MaritialStatus is invalid</p>
+      </div>
     </div>
     <div class="field" *ngIf="form">
       <label class="label" [innerHTML]="'personalDetails.CareGiver.label' | translate"></label>
