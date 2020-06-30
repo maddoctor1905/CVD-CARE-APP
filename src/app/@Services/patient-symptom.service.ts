@@ -25,7 +25,7 @@ export class PatientSymptomService {
   }
 
   init(): Observable<PatientSymptom[]> {
-    return this.requestService.getPatientSymptoms(this.patientService.patient.id).pipe(tap((symp) => {
+    return this.requestService.getPatientSymptoms(String(this.patientService.patient.id)).pipe(tap((symp) => {
       this.symptoms = symp;
       this.ready$.next(true);
     }));
@@ -63,16 +63,20 @@ export class PatientSymptomService {
 
   async declareSymptom(day: Date) {
     const today = new Date(Date.now());
+    const oldHours = day.getHours();
+    day.setHours(0);
     if (day <= today) {
       this.getSymptoms().subscribe((symptoms) => {
         this.overlayService.open(SymptomDialogComponent, {
           list: symptoms,
           mode: 'checkbox',
         }).afterClosed$.subscribe((res) => {
+          day.setHours(oldHours);
           if (res && res.data && res.data.symptom) {
             this.requestService.createSymptom(this.patientService.patient.id, res.data.symptom.id,
               day.toISOString().slice(0, 19).replace('T', ' '), res.data.description)
               .subscribe((data: PatientSymptom) => {
+                console.info('c');
                 this.symptoms.push(data);
                 this.symptomChange$.next(data);
               });

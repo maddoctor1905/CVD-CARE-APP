@@ -3,11 +3,13 @@ import {BottomBarElement} from '../../@Components/bottom-bar/bottom-bar.model';
 import {
   faAmbulance,
   faCalendarDay,
-  faHome, faLanguage, faQuestionCircle,
+  faHome,
+  faLanguage,
+  faQuestionCircle,
   faRunning,
   faSignOutAlt,
   faUser,
-  faUserCog, faUserMd,
+  faUserMd,
   faUtensils,
 } from '@fortawesome/free-solid-svg-icons';
 import {NavigationEnd, Router} from '@angular/router';
@@ -20,8 +22,8 @@ import {PatientService} from '../../@Services/patient.service';
 import {PatientMedicationService} from '../../@Services/patient-medication.service';
 import {PatientInvestigationService} from '../../@Services/patient-investigation.service';
 import {PatientRecruitmentService} from '../../@Services/patient-recruitment.service';
-import {OverlayService} from '../../@Services/overlay.service';
 import {PatientSymptomService} from '../../@Services/patient-symptom.service';
+import {OverlayService} from '../../@Services/overlay.service';
 
 @Component({
   selector: 'app-default-layout',
@@ -98,7 +100,6 @@ export class DefaultLayoutComponent implements OnInit {
       name: 'sidebar.logout',
       url: '',
       active: false,
-      custom: () => '',
     },
   ];
 
@@ -121,6 +122,7 @@ export class DefaultLayoutComponent implements OnInit {
               private readonly patientService: PatientService,
               private readonly patientRecruitmentService: PatientRecruitmentService,
               private readonly patientSymptomService: PatientSymptomService,
+              private readonly overlayService: OverlayService,
   ) {
     this.translateBottombar();
     this.translateSidebar();
@@ -156,6 +158,7 @@ export class DefaultLayoutComponent implements OnInit {
 
   sidebarElementClicked(e: SidebarElement) {
     this.sideBarVisible = false;
+    console.info(e);
     if (e.name === 'Logout') {
       this.appService.logout();
       return this.router.navigateByUrl('/');
@@ -196,6 +199,16 @@ export class DefaultLayoutComponent implements OnInit {
     if (!this.modal.has.closeProtection) {
       this.modal.is.visible = false;
     }
+  }
+
+  logout() {
+    console.info('logout');
+    this.overlayService.openYesOrNo().afterClosed$.subscribe((yesOrNo) => {
+      if (yesOrNo.data === 'yes') {
+        localStorage.removeItem('firstInstall');
+        this.router.navigateByUrl('/');
+      }
+    })
   }
 
   private translateBottombar() {

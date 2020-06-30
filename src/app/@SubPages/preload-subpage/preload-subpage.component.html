@@ -1,0 +1,9 @@
+<div class="choose-lang-subpage has-text-centered is-grouped-centered" [class.card]="cardMode">
+  <section class="section">
+    <p class="title is-5">{{'firstInstall.preload.title' | translate}}</p>
+    <div class="field has-text-centered">
+      <p>Processing: {{taskName}}</p>
+      <progress class="progress is-small is-primary" [value]="getPercent()" [max]="100">{{getPercent()}}</progress>
+    </div>
+  </section>
+</div>

@@ -29,6 +29,8 @@ import {WhatsappService} from './@Services/whatsapp.service';
 import {SymptomShareDialogModule} from './@Components/dialogs/symptom-share-dialog/symptom-share-dialog.module';
 import * as Sentry from '@sentry/browser';
 import {environment} from '../environments/environment';
+import {PreloadDialogComponent} from './@Components/dialogs/preload-dialog/preload-dialog.component';
+import {PreloadDialogModule} from './@Components/dialogs/preload-dialog/preload-dialog.module';
 
 Sentry.init({
   dsn: 'https://f37b4f699fcd4f158312e2a0562a1544@sentry.enoviah.fr/17',
@@ -122,6 +124,7 @@ export class SentryErrorHandler implements ErrorHandler {
     // Add for DialogService System
     OverlayModule,
     YesOrNoDialogModule,
+    PreloadDialogModule,
     ListDialogModule,
     SymptomDialogModule,
     SymptomShareDialogModule

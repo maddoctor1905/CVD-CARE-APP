@@ -38,21 +38,23 @@ export class FirstInstallPageComponent implements OnInit {
     private translateService: TranslateService,
     private requestService: RequestService,
   ) {
-    this.stepperService.limit = 3;
+    this.stepperService.limit = 4;
+    // wait for preloadDone() to change in false
+    this.stepperService.nextDisabled = true;
   }
 
   ngOnInit() {
   }
 
   stepperNextClicked() {
-    if (this._stepperService.currentIndex === 0) {
-      this.stepperService.next();
-    } else if (this._firstInstallService.steps.phone && this._stepperService.currentIndex === 1) {
+    if (this._firstInstallService.steps.phone && this._stepperService.currentIndex === 2) {
       this.firstInstallService.createUnconfirmedUser().subscribe(() => {
         this.stepperService.next();
       }, (err) => {
         this.error = err.error.message;
       });
+    } else {
+      this.stepperService.next();
     }
   }
 
@@ -94,5 +96,9 @@ export class FirstInstallPageComponent implements OnInit {
 
   public phoneNumberChange(event: PhoneNumberChange) {
     this._firstInstallService.phoneNumberChange(event);
+  }
+
+  preloadDone() {
+    this.stepperService.nextDisabled = false;
   }
 }

@@ -2,13 +2,15 @@ import {Injectable} from '@angular/core';
 import {ServiceWorkerService} from './service-worker.service';
 import {filter, mergeMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {RequestService} from './request.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
 
-  constructor(private readonly swService: ServiceWorkerService) {
+  constructor(private readonly swService: ServiceWorkerService,
+              private requestService: RequestService) {
   }
 
   reset() {
@@ -21,7 +23,6 @@ export class AppService {
     // This function doesn't remove the cached data (like blood pressure)
     localStorage.clear();
     this.clearCache().subscribe(() => {
-      window.location.reload();
     });
   }
 

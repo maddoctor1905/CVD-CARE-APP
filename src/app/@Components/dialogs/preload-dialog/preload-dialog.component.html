@@ -1,0 +1,10 @@
+<div class="modal-card is-marginless">
+  <section class="modal-card-body">
+    <app-preload-subpage (done)="preloadDone()"></app-preload-subpage>
+  </section>
+  <footer class="modal-card-foot justify-content-end">
+    <button (click)="close()" type="button" class="button is-danger"
+            [disabled]="!isPreloadDone">OK
+    </button>
+  </footer>
+</div>

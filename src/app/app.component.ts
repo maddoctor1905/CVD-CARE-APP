@@ -5,6 +5,7 @@ import localeENUS from '@angular/common/locales/en';
 import localeFR from '@angular/common/locales/fr';
 import {ServiceWorkerService} from './@Services/service-worker.service';
 import {OverlayService} from './@Services/overlay.service';
+import {PreloadDialogComponent} from './@Components/dialogs/preload-dialog/preload-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,12 @@ export class AppComponent implements OnInit {
     private readonly swService: ServiceWorkerService,
     private readonly overlayService: OverlayService,
   ) {
-    console.info('300');
+    console.info('100');
+    if (localStorage.getItem('justUpdated')) {
+      this.overlayService.open(PreloadDialogComponent, {}).afterClosed$.subscribe(() => {
+        localStorage.removeItem('justUpdated');
+      })
+    }
     registerLocaleData(localeENUS, 'en-US');
     registerLocaleData(localeENUS, 'kn-IN');
     registerLocaleData(localeFR, 'fr-FR');

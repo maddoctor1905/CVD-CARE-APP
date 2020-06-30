@@ -7,6 +7,7 @@ import {StepperModule} from '../../@Components/stepper/stepper.module';
 import {ChooseLangSubpageModule} from '../../@SubPages/choose-lang-subpage/choose-lang-subpage.module';
 import {EnterPhonenumberSubpageModule} from '../../@SubPages/enter-phonenumber-subpage/enter-phonenumber-subpage.module';
 import {OtpSubpageModule} from '../../@SubPages/otp-subpage/otp-subpage.module';
+import {PreloadSubpageModule} from '../../@SubPages/preload-subpage/preload-subpage.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {OtpSubpageModule} from '../../@SubPages/otp-subpage/otp-subpage.module';
     StepperModule,
     ChooseLangSubpageModule,
     EnterPhonenumberSubpageModule,
-    OtpSubpageModule
+    OtpSubpageModule,
+    PreloadSubpageModule
   ]
 })
 export class FirstInstallPageModule {

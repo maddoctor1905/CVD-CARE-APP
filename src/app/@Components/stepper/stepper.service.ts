@@ -4,6 +4,13 @@ import {Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class StepperService {
+  get nextDisabled(): boolean {
+    return this._nextDisabled;
+  }
+
+  set nextDisabled(value: boolean) {
+    this._nextDisabled = value;
+  }
   get limit(): number {
     return this._limit;
   }
@@ -13,7 +20,8 @@ export class StepperService {
   }
 
   private _currentIndex = 0;
-  private _limit = 4;
+  private _limit = 5;
+  private _nextDisabled = false;
 
   get currentIndex(): number {
     return this._currentIndex;

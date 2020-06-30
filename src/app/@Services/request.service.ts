@@ -1,18 +1,20 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {Otp} from '../@Models/otp.model';
 import {Patient, PatientDemographic} from '../@Models/patient';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {PatientMedication} from '../@Models/medication.model';
 import {PatientInvestigation} from '../@Models/investigation.model';
 import {PatientRecruitment} from '../@Models/recruitment.model';
 import {PatientSymptom, Symptom} from '../@Models/symptom.model';
+import {SwUpdate} from '@angular/service-worker';
 
 @Injectable()
 export class RequestService {
-  constructor(private readonly http: HttpClient) {
+  constructor(private readonly http: HttpClient,
+              private swUpdate: SwUpdate) {
   }
 
   generateOtp(phoneNumber: string): Observable<Otp> {
@@ -46,23 +48,40 @@ export class RequestService {
   }
 
   updatePatient(body: Partial<Patient>, id: number): Observable<Patient> {
-    return this.http.put<Patient>(`${environment.apiRootUrl}/patients/${id}`, body);
+    return this.http.put<Patient>(`${environment.apiRootUrl}/patients/${id}`, body).pipe(tap((data) => {
+      this.updateCache(data.id)
+    }));
+  }
+
+  updateCache(patientID: number) {
+    console.info('[CVDCare] Requesting all for Updating Cache.');
+    this.getPatient(String(patientID)).subscribe();
+    this.getPatientDemographic(String(patientID)).subscribe();
+    this.getPatientInvestigations(String(patientID)).subscribe();
+    this.getPatientRecruitment(String(patientID)).subscribe();
+    this.getPatientRecruitment(String(patientID)).subscribe();
+    this.getPatientSymptoms(String(patientID)).subscribe();
+    return of(true);
   }
 
   getSymptoms(): Observable<Symptom[]> {
     return this.http.get<Symptom[]>(`${environment.apiRootUrl}/symptoms`);
   }
 
-  getPatientSymptoms(id: number): Observable<PatientSymptom[]> {
+  getPatientSymptoms(id: string): Observable<PatientSymptom[]> {
     return this.http.get<PatientSymptom[]>(`${environment.apiRootUrl}/patients/${id}/symptoms`);
   }
 
   createSymptom(patientId: number, symptomId: number, date: string, description: string): Observable<PatientSymptom> {
+    console.info('a');
     return this.http.post<PatientSymptom>(`${environment.apiRootUrl}/patients/${patientId}/symptoms`, {
       symptomId,
       date,
       description,
-    });
+    }).pipe(tap((data) => {
+      console.info('b');
+      this.updateCache(data.id)
+    }));
   }
 
   getPatientDemographic(id: string) {

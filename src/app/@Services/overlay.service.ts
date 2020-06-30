@@ -4,6 +4,7 @@ import {Injectable, Injector, TemplateRef, Type} from '@angular/core';
 import {MyOverlayRef} from '../@Components/overlay/myoverlay-ref';
 import {OverlayComponent} from '../@Components/overlay/overlay.component';
 import {YesOrNoDialogComponent} from '../@Components/dialogs/yes-or-no-dialog/yes-or-no-dialog.component';
+import {AlertDialogComponent} from '../@Components/dialogs/alert-dialog/alert-dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -39,5 +40,19 @@ export class OverlayService {
 
   openYesOrNo() {
     return this.open(YesOrNoDialogComponent, {});
+  }
+
+  openAlert(
+    emoji: string,
+    status: string,
+    title: string,
+    message: string,
+  ) {
+    return this.open(AlertDialogComponent, {
+      emoji,
+      status,
+      title,
+      message,
+    })
   }
 }

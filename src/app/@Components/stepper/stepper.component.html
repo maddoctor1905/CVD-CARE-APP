@@ -6,9 +6,10 @@
               [innerHTML]="'firstInstall.previous' | translate">
       </button>
       <button class="button is-link" *ngIf="!stepperService.isEnd()" [class.is-fullwidth]="stepperService.isStart()"
-              (click)="nextButtonClicked()"  [innerHTML]="'firstInstall.next' | translate">
+              (click)="nextButtonClicked()" [innerHTML]="'firstInstall.next' | translate"
+              [disabled]="stepperService.nextDisabled">
       </button>
-      <button class="button is-success" *ngIf="stepperService.isEnd()"
+      <button class="button is-success" *ngIf="stepperService.isEnd()" [disabled]="stepperService.nextDisabled"
               (click)="confirmButtonClicked()">Confirm
       </button>
     </div>
