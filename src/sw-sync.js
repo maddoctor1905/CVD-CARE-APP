@@ -9,7 +9,7 @@ importScripts('./sw/Recruitment.js')
 function initDb() {
   const db = new Dexie("cvd");
 
-  db.version(20).stores({
+  db.version(203).stores({
     medications: "id",
     investigations: "id",
     patient: "patient",
