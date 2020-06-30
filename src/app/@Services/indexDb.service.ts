@@ -22,7 +22,7 @@ export class IndexDbService {
   }
 
   private init() {
-    const request = window.indexedDB.open('cvd', 203);
+    const request = window.indexedDB.open('op', 203);
     request.onsuccess = (event: any) => {
       this.db = event.target.result;
       this.dbReady$.next(true);
