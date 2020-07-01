@@ -4,6 +4,7 @@ import {DayElement} from '../@Models/calendar.model';
 import {PatientService} from './patient.service';
 import {OverlayService} from './overlay.service';
 import {SymptomShareDialogComponent} from '../@Components/dialogs/symptom-share-dialog/symptom-share-dialog.component';
+import {AlertDialogComponent} from '../@Components/dialogs/alert-dialog/alert-dialog.component';
 
 @Injectable()
 export class WhatsappService {
@@ -59,5 +60,13 @@ export class WhatsappService {
   private formatMessageHead() {
     return `Hello, ${this.break}I am ${this.patientService.patient.PatName}.${this.break}` +
       `I'd like to share with you my symptoms of the previous week.${this.break}`;
+  }
+
+  showError(title: string, message) {
+    this.overlayService.open(AlertDialogComponent, {
+      title,
+      message,
+      emoji: '⚠️',
+    });
   }
 }

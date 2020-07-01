@@ -25,7 +25,7 @@ export class SymptomShareDialogComponent implements OnInit {
       const doctor = this.doctors.find((doctorItem) => {
         return item.Doctor.id === doctorItem.id;
       });
-      if (!doctor) {
+      if (!doctor && item.Doctor) {
         this.doctors.push(item.Doctor);
       }
     }

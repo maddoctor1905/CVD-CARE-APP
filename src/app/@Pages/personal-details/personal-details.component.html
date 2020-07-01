@@ -1,6 +1,6 @@
 <section class="section">
   <h1 class="title is-3" [innerHTML]="'personalDetails.title' | translate"></h1>
-  <form (ngSubmit)="submit()" [formGroup]="form" *ngIf="form">
+  <form [formGroup]="form" *ngIf="form">
     <div class="field">
       <label class="label">ID</label>
       <p class="control has-icons-left">
@@ -189,8 +189,6 @@
       <p class="help is-danger" *ngIf="!form.get('FCGAltMobileNo').valid">This FCGAltMobileNo is invalid</p>
     </div>
     <div class="field">
-      <button class="button is-primary is-fullwidth" [disabled]="!form.valid || !form.dirty"
-              type="submit">{{'personalDetails.button.save' | translate}}</button>
     </div>
   </form>
 </section>

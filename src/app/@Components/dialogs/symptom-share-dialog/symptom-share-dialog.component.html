@@ -9,18 +9,20 @@
         <div *ngFor="let item of doctors; let index = index" class="field">
           <!------ RADIO MODE (One Choice)------>
           <ng-container>
-            <input  (change)="onRadioChange(item.MobileNo)"
+            <input (change)="onRadioChange(item.MobileNo)"
                    class="is-checkradio is-info" id="exampleRadioInline-{{index}}" type="radio"
                    name="exampleRadioInline">
             <label for="exampleRadioInline-{{index}}">{{item.DName}} - {{item.Department}}</label>
           </ng-container>
           <!------ CHECKBOX MODE (Multiple Choice)------>
         </div>
-        <p>Caregiver</p>
-        <input (change)="onRadioChange(caregiver.MobileNo)"
-               class="is-checkradio is-info" id="exampleRadioInline-caregiver" type="radio"
-               name="exampleRadioInline">
-        <label for="exampleRadioInline-caregiver">{{caregiver.CGName}} - {{caregiver.Department}}</label>
+        <div *ngIf="caregiver">
+          <p>Caregiver</p>
+          <input (change)="onRadioChange(caregiver.MobileNo)"
+                 class="is-checkradio is-info" id="exampleRadioInline-caregiver" type="radio"
+                 name="exampleRadioInline">
+          <label for="exampleRadioInline-caregiver">{{caregiver.CGName}} - {{caregiver.Department}}</label>
+        </div>
       </ng-container>
     </div>
   </section>
