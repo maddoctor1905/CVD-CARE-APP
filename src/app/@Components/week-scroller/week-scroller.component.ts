@@ -36,7 +36,7 @@ export class WeekScrollerComponent implements OnInit {
   getMonth(): string {
     for (const item of this.weekElements) {
       if (item.active) {
-        return this.monthNames[item.days[0].date.getMonth()];
+        return this.monthNames[item.days[0].date.getMonth()] + ' ' + item.days[0].date.getFullYear();
       }
     }
   }

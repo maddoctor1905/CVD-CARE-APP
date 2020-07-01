@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {IconBarElement} from './icon-bar.model';
 
 @Component({
   selector: 'app-icon-bar',
@@ -7,10 +8,15 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class IconBarComponent implements OnInit {
 
-  @Input() emojis: IconBarComponent[] = [];
+  @Input() emojis: IconBarElement[] = [];
+  @Output() itemClicked: EventEmitter<IconBarElement> = new EventEmitter<IconBarElement>();
   constructor() { }
 
   ngOnInit() {
   }
 
+  itemClickedToggle(item: any) {
+    item.active = !item.active;
+    this.itemClicked.emit(item);
+  }
 }

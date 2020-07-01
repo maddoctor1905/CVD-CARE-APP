@@ -2,13 +2,12 @@
                    (weekElementClicked)="calendarChangeWeekEvent($event)"></app-week-scroller>
 <app-day-scroller *ngIf="false" [dayElements]="getActiveWeek().days"
                   (dayElementClicked)="calendarChangeDayEvent($event)"></app-day-scroller>
-<app-icon-bar [emojis]="iconsForFilterBar"></app-icon-bar>
+<app-icon-bar [emojis]="iconsForFilterBar" (itemClicked)="itemClicked($event)"></app-icon-bar>
 <div style="height: calc(15vh + 3.25rem + 3.25rem);
     background-color: #f9fafc;"></div>
-<section class="section" style="padding-bottom: 0;" *ngIf="isCurrentWeekContainingActualDate()">
+<section class="section" style="padding-bottom: 0;">
   <div class="container has-text-centered">
     <p class="title is-3">Treatment Schedule</p>
-    <button class="button" (click)="sendSymptoms()">Share symptoms</button>
   </div>
 </section>
 <ng-container *ngFor="let item of weekElements">

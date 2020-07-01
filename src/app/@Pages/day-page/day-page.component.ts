@@ -29,6 +29,10 @@ export class DayPageComponent implements OnInit {
       char: '🚨',
       active: true,
     },
+    {
+      char: '🔗',
+      active: true
+    }
   ];
 
   constructor(
@@ -101,5 +105,12 @@ export class DayPageComponent implements OnInit {
 
   sendSymptoms() {
     this.whatsappService.sendSymptomsOfWeek();
+  }
+
+  itemClicked(item: IconBarElement) {
+    if (item.char === '🔗' && this.isCurrentWeekContainingActualDate()) {
+      item.active = true;
+      this.sendSymptoms();
+    }
   }
 }
