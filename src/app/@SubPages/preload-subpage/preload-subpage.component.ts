@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-preload-subpage',
@@ -108,7 +109,9 @@ export class PreloadSubpageComponent implements OnInit {
   @Input() title = '';
   private _taskName = '';
 
-  constructor() {
+  constructor(
+    private httpClient: HttpClient,
+  ) {
   }
 
   ngOnInit() {
@@ -126,13 +129,27 @@ export class PreloadSubpageComponent implements OnInit {
   }
 
   private async init() {
+    const result: any = await this.getAssets().toPromise();
+    this.assets = [];
+    result.assetGroups.forEach((assetGroup) => {
+      this.assets.push(...assetGroup.urls);
+    });
+    this.preload();
+  }
+
+  private async preload() {
     let result;
     for (const asset of this.assets) {
       this.taskName = asset;
+      let attempt = 0;
       // tslint:disable-next-line:no-conditional-assignment
       while (!(result = (await caches.match(asset)))) {
         console.info('caching: ' + asset);
+        attempt++;
         await this.wait(1000);
+        if (attempt === 10) {
+          console.error(`Trying to cache 10 times: ${asset}`);
+        }
       }
       if (result) {
         this.currentIndex++;
@@ -141,5 +158,9 @@ export class PreloadSubpageComponent implements OnInit {
         this.done.emit();
       }
     }
+  }
+
+  private getAssets() {
+    return this.httpClient.get('/ngsw.json');
   }
 }

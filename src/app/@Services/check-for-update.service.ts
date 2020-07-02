@@ -9,6 +9,8 @@ import {OverlayService} from './overlay.service';
 })
 export class CheckForUpdateService {
 
+  checked = false;
+
   constructor(appRef: ApplicationRef, updates: SwUpdate,
               private overlayService: OverlayService) {
     console.info('[CVDCare] CheckForUpdateService Constructed.');
@@ -35,6 +37,7 @@ export class CheckForUpdateService {
     console.info('[CVDCare] Looking for updates...');
     updates.checkForUpdate().then(() => {
       console.info('[CVDCare] Looking for updates DONE.');
+      this.checked = true;
     }).catch((err) => {
       console.error('[CVDCare] Failed looking for updates', err);
     })
