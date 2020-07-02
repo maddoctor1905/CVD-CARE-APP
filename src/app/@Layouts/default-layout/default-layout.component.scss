@@ -5,3 +5,7 @@
 .has-navbar-fixed-bottom {
   margin-bottom: 3.25rem;
 }
+
+::ng-deep body {
+  min-height: calc(100% - 3.25rem) !important;
+}

@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {CheckForUpdateService} from '../../@Services/check-for-update.service';
 
 @Component({
   selector: 'app-preload-subpage',
@@ -111,7 +112,9 @@ export class PreloadSubpageComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient,
+    private checkForUpdateService: CheckForUpdateService,
   ) {
+    this.checkForUpdateService.checkForUpdate();
   }
 
   ngOnInit() {

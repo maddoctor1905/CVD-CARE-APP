@@ -198,11 +198,11 @@ export class DefaultLayoutComponent implements OnInit {
   }
 
   logout() {
-    console.info('logout');
     this.overlayService.openYesOrNo().afterClosed$.subscribe((yesOrNo) => {
       if (yesOrNo.data === 'yes') {
-        this.appService.logout();
-        return this.router.navigateByUrl('/');
+        this.appService.logout().then(() => {
+          return window.location.reload();
+        });
       }
     });
   }

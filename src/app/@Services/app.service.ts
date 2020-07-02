@@ -19,12 +19,15 @@ export class AppService {
     window.location.reload();
   }
 
-  logout() {
+  async logout() {
     // This function doesn't remove the cached data (like blood pressure)
     localStorage.clear();
-    this.clearCache().subscribe(() => {
-    });
-    window.close();
+    await this.clearCache().toPromise();
+    const keys = await caches.keys()
+    for (const key of keys) {
+      await caches.delete(key);
+    }
+    this.swService.serviceWorkerRegistration$.getValue().unregister();
   }
 
   clearCache(): Observable<void> {

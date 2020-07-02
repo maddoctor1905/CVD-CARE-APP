@@ -3,3 +3,7 @@
     margin: auto;
   }
 }
+
+::ng-deep body {
+  min-height: 100% !important;
+}

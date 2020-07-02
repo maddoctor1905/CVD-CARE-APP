@@ -11,14 +11,14 @@ export class CheckForUpdateService {
 
   checked = false;
 
-  constructor(appRef: ApplicationRef, updates: SwUpdate,
+  constructor(appRef: ApplicationRef, private updates: SwUpdate,
               private overlayService: OverlayService) {
     console.info('[CVDCare] CheckForUpdateService Constructed.');
     // Allow the app to stabilize first, before starting polling for updates with `interval()`.
     const appIsStable$ = appRef.isStable.pipe(first(isStable => isStable === true));
     const everySixHours$ = interval(6 * 60 * 60 * 1000);
     const everySixHoursOnceAppIsStable$ = concat(appIsStable$, everySixHours$);
-    everySixHoursOnceAppIsStable$.subscribe(() => this.checkForUpdate(updates));
+    everySixHoursOnceAppIsStable$.subscribe(() => this.checkForUpdate());
     updates.available.subscribe(event => {
       console.info('[CVDCare] ServiceWorker une nouvelle version est disponible.');
       this.overlayService.openAlert(
@@ -33,9 +33,9 @@ export class CheckForUpdateService {
     });
   }
 
-  private checkForUpdate(updates: SwUpdate) {
+  public checkForUpdate() {
     console.info('[CVDCare] Looking for updates...');
-    updates.checkForUpdate().then(() => {
+    this.updates.checkForUpdate().then(() => {
       console.info('[CVDCare] Looking for updates DONE.');
       this.checked = true;
     }).catch((err) => {

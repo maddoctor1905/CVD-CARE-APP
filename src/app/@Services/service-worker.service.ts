@@ -7,6 +7,7 @@ import {AlertDialogComponent} from '../@Components/dialogs/alert-dialog/alert-di
 export class ServiceWorkerService {
   backgroundSyncReady$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   offline$: BehaviorSubject<boolean> = new BehaviorSubject(!navigator.onLine);
+  serviceWorkerRegistration$: BehaviorSubject<ServiceWorkerRegistration> = new BehaviorSubject(null);
 
   constructor(private overlayService: OverlayService) {
     window.addEventListener('online', () => {
@@ -26,6 +27,7 @@ export class ServiceWorkerService {
       let registration;
       try {
         registration = await navigator.serviceWorker.ready;
+        this.serviceWorkerRegistration$.next(registration);
       } catch (e) {
         console.error(e);
         this.showError('Service worker ready', 'Fail to get registration from service worker');
