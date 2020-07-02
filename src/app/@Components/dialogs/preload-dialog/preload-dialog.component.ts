@@ -24,6 +24,7 @@ export class PreloadDialogComponent implements OnInit {
   }
 
   close() {
+    localStorage.removeItem('justUpdated');
     this.ref.close();
   }
 

@@ -112,19 +112,34 @@ export class PreloadSubpageComponent implements OnInit {
   }
 
   ngOnInit() {
-    const id = setInterval(() => {
-      this._taskName = this.assets[this.currentIndex];
-      this.currentIndex++;
-      if (!this.assets[this.currentIndex]) {
-        clearInterval(id);
-        this.done.emit();
-      }
-    }, 100);
+    this.init();
   }
 
   getPercent() {
     const max = this.assets.length;
     const current = this.currentIndex;
     return (current / max) * 100;
+  }
+
+  private wait(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+  }
+
+  private async init() {
+    let result;
+    for (const asset of this.assets) {
+      this.taskName = asset;
+      // tslint:disable-next-line:no-conditional-assignment
+      while (!(result = (await caches.match(asset)))) {
+        console.info('caching: ' + asset);
+        await this.wait(1000);
+      }
+      if (result) {
+        this.currentIndex++;
+      }
+      if (!this.assets[this.currentIndex]) {
+        this.done.emit();
+      }
+    }
   }
 }

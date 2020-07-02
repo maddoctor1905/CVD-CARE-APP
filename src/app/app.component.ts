@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     private readonly overlayService: OverlayService,
   ) {
     console.info('100');
-    if (localStorage.getItem('justUpdated')) {
+    if (localStorage.getItem('justUpdated') && localStorage.getItem('firstInstall') === 'true') {
       this.overlayService.open(PreloadDialogComponent, {}).afterClosed$.subscribe(() => {
         localStorage.removeItem('justUpdated');
       })

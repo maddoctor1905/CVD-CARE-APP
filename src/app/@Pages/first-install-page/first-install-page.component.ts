@@ -101,5 +101,6 @@ export class FirstInstallPageComponent implements OnInit {
 
   preloadDone() {
     this.stepperService.nextDisabled = false;
+    localStorage.removeItem('justUpdated');
   }
 }
