@@ -36,7 +36,7 @@ export class CalendarService {
     };
     tmpDate = limiter.from;
     const result: WeekElement[] = [];
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 31; i++) {
       const week: WeekElement = {active: (i === 2), days: []};
       for (let a = 0; a < 7; a++) {
         week.days.push({
