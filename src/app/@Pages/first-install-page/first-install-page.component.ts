@@ -54,7 +54,7 @@ export class FirstInstallPageComponent implements OnInit {
       }, (err) => {
         this.error = err.error.message;
       });
-    } else if (this.stepperService.currentIndex !== 2) {
+    } else if (this.stepperService.currentIndex !== 3) {
       this.stepperService.next();
     }
   }
