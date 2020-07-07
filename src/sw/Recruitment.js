@@ -1,8 +1,10 @@
+import {InvestigationFrequency} from "../app/@Models/investigation.model";
+
 const RecruitmentFrequency = {
   'Monthly': 'Monthly',
   'Weekly': 'Weekly',
   'Daily': 'Daily',
-  'Forynightly': 'Forynightly',
+  'Fortnightly': 'Fortnightly',
   '2 Months': '2 Months',
   '3 Months': '3 Months',
   '6 Months': '6 Months',
@@ -42,6 +44,10 @@ class RecruitmentHandler {
       matcher: InvestigationFrequency.Daily,
       decision: () => true,
       args: [1],
+    }, {
+      matcher: InvestigationFrequency.Fortnightly,
+      decision: this.fortnightlyDecision,
+      args: [],
     }];
   }
 
@@ -88,15 +94,23 @@ class RecruitmentHandler {
     return calendarDate.getDate() === eventFirstDate.getDate() && calendarDate.getMonth() === eventFirstDate.getMonth();
   }
 
-  NbMonthsDecision(date, eventFirstDate, ...args) {
+  NbMonthsDecision(calendarDate, eventFirstDate, ...args) {
     eventFirstDate.setHours(8, 0, 0, 0);
-    eventFirstDate.setMonth(date.getMonth());
-    return ((date.getMonth() + eventFirstDate.getMonth()) % args[0] === 0) &&
-      date.getDate() === eventFirstDate.getDate();
+
+    return (Math.abs(calendarDate.getMonth() - eventFirstDate.getMonth()) % args[0] === 0)
+      && calendarDate.getDate() === eventFirstDate.getDate();
   }
 
   weeklyDecision(date, eventFirstDate, ...args) {
     eventFirstDate.setHours(8, 0, 0, 0);
     return date.getDay() === eventFirstDate.getDay();
+  }
+
+  fortnightlyDecision(date, eventFirstDate, ...args) {
+    const a = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0, 0, 0));
+    const b = new Date(Date.UTC(eventFirstDate.getFullYear(), eventFirstDate.getMonth(),
+      eventFirstDate.getDate(), 8, 0, 0, 0));
+    const weeksBetween = (a.getTime() - b.getTime()) / (7 * 24 * 60 * 60 * 1000);
+    return Math.abs(weeksBetween) % 2 === 0;
   }
 }

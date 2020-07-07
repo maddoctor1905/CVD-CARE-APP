@@ -173,6 +173,6 @@ export class PatientRecruitmentService {
     const b = new Date(Date.UTC(eventFirstDate.getFullYear(), eventFirstDate.getMonth(),
       eventFirstDate.getDate(), 8, 0, 0, 0));
     const weeksBetween = (a.getTime() - b.getTime()) / (7 * 24 * 60 * 60 * 1000);
-    return weeksBetween % 2 === 0;
+    return Math.abs(weeksBetween) % 2 === 0;
   }
 }

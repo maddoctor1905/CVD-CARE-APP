@@ -2,7 +2,7 @@ const InvestigationFrequency = {
   'Monthly': 'Monthly',
   'Weekly': 'Weekly',
   'Daily': 'Daily',
-  'Forynightly': 'Forynightly',
+  'Fortnightly': 'Fortnightly',
   '2 Months': '2 Months',
   '3 Months': '3 Months',
   '6 Months': '6 Months',
@@ -42,6 +42,10 @@ class InvestigationHandler {
       matcher: InvestigationFrequency.Daily,
       decision: () => true,
       args: [1],
+    }, {
+      matcher: InvestigationFrequency.Fortnightly,
+      decision: this.fortnightlyDecision,
+      args: [],
     }];
   }
 
@@ -88,12 +92,11 @@ class InvestigationHandler {
     return date.getDate() === eventFirstDate.getDate() && date.getMonth() === eventFirstDate.getMonth();
   }
 
-  NbMonthsDecision(date, investigation, ...args) {
+  NbMonthsDecision(calendarDate, investigation, ...args) {
     const eventFirstDate = new Date(investigation.STDate);
     eventFirstDate.setHours(8, 0, 0, 0);
-    eventFirstDate.setMonth(date.getMonth());
-    return ((date.getMonth() + eventFirstDate.getMonth()) % args[0] === 0) &&
-      date.getDate() === eventFirstDate.getDate();
+    return (Math.abs(calendarDate.getMonth() - eventFirstDate.getMonth()) % args[0] === 0)
+      && calendarDate.getDate() === eventFirstDate.getDate();
   }
 
   weeklyDecision(date, investigation, ...args) {
@@ -102,4 +105,12 @@ class InvestigationHandler {
     return date.getDay() === eventFirstDate.getDay();
   }
 
+  fortnightlyDecision(date, investigation, ...args) {
+    const eventFirstDate = new Date(investigation.STDate);
+    const a = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0, 0, 0));
+    const b = new Date(Date.UTC(eventFirstDate.getFullYear(), eventFirstDate.getMonth(),
+      eventFirstDate.getDate(), 8, 0, 0, 0));
+    const weeksBetween = (a.getTime() - b.getTime()) / (7 * 24 * 60 * 60 * 1000);
+    return Math.abs(weeksBetween) % 2 === 0;
+  }
 }
