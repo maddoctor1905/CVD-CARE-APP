@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CheckForUpdateService} from '../../@Services/check-for-update.service';
 
 @Component({
@@ -147,7 +147,7 @@ export class PreloadSubpageComponent implements OnInit {
       let attempt = 0;
       // tslint:disable-next-line:no-conditional-assignment
       while (!(result = (await caches.match(asset)))) {
-        console.info('caching: ' + asset);
+        console.info('[SW] Caching: ' + asset);
         attempt++;
         await this.wait(1000);
         if (attempt === 10) {
@@ -164,6 +164,8 @@ export class PreloadSubpageComponent implements OnInit {
   }
 
   private getAssets() {
-    return this.httpClient.get('/ngsw.json');
+    const headers = new HttpHeaders();
+    headers.append('ngsw-bypass', 'true');
+    return this.httpClient.get('/ngsw.json?ngsw-bypass=true', {headers});
   }
 }

@@ -20,14 +20,11 @@ export class AppService {
   }
 
   async logout() {
+    console.info('[CVDCare] Logout()');
     // This function doesn't remove the cached data (like blood pressure)
     localStorage.clear();
-    await this.clearCache().toPromise();
-    const keys = await caches.keys()
-    for (const key of keys) {
-      await caches.delete(key);
-    }
-    this.swService.serviceWorkerRegistration$.getValue().unregister();
+    // this.clearCache().subscribe();
+    // await this.swService.serviceWorkerRegistration$.getValue().unregister();
   }
 
   clearCache(): Observable<void> {

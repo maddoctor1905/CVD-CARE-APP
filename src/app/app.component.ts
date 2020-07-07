@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
     private readonly swService: ServiceWorkerService,
     private readonly overlayService: OverlayService,
   ) {
-    console.info('100');
+    console.info('[CVDCare] AppComponent Constructed.');
     if (localStorage.getItem('justUpdated') && localStorage.getItem('firstInstall') === 'true') {
       this.overlayService.open(PreloadDialogComponent, {}).afterClosed$.subscribe(() => {
         localStorage.removeItem('justUpdated');
@@ -38,6 +38,7 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    console.info('[CVDCare] AppComponent ngOnInit.');
     this.swService.registerBackgroundSync().then(() => {
     }, err => {
       console.error(err);
