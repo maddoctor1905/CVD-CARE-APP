@@ -48,7 +48,7 @@ export class FirstInstallPageComponent implements OnInit {
 
   stepperNextClicked() {
     console.log(this.stepperService.currentIndex);
-    if (this._firstInstallService.steps.phone && this._stepperService.currentIndex === 2) {
+    if (this._firstInstallService.steps.phone && this._stepperService.currentIndex === 3) {
       this.firstInstallService.createUnconfirmedUser().subscribe(() => {
         this.stepperService.next();
       }, (err) => {
