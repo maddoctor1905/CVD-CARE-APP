@@ -16,6 +16,7 @@ export class ServiceWorkerService {
     window.addEventListener('offline', () => {
       this.offline$.next(true);
     });
+    this.registerServiceWorker();
   }
 
   async registerBackgroundSync() {
@@ -27,7 +28,6 @@ export class ServiceWorkerService {
       let registration;
       try {
         registration = await navigator.serviceWorker.ready;
-        this.serviceWorkerRegistration$.next(registration);
       } catch (e) {
         console.error(e);
         this.showError('Service worker ready', 'Fail to get registration from service worker');
@@ -68,5 +68,9 @@ export class ServiceWorkerService {
       message,
       emoji: '⚠️',
     });
+  }
+
+  private async registerServiceWorker() {
+    this.serviceWorkerRegistration$.next(await navigator.serviceWorker.ready);
   }
 }
