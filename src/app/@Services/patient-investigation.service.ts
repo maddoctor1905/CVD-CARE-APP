@@ -4,7 +4,7 @@ import {RequestService} from './request.service';
 import {InvestigationFrequency, PatientInvestigation} from '../@Models/investigation.model';
 import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 import {CalendarEvent} from '../@Models/calendar.model';
-import {map, mergeMap, tap} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {LocalNotificationService} from './local-notification.service';
 import {NotificationElement} from '../@Models/notification.model';
 import {ServiceWorkerService} from './service-worker.service';
@@ -54,6 +54,10 @@ export class PatientInvestigationService {
       matcher: InvestigationFrequency.Daily,
       decision: () => true,
       args: [1],
+    }, {
+      matcher: InvestigationFrequency.Fortnightly,
+      decision: this.fortnightlyDecision,
+      args: [],
     }];
   }
 
@@ -82,7 +86,7 @@ export class PatientInvestigationService {
       this._investigations = patientInvestigations;
       this.ready$.next(true);
       this.syncWithSW();
-      console.log('Investigations', patientInvestigations);
+      console.log('[Investigations]', patientInvestigations);
     }));
   }
 
@@ -124,9 +128,10 @@ export class PatientInvestigationService {
 
   private NbMonthsDecision(date: Date, investigation: PatientInvestigation, ...args: any[]): boolean {
     const eventFirstDate = new Date(investigation.STDate);
+
     eventFirstDate.setHours(8, 0, 0, 0);
-    eventFirstDate.setMonth(date.getMonth());
-    return ((date.getMonth() + eventFirstDate.getMonth()) % args[0] === 0) && date.getDate() === eventFirstDate.getDate();
+
+    return (Math.abs((date.getMonth() - eventFirstDate.getMonth())) % args[0] === 0) && date.getDate() === eventFirstDate.getDate();
   }
 
   private weeklyDecision(date: Date, investigation: PatientInvestigation, ...args: any[]): boolean {
@@ -163,4 +168,11 @@ export class PatientInvestigationService {
     });
   }
 
+  private fortnightlyDecision(date: Date, investigation: PatientInvestigation, ...args: any[]): boolean {
+    const eventFirstDate = new Date(investigation.STDate);
+    const a = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0, 0, 0));
+    const b = new Date(Date.UTC(eventFirstDate.getFullYear(), eventFirstDate.getMonth(), eventFirstDate.getDate(), 8, 0, 0, 0));
+    const weeksBetween = (a.getTime() - b.getTime()) / (7 * 24 * 60 * 60 * 1000);
+    return weeksBetween % 2 === 0;
+  }
 }

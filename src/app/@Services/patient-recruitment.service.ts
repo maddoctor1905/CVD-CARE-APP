@@ -6,8 +6,8 @@ import {ServiceWorkerService} from './service-worker.service';
 import {TranslateService} from '@ngx-translate/core';
 import {mergeMap, tap} from 'rxjs/operators';
 import {PatientRecruitment} from '../@Models/recruitment.model';
-import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
-import {InvestigationFrequency, PatientInvestigation} from '../@Models/investigation.model';
+import {BehaviorSubject, Observable, of} from 'rxjs';
+import {InvestigationFrequency} from '../@Models/investigation.model';
 import {CalendarEvent} from '../@Models/calendar.model';
 import {NotificationElement} from '../@Models/notification.model';
 
@@ -28,16 +28,16 @@ export class PatientRecruitmentService {
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
-      primaryKey: 1
+      primaryKey: 1,
     },
     actions: [
       {
         action: 'explore', title: 'Yes',
-        icon: 'assets/icons/like.png'
+        icon: 'assets/icons/like.png',
       },
       {
         action: 'close', title: 'No',
-        icon: 'assets/icons/dislike.png'
+        icon: 'assets/icons/dislike.png',
       },
     ],
   };
@@ -49,19 +49,19 @@ export class PatientRecruitmentService {
     this.frequency = [{
       matcher: InvestigationFrequency.Monthly,
       decision: this.NbMonthsDecision,
-      args: [1]
+      args: [1],
     }, {
       matcher: InvestigationFrequency['2 Months'],
       decision: this.NbMonthsDecision,
-      args: [2]
+      args: [2],
     }, {
       matcher: InvestigationFrequency['3 Months'],
       decision: this.NbMonthsDecision,
-      args: [3]
+      args: [3],
     }, {
       matcher: InvestigationFrequency['6 Months'],
       decision: this.NbMonthsDecision,
-      args: [6]
+      args: [6],
     }, {
       matcher: InvestigationFrequency.Yearly,
       decision: this.yearlyDecision,
@@ -73,13 +73,17 @@ export class PatientRecruitmentService {
       matcher: InvestigationFrequency.Daily,
       decision: () => true,
       args: [1],
+    }, {
+      matcher: InvestigationFrequency.Fortnightly,
+      decision: this.fortnightlyDecision,
+      args: [],
     }];
 
   }
 
   init() {
     return this.requestService.getPatientRecruitment(this.patientService.patient.id.toString()).pipe(tap((medications => {
-      console.log(medications);
+      console.log('[recruitments]', medications);
       this.recruitments = medications;
       localStorage.setItem('recruitments', JSON.stringify(medications));
       this.ready$.next(true);
@@ -102,6 +106,7 @@ export class PatientRecruitmentService {
         result.push(item);
       }
     }
+
     return this.translateService.get('event.recruitment.title').pipe(mergeMap((key) => {
       return of((result.length) ? {
         emoji: '🩺',
@@ -112,7 +117,7 @@ export class PatientRecruitmentService {
         }),
         title: `${this.patientService.patient.PatName} - ` + key,
         typeName: 'type',
-        urgent: false
+        urgent: false,
       } : null);
     }));
   }
@@ -142,8 +147,9 @@ export class PatientRecruitmentService {
 
   private NbMonthsDecision(calendarDate: Date, eventFirstDate: Date, ...args: any[]): boolean {
     eventFirstDate.setHours(8, 0, 0, 0);
-    eventFirstDate.setMonth(calendarDate.getMonth());
-    return ((calendarDate.getMonth() + eventFirstDate.getMonth()) % args[0] === 0) && calendarDate.getDate() === eventFirstDate.getDate();
+
+    return (Math.abs(calendarDate.getMonth() - eventFirstDate.getMonth()) % args[0] === 0)
+      && calendarDate.getDate() === eventFirstDate.getDate();
   }
 
   private weeklyDecision(date: Date, eventFirstDate: Date, ...args: any[]): boolean {
@@ -156,9 +162,17 @@ export class PatientRecruitmentService {
       if (ready) {
         navigator.serviceWorker.controller.postMessage({
           command: 'recruitmentsSync',
-          message: this.recruitments
+          message: this.recruitments,
         });
       }
     });
+  }
+
+  private fortnightlyDecision(date: Date, eventFirstDate: Date, ...args: any[]): boolean {
+    const a = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0, 0, 0));
+    const b = new Date(Date.UTC(eventFirstDate.getFullYear(), eventFirstDate.getMonth(),
+      eventFirstDate.getDate(), 8, 0, 0, 0));
+    const weeksBetween = (a.getTime() - b.getTime()) / (7 * 24 * 60 * 60 * 1000);
+    return weeksBetween % 2 === 0;
   }
 }

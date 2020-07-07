@@ -4,11 +4,11 @@ export enum InvestigationFrequency {
   'Monthly' = 'Monthly',
   'Weekly' = 'Weekly',
   'Daily' = 'Daily',
-  'Forynightly' = 'Forynightly',
+  'Fortnightly' = 'Fortnightly',
   '2 Months' = '2 Months',
   '3 Months' = '3 Months',
   '6 Months' = '6 Months',
-  'Yearly' = 'Yearly'
+  'Yearly' = 'Yearly',
 }
 
 export interface InvestigationMaster {
