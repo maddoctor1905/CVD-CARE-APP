@@ -38,7 +38,7 @@ export class FirstInstallPageComponent implements OnInit {
     private translateService: TranslateService,
     private requestService: RequestService,
   ) {
-    this.stepperService.limit = 4;
+    this.stepperService.limit = 5;
     // wait for preloadDone() to change in false
     this.stepperService.nextDisabled = true;
   }
@@ -102,5 +102,9 @@ export class FirstInstallPageComponent implements OnInit {
   preloadDone() {
     this.stepperService.nextDisabled = false;
     localStorage.removeItem('justUpdated');
+  }
+
+  startClicked() {
+
   }
 }

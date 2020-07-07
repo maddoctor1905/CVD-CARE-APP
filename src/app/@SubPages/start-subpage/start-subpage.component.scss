@@ -1,0 +1,10 @@
+.start-subpage {
+  .space-evenly {
+    justify-content: space-evenly;
+  }
+  img {
+    &.is-disabled {
+      filter: grayscale(1);
+    }
+  }
+}

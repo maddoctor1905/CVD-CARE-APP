@@ -7,23 +7,26 @@ import {OverlayService} from './overlay.service';
   providedIn: 'root',
 })
 export class LocalNotificationService {
-
-  private hasPermission = false;
-
   constructor(private overlayService: OverlayService) {
     if (!Notification) {
       this.showError('Notifications', 'Push notifications are not available in your content');
     }
     Notification.requestPermission().then((status) => {
       console.log('Notification permission status:', status);
-      this.hasPermission = true;
+      this._hasPermission = true;
     }, (err) => {
       this.showError('Notifications', 'Push notification rejected');
     });
   }
 
+  private _hasPermission = false;
+
+  get hasPermission(): boolean {
+    return this._hasPermission;
+  }
+
   send(title: string, notification: NotificationElement) {
-    if (this.hasPermission && Notification.permission === 'granted') {
+    if (this._hasPermission && Notification.permission === 'granted') {
       navigator.serviceWorker.getRegistration().then((reg) => {
         if (reg) {
           reg.showNotification(title, notification);

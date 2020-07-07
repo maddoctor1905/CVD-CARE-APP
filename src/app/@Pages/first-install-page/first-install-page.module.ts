@@ -8,21 +8,23 @@ import {ChooseLangSubpageModule} from '../../@SubPages/choose-lang-subpage/choos
 import {EnterPhonenumberSubpageModule} from '../../@SubPages/enter-phonenumber-subpage/enter-phonenumber-subpage.module';
 import {OtpSubpageModule} from '../../@SubPages/otp-subpage/otp-subpage.module';
 import {PreloadSubpageModule} from '../../@SubPages/preload-subpage/preload-subpage.module';
+import {StartSubpageModule} from '../../@SubPages/start-subpage/start-subpage.module';
 
 
 @NgModule({
   declarations: [
     FirstInstallPageComponent,
   ],
-  imports: [
-    CommonModule,
-    FirstInstallPageRoutingModule,
-    StepperModule,
-    ChooseLangSubpageModule,
-    EnterPhonenumberSubpageModule,
-    OtpSubpageModule,
-    PreloadSubpageModule
-  ]
+    imports: [
+        CommonModule,
+        FirstInstallPageRoutingModule,
+        StepperModule,
+        ChooseLangSubpageModule,
+        EnterPhonenumberSubpageModule,
+        OtpSubpageModule,
+        PreloadSubpageModule,
+        StartSubpageModule,
+    ],
 })
 export class FirstInstallPageModule {
 }

@@ -1,0 +1,21 @@
+<div class="start-subpage has-text-centered is-grouped-centered" [class.card]="cardMode">
+  <section class="section">
+    <div class="is-flex space-evenly">
+      <figure class="image is-96x96">
+        <img src="assets/icons/notification.png" [class.is-disabled]="!isNotificationEnabled()">
+        <p class="has-text-danger" *ngIf="!isNotificationEnabled()">PushNotification 🚫</p>
+      </figure>
+      <figure class="image is-96x96">
+        <img src="assets/icons/wifi.png"  [class.is-disabled]="!isWifiEnabled()">
+        <p class="has-text-danger" *ngIf="!isWifiEnabled()">Offline 🚫</p>
+      </figure>
+      <figure class="image is-96x96">
+        <img src="assets/icons/refresh.png"  [class.is-disabled]="!isPeriodicBackgroundSyncEnabled()">
+        <p class="has-text-danger" *ngIf="!isPeriodicBackgroundSyncEnabled()">PeriodicSync 🚫</p>
+      </figure>
+      <figure *ngIf="false" class="image is-96x96">
+        <img src="assets/icons/notification.png">
+      </figure>
+    </div>
+  </section>
+</div>

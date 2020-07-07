@@ -201,9 +201,7 @@ export class DefaultLayoutComponent implements OnInit {
     this.overlayService.openYesOrNo().afterClosed$.subscribe((yesOrNo) => {
       if (yesOrNo.data === 'yes') {
         this.appService.logout().then(() => {
-          if (confirm('reload ?')) {
-            window.location.reload();
-          }
+          window.location.reload();
         });
       }
     });
